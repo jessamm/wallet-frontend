@@ -1,0 +1,93 @@
+body{
+  font-family: 'Merriweather', serif;
+}
+.main-login {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #e0f7fa;
+  height: 100vh;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  }
+
+  .img{
+    
+  background-image: url('https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png');
+    
+  }
+  
+  .form-signin .checkbox {
+    font-weight: 400;
+  }
+  
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .text-sm{
+    font-size: small;
+  }
+
+.form-control{
+  border-radius: 1.25rem;
+  border: none;
+  font-size: 0.8rem;
+  background-color: #E9ECEF;
+}
+
+.form-control:active{
+  border: none !important;
+  outline: none;
+}
+
+.form-control:focus{
+  border: none !important;
+  outline: none;
+}
+
+
+.input-group-text{
+  border-radius: 1.25rem;
+  border: none;
+}
+
+.btn{
+  border-radius: 1.25rem;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-radius: 1.25rem;
+}
+
+.icono-password {
+    height: 34px;
+}
+
+.text-terminos{
+  font-size: 10px;
+  padding-top: -20px;
+}
