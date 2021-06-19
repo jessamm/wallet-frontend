@@ -13,6 +13,8 @@ const CreateUser = () => {
 
     const handleNext = () => {
         console.log(user);
+
+        window.location.href = '/authentication'
     }
 
     const handleInputChange = (e) => {
