@@ -10,8 +10,22 @@ const Login = () => {
 
     const { password, email } = user;
 
-    const handleLogin = () => {
+    //variable con la direccion IP para el backend
+    const python = process.env.REACT_APP_API;
+    //Envio del usuario para validar los datos
+    const handleLogin = async () => {
         console.log(user);
+        console.log(python);
+        const rest = await fetch(`${python}/login`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                user
+            )
+        });
+        const data = await rest.json();        
     }
 
     const handleInputChange = (e) => {

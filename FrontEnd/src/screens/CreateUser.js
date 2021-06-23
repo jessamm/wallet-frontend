@@ -11,6 +11,7 @@ const CreateUser = () => {
 
     const { name, password, email } = user;
 
+    //Envio del usuario para validar los datos
     const handleNext = () => {
         console.log(user);
     }
