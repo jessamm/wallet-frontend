@@ -25,7 +25,8 @@ const Login = () => {
                 user
             )
         });
-        const data = await rest.json();        
+        const data = await rest.json();         
+        console.log(data);      
     }
 
     const handleInputChange = (e) => {
