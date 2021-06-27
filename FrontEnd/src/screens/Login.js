@@ -1,93 +1,83 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import github from '../assets/img/github.svg';
+import google from '../assets/img/google.svg';
 
 const Login = () => {
-
-    const [user, setUser] = useState({
-        password: '',
-        email: ''
-    });
-
-    const { password, email } = user;
-
-    //variable con la direccion IP para el backend
-    const python = process.env.REACT_APP_API;
-    //Envio del usuario para validar los datos
-    const handleLogin = async () => {
-        console.log(user);
-        console.log(python);
-        const rest = await fetch(`${python}/login`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                user
-            )
-        });
-        const data = await rest.json();         
-        console.log(data);      
-    }
-
-    const handleInputChange = (e) => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        });
-    }
     return (
-        <>
-            <div className="main-login" >
-                <main className="form-signin">
-
-                    <h4 className="h3 mb-4 fw-normal text-center text-primary">Inicia Sesion</h4>
-                    <p className="text-center" > <b className="text-sm" >Estamos impacientes por comenzar</b> </p>
-
-                    <div className="form-group mt-4 mb-4" >
-                        <p className="text-sm" > <b>Numero de Teléfono o Correo</b> </p>
-                        <div className="form-floating">
-                            <label className="sr-only" htmlFor="email">Username</label>
-                            <div className="input-group mb-2 mr-sm-2">
-                                <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fas fa-user"></i></div>
-                                </div>
-                                <input name="email" value={email} onChange={handleInputChange} type="text" 
-                                    className="form-control" id="email" required placeholder="Teléfono o correo" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-group mt-4 mb-4" >
-                        <p> <b className="text-sm">Contraseña</b> </p>
-                        <div className="form-floating">
-                            <label className="sr-only" htmlFor="password">Username</label>
-                            <div className="input-group mb-2 mr-sm-2">
-                                <div className="input-group-prepend">
-                                    <div className="input-group-text icono-password">
-                                        <i className="fas fa-lock"></i>
+        <div className="login-page" style={{height: '100vh'}} >
+            <section className="section section-shaped section-lg">
+                <div className="shape shape-style-1 bg-gradient-default">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                </div>
+                <div className="container mt-0">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-5">
+                            <div className="card bg-secondary shadow border-0">
+                                <div className="card-header bg-white pb-5">
+                                    <div className="text-muted text-center mb-3"><small>Inicia sesión con</small></div>
+                                    <div className="btn-wrapper text-center">
+                                        <button className="btn btn-neutral btn-icon">
+                                            <span className="btn-inner--icon"><img src={github} alt="logo" /></span>
+                                            <span className="btn-inner--text">Github</span>
+                                        </button>
+                                        <button className="btn btn-neutral btn-icon">
+                                            <span className="btn-inner--icon"><img src={google} alt="logo" /></span>
+                                            <span className="btn-inner--text">Google</span>
+                                        </button>
                                     </div>
                                 </div>
-                                <input type="password" id="password" name="password" onChange={handleInputChange} 
-                                    value={password} className="form-control" placeholder="Contraseña" />
+                                <div className="card-body px-lg-5 py-lg-5">
+                                    <div className="text-center text-muted mb-4">
+                                        <small>O inicie sesión con credenciales</small>
+                                    </div>
+                                    <form>
+                                        <div className="form-group mb-3">
+                                            <div className="input-group input-group-alternative">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text"><i className="ni ni-email-83" /></span>
+                                                </div>
+                                                <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group focused">
+                                            <div className="input-group input-group-alternative">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text"><i className="ni ni-lock-circle-open" /></span>
+                                                </div>
+                                                <input className="form-control" placeholder="Contraseña" type="password" />
+                                            </div>
+                                        </div>
+                                        <div className="custom-control custom-control-alternative custom-checkbox">
+                                            <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
+                                            <label className="custom-control-label" htmlFor=" customCheckLogin"><span>Recuérdame</span></label>
+                                        </div>
+                                        <div className="text-center">
+                                            <button type="button" className="btn btn-primary my-4">Iniciar sesión</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col-6">
+                                    <Link to="/" className="text-light"><small>¿Se te olvidó tu contraseña?</small></Link>
+                                </div>
+                                <div className="col-6 text-right">
+                                    <Link to="/create-user" className="text-light"><small>Crear una nueva cuenta</small></Link>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div className="text-sm text-muted text-center">
-                        <Link to="/" >Olvidaste tu usuario?</Link>
-                    </div>
-
-                    <button onClick={handleLogin} className="w-100 btn btn-sm btn-warning mb-2 mt-2" type="button">
-                        <b className="text-sm" >Iniciar</b>
-                    </button>
-                    <Link to="/create-user" className="w-100 btn btn-sm btn-default mb-2 mt-2" type="button">
-                        <b className="text-sm" >Crear usuario</b>
-                    </Link>
-                    
-                </main>
-            </div>
-        </>
-
+                </div>
+            </section>
+        </div>
     )
 }
 
