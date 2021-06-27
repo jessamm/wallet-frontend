@@ -53,7 +53,7 @@ const CreateUser = () => {
                                                     <div className="input-group-prepend">
                                                         <span className="input-group-text"><i className="ni ni-email-83" /></span>
                                                     </div>
-                                                    <input className="form-control" placeholder="Correo" type="email" />
+                                                    <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" />
                                                 </div>
                                             </div>
                                             <div className="form-group focused">
