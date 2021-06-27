@@ -34,10 +34,7 @@ const Login = () => {
                         <li><a class="active" href="index.html">Inicio</a></li>
                         <li><a href="about.html">Informacion</a></li>
                         <li><a href="services.html">Servicios</a></li>
-                        <li><a href="portfolio.html">Portafolio</a></li>
                         <li><a href="team.html">Equipo</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="contact.html">Contactanos</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
