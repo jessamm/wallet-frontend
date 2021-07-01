@@ -1,9 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import github from '../assets/img/github.svg';
 import google from '../assets/img/google.svg';
 
+
+const API = process.env.REACT_APP_API;
+
 const Login = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();   
+        
+        const json_data = {
+            'user': email,
+            'password':password
+        };
+
+        const res = await fetch(`${API}/login`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        const data = await res.json();
+        if (data.Session){
+
+//--------------cambiar a la ventana Main--------------
+
+            alert("Session Iniciada");
+        }
+        else{
+            alert("Datos incorrectos");
+        }
+    };
+
+
     return (
         <div className="login-page" style={{height: '100vh'}} >
             <section className="section section-shaped section-lg">
@@ -38,13 +72,13 @@ const Login = () => {
                                     <div className="text-center text-muted mb-4">
                                         <small>O inicie sesión con credenciales</small>
                                     </div>
-                                    <form>
+                                    <form >
                                         <div className="form-group mb-3">
                                             <div className="input-group input-group-alternative">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text"><i className="ni ni-email-83" /></span>
                                                 </div>
-                                                <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" />
+                                                <input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
                                             </div>
                                         </div>
                                         <div className="form-group focused">
@@ -52,7 +86,7 @@ const Login = () => {
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text"><i className="ni ni-lock-circle-open" /></span>
                                                 </div>
-                                                <input className="form-control" placeholder="Contraseña" type="password" />
+                                                <input className="form-control" placeholder="Contraseña" type="password" onChange={(e) => setPassword(e.target.value)}/>
                                             </div>
                                         </div>
                                         <div className="custom-control custom-control-alternative custom-checkbox">
@@ -60,7 +94,7 @@ const Login = () => {
                                             <label className="custom-control-label" htmlFor=" customCheckLogin"><span>Recuérdame</span></label>
                                         </div>
                                         <div className="text-center">
-                                            <button type="button" className="btn btn-primary my-4">Iniciar sesión</button>
+                                            <button type="button" className="btn btn-primary my-4" onClick={handleSubmit}>Iniciar sesión</button>
                                         </div>
                                     </form>
                                 </div>
