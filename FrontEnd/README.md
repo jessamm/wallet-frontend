@@ -12,8 +12,10 @@ sudo apt install npm
 ahora nos ubicamos en la ruta ``./Frontend/`` del proyecto para instalas las dependencias que se encuentran en el archivo ``package.json`` con el siguiente comando
 ```bash
 npm install package
+sudo npm install -g serve
 ```
 Finamente podemos correr el siguiente comando para lanzar nuestra aplicacion
 ```bash
-npm run start
+npm run build
+serve -s build
 ```
