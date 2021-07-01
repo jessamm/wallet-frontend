@@ -1,9 +1,47 @@
-import React from 'react';
+import React,  {useState} from 'react';
 import { Link } from 'react-router-dom'
 import github from '../assets/img/github.svg';
 import google from '../assets/img/google.svg';
 
+
+const API = process.env.REACT_APP_API;
+
 const CreateUser = () => {
+
+    
+    const [name, setName] = useState("");
+    const [lastname, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmitCreate = async (e) => {
+        e.preventDefault();   
+        
+        const json_data = {
+            'name': name,
+            'last_name': lastname,
+            'email': email,
+            'password':password
+        };
+
+        const res = await fetch(`${API}/create-user`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        const data = await res.json();
+        if (data.result == "success"){
+
+            alert("Usuario Creado");
+        }
+        else{
+            alert("Algo fallo");
+        }
+    };
+
+
+
     return (
         <div className="register-page" >
             <div className="wrapper">
@@ -45,7 +83,15 @@ const CreateUser = () => {
                                                     <div className="input-group-prepend">
                                                         <span className="input-group-text"><i className="ni ni-hat-3" /></span>
                                                     </div>
-                                                    <input className="form-control" placeholder="Nombre" type="text" />
+                                                    <input className="form-control" placeholder="Nombre" type="text" onChange={(e) => setName(e.target.value)}/>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="input-group input-group-alternative mb-3">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text"><i className="ni ni-hat-3" /></span>
+                                                    </div>
+                                                    <input className="form-control" placeholder="Apellido" type="text" onChange={(e) => setLastName(e.target.value)}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
@@ -53,7 +99,7 @@ const CreateUser = () => {
                                                     <div className="input-group-prepend">
                                                         <span className="input-group-text"><i className="ni ni-email-83" /></span>
                                                     </div>
-                                                    <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" />
+                                                    <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
                                                 </div>
                                             </div>
                                             <div className="form-group focused">
@@ -61,7 +107,7 @@ const CreateUser = () => {
                                                     <div className="input-group-prepend">
                                                         <span className="input-group-text"><i className="ni ni-lock-circle-open" /></span>
                                                     </div>
-                                                    <input className="form-control" placeholder="Contraseña" type="password" />
+                                                    <input className="form-control" placeholder="Contraseña" type="password" onChange={(e) => setPassword(e.target.value)}/>
                                                 </div>
                                             </div>
                                             <div className="row my-4">
@@ -73,7 +119,7 @@ const CreateUser = () => {
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button type="button" className="btn btn-primary mt-4">Crear cuenta</button>
+                                                <button type="button" className="btn btn-primary mt-4" onClick={handleSubmitCreate}>Crear cuenta</button>
                                             </div>
                                         </form>
                                     </div>

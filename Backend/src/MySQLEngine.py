@@ -81,7 +81,7 @@ class MySQLEngine:
             json_data.append(dict(zip(row_headers,result)))
         return json_data
 
-    def insert(self,query):
+    def db_insert(self,query):
         self.link.execute(query)
         self.conector.commit()
         print("Data Inserted Successfully")
