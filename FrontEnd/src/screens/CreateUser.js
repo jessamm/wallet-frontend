@@ -73,7 +73,7 @@ const CreateUser = () => {
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button type="button" className="btn btn-primary mt-4">Crear cuenta</button>
+                                                <Link  to="/authentication" className="btn btn-primary mt-4">Crear cuenta</Link>
                                             </div>
                                         </form>
                                     </div>
