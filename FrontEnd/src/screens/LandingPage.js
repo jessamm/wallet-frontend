@@ -27,7 +27,7 @@ const LandingPage = () => {
 
                                         <h5 className="text-white h6 font-weight-bold">Lo único que es un activo o un pasivo eres Tú Mismo, por qué en la última instancia eres tú quien puede hacer el dinero sea un activo o un pasivo</h5>
                                         <div className="btn-wrapper mt-4">
-                                            <Link to="/create-user" className="btn btn-secondary my-4 btn-icon mt-3 mb-sm-0">
+                                            <Link to="/Login" className="btn btn-secondary my-4 btn-icon mt-3 mb-sm-0">
                                                 Comenzar
                                             </Link>
                                         </div>
