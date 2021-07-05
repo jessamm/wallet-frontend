@@ -27,6 +27,25 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </section>
+
+                <header className="d-flex align-items-center header">
+                    <div className="container d-flex justify-content-between align-items-center">
+                        <div className="h1-logo">
+                                <Link to="#" ><h1 className="h1-texto">WALLET HONDURAS</h1>
+                                </Link>
+                        </div>
+
+                        <nav className="navbar">
+                            <ul className="ul-nav">
+                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Inicio</Link></li>
+                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Informacion</Link></li>
+                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Equipo</Link></li>
+                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Contactanos</Link></li>
+                            </ul>
+                            <i className="bi bi-list mobile-nav-toggle"></i>
+                        </nav>
+                    </div>
+                </header>
                 
                 <div className="section section-hero section-shaped">
                     <div className="shape shape-style-3 shape-default">
