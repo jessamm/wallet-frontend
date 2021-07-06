@@ -8,7 +8,7 @@ const LandingPage = () => {
             <div className="wrapper">
 
                 <section className="d-flex align-items-center top-bar">
-                    <div className="container d-flex justify-content-center justify-content-md-between">
+                    <div className="container-s d-flex justify-content-center justify-content-md-between">
                         
                         <div className="contact-info d-flex align-items-center">
                             <i className="bi bi-envelope d-flex align-items-center">
@@ -29,7 +29,7 @@ const LandingPage = () => {
                 </section>
 
                 <header className="d-flex align-items-center header">
-                    <div className="container d-flex justify-content-between align-items-center">
+                    <div className="container-s d-flex justify-content-between align-items-center">
                         <div className="h1-logo">
                                 <Link to="#" ><h1 className="h1-texto">WALLET HONDURAS</h1>
                                 </Link>
@@ -37,10 +37,10 @@ const LandingPage = () => {
 
                         <nav className="navbar">
                             <ul className="ul-nav">
-                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Inicio</Link></li>
-                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Informacion</Link></li>
-                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Equipo</Link></li>
-                            <li className="li-nav"><Link to="/LandingPage" className="navbar-a">Contactanos</Link></li>
+                            <li className="li-nav"><Link to="#" className="navbar-a">Inicio</Link></li>
+                            <li className="li-nav"><Link to="#" className="navbar-a">Informacion</Link></li>
+                            <li className="li-nav"><Link to="#" className="navbar-a">Equipo</Link></li>
+                            <li className="li-nav"><Link to="#" className="navbar-a">Contactanos</Link></li>
                             </ul>
                             <i className="bi bi-list mobile-nav-toggle"></i>
                         </nav>
