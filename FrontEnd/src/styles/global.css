@@ -128,6 +128,137 @@ topbar
 /**
 header**/
 
+/**
+informacion
+breadcumbs
+*/
+.breadcrumbs {
+  padding: 20px 0 20px 0;
+  background: #f7f7f7;
+  border-bottom: 1px solid #ededed;
+  margin-bottom: 40px;
+}
+.container-info{
+  max-width: 960px;
+  width: 100%;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: auto;
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+}
+.breadcrumbs-ol{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0 0 5px 0;
+  margin: 0;
+  font-size: 14px;
+}
+.breadcrumbs-link{
+  padding-left: 10px;
+  color: #b7c219;
+  text-decoration: none;
+}
+.breadcrumbs-link:hover{
+  color: #b7c219;
+}
+.breadcrumbs-h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #545454;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  line-height: 1.5;
+}
+/*
+*/
+/**
+*/
+.about-section-info{
+  padding: 0 0 80px 0;box-sizing: border-box;
+}
+.container-info{
+  max-width: 960px;
+  width: 100%;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+.row-info {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x)/ -2);
+  margin-left: calc(var(--bs-gutter-x)/ -2);
+}
+.pt-lg-0-info {
+  padding-top: 0 !important;
+}
+.col-lg-6-info {
+  flex: 0 0 auto;
+  width: 50%;
+}
+.h3-info{
+  font-weight: 600;
+  font-size: 26px;
+  color: #545454;
+  font-family: "Raleway", sans-serif;
+  margin-top: 0;
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+.fst-italic{
+  font-style: italic !important;
+}
+.p-info{
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.ul-info{
+  /*list-style: none;*/
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+/*
+*/
+
+/*footter*/
+.footer-newsletter{
+  padding: 50px 0;
+  background: #404040;
+  color: #fff;
+}
+.container-news{
+  max-width: 960px;
+  width: 100%;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: auto;
+
+}
+.col-lg-6-news{
+  flex: 0 0 auto;
+  width: 50%;
+}
+.h4-news{
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 600;
+  color: #fff;
+}
+.boton-news{
+  margin-left: 70%;
+}
+/**/
 body{
   font-family: 'Merriweather', serif;
 }

@@ -4,6 +4,7 @@ import Authentication from './screens/Authentication';
 import CreateUser from './screens/CreateUser';
 import LandingPage from './screens/LandingPage';
 import Login from './screens/Login';
+import Informacion from './screens/Informacion'
 
 
 
@@ -14,6 +15,7 @@ const App = () => {
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/create-user' component={CreateUser}></Route>
       <Route exact path='/authentication' component={Authentication}></Route>
+      <Route exact path='/informacion' component={Informacion}></Route>
     </Router>
   )
 }

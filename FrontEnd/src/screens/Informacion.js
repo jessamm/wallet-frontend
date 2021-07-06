@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../styles/global.css"
 
-const LandingPage = () => {
+
+const Informacion = () => {
     return (
-        <div className="landing-page" >
-            <div className="wrapper">
-                <section className="d-flex align-items-center top-bar">
+        <div className="login-page" style={{ height: '100vh' }} >
+            <section className="d-flex align-items-center top-bar">
                     <div className="container-s d-flex justify-content-center justify-content-md-between">   
                         <div className="contact-info d-flex align-items-center">
                             <i className="bi bi-envelope d-flex align-items-center">
@@ -23,8 +22,8 @@ const LandingPage = () => {
                             <Link to="" className="instagram" className="bi bi-instagram"></Link>
                         </div>
                     </div>
-                </section>
-                <header className="d-flex align-items-center header">
+            </section>
+            <header className="d-flex align-items-center header">
                     <div className="container-s d-flex justify-content-between align-items-center">
                         <div className="h1-logo">
                                 <Link to="/Login" ><h1 className="h1-texto">WALLET HONDURAS</h1>
@@ -40,45 +39,46 @@ const LandingPage = () => {
                             <i className="bi bi-list mobile-nav-toggle"></i>
                         </nav>
                     </div>
-                </header>
-                <div className="section section-hero section-shaped">
-                    <div className="shape shape-style-3 shape-default">
-                        <span className="span-150" />
-                        <span className="span-50" />
-                        <span className="span-50" />
-                        <span className="span-75" />
-                        <span className="span-100" />
-                        <span className="span-75" />
-                        <span className="span-50" />
-                        <span className="span-100" />
-                        <span className="span-50" />
-                        <span className="span-100" />
-                    </div>
-                    <div className="page-header">
-                        <div className="container shape-container d-flex align-items-center py-lg">
-                            <div className="col px-0">
-                                <div className="row align-items-center justify-content-center">
-                                    <div className="col-lg-6 text-center">
-                                        <h2 className="display-4 font-weight-normal text-white">Comienza a mejorar tus finanzas personales estamos aqui para ayudarte</h2>
+            </header>
 
-                                        <h5 className="text-white h6 font-weight-bold">Lo único que es un activo o un pasivo eres Tú Mismo, por qué en la última instancia eres tú quien puede hacer el dinero sea un activo o un pasivo</h5>
-                                        <div className="btn-wrapper mt-4">
-                                            <Link to="/Login" className="btn btn-secondary my-4 btn-icon mt-3 mb-sm-0">
-                                                Comenzar
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <section className="breadcrumbs">
+                <div className="container-info">
+                    <ol className="breadcrumbs-ol">
+                        <li><Link to="" className="breadcrumbs-link">Inicio / -</Link></li>
+                        <li> Informacion</li>
+                    </ol>
+                    <h2 className="breadcrumbs-h2">Informacion</h2>
+                </div>
+            </section>
+
+            <section className="about-section-info">
+                <div className="container-info">
+                    <div className="row-info">
+                        <div className="col-lg-6">
+                            Imagen
+                        </div>
+                        <div className="col-lg-6-info pt-4-info pt-lg-0-info content">
+                            <h3 className="h3-info">Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                            <p className="fst-italic p-info">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua.
+                            </p>
+
+                            <ul className="ul-info">
+                            <li><i className="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                            <li><i className="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                            <li><i className="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                            </ul>
+
+                            <p className="p-info">
+                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                            culpa qui officia deserunt mollit anim id est laborum
+                            </p>
                         </div>
                     </div>
-                    <div className="separator separator-bottom separator-skew zindex-100">
-                        <svg x={0} y={0} viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <polygon className="fill-white" points="2560 0 2560 100 0 100" />
-                        </svg>
-                    </div>
                 </div>
-            </div>
+            </section>
             <div className="footer-newsletter">
                 <div className="container-news">
                     <div className="row-info">
@@ -98,4 +98,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage
+export default Informacion;
