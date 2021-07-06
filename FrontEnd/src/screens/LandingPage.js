@@ -34,7 +34,7 @@ const LandingPage = () => {
                             <ul className="ul-nav">
                             <li className="li-nav"><Link to="" className="navbar-a">Inicio</Link></li>
                             <li className="li-nav"><Link to="/Informacion" className="navbar-a">Informacion</Link></li>
-                            <li className="li-nav"><Link to="" className="navbar-a">Equipo</Link></li>
+                            <li className="li-nav"><Link to="/Main" className="navbar-a">Equipo</Link></li>
                             <li className="li-nav"><Link to="" className="navbar-a">Contactanos</Link></li>
                             </ul>
                             <i className="bi bi-list mobile-nav-toggle"></i>
