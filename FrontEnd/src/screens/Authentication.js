@@ -1,9 +1,46 @@
-import React from 'react';
+import React,  {useState} from 'react';
 import google from '../assets/img/google.svg';
 import github from '../assets/img/github.svg';
 
 
 const Authentication = () => {
+
+
+    const [input_1, setInput_1] = useState("");
+    const [input_2, setInput_2] = useState("");
+    const [input_3, setInput_3] = useState("");
+    const [input_4, setInput_4] = useState("");
+
+    const handleSubmitValidator = async (e) => {
+        e.preventDefault();   
+        
+        const json_data = {
+            'input_1': input_1,
+            'input_2': input_2,
+            'input_3': input_3,
+            'input_4': input_4,
+            'id_validation': 1
+        };
+
+        const res = await fetch(`${API}/create-user`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        const data = await res.json();
+        if (data.result == "success"){
+
+            alert("Usuario Creado");
+        }
+        else{
+            alert("Algo fallo");
+        }
+    };
+
+
+
+
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <section className="section section-shaped section-lg">
@@ -44,34 +81,34 @@ const Authentication = () => {
                                             <div className="col-3" >
                                                 <div className="form-group m-0">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="text" />
+                                                        <input className="form-control" type="number" min="0" max="1"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="text" />
+                                                        <input className="form-control" type="number" min="0" max="1"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="text" />
+                                                        <input className="form-control" type="number" min="0" max="1"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="text" />
+                                                        <input className="form-control" type="number" min="0" max="1"/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="text-center">
-                                            <button type="button" className="btn btn-primary my-4">Validar y crear</button>
+                                            <button type="button" className="btn btn-primary my-4" >Validar y crear</button>
                                         </div>
                                     </form>
                                 </div>

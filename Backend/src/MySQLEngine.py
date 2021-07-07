@@ -87,6 +87,11 @@ class MySQLEngine:
         print("Data Inserted Successfully")
         return self.link.lastrowid
 
+    def db_update(self,query):
+        self.link.execute(query)
+        self.conector.commit()
+        print("Data Inserted Successfully")
+
     def callProcedure(self,name,*args):
         return self.link.callproc(name,args)
 

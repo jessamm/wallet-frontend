@@ -15,8 +15,20 @@ CREATE TABLE IF NOT EXISTS User(
 );
 
 
+/* La tabla mail_validation lleva registro de las validaciones de las cuentas */
+CREATE TABLE IF NOT EXISTS mail_validation(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code_1 TINYINT NOT NULL COMMENT 'Pimer numero de 0-99 ',
+    code_2 TINYINT NOT NULL COMMENT 'Segundo numero de 0-99 ',
+    code_3 TINYINT NOT NULL COMMENT 'Tercer numero de 0-99 ',
+    code_4 TINYINT NOT NULL COMMENT 'Cuarto numero de 0-99 ',
+    fk_id_user INT NOT NULL COMMENT 'Relacion al usuario que se esta validando',
+    CONSTRAINT FOREIGN KEY (fk_id_user) REFERENCES User(id),
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de solucitud de validacion'
+);
+
 /*Esta tabla funciona como un catalogo que contendra los tipos de Transacciones con detalles del mismo */
-CREATE TABLE TransactionType(
+CREATE TABLE IF NOT EXISTS TransactionType(
 idTransactionType int not null primary key auto_increment,
 nameTransaction varchar(20),
 descriptionTransaction varchar(120)
@@ -26,12 +38,12 @@ descriptionTransaction varchar(120)
 -El id de la transaccion es auto_incremental, 
 -El campo fecha se llena automaticamente usando la hora de la transaccion
 */
-CREATE TABLE TransactionDetail(
+CREATE TABLE IF NOT EXISTS TransactionDetail(
 idTransactionDetails int not null primary key auto_increment,
-idUser Varchar(30),
+idUser INT,
 idTransactionType int,
 mount numeric(8,2),
 dateTransaction timestamp default current_timestamp on update current_timestamp,
-Foreign key (idUser) references UserInformation(idUser),
+Foreign key (idUser) references User(id),
 Foreign key (idTransactionType) references TransactionType(idTransactionType)
 );
