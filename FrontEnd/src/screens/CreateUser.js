@@ -32,11 +32,7 @@ const CreateUser = () => {
 
      const data = await res.json();
         if (data.result == "success"){
-            return (<Redirect to={{pathname:'/Authentication', state:{
-                    password:password,
-                    email:email,
-                    lastname:lastname
-                    }}}/>)
+          aler('usuruario permitido')
         }
         else{
             alert("Usiario o contraseña no permitidos");
