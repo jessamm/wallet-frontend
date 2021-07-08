@@ -30,13 +30,16 @@ const CreateUser = () => {
             body: JSON.stringify(json_data),
         });
 
-        const data = await res.json();
+     const data = await res.json();
         if (data.result == "success"){
-
-            alert("Usuario Creado");
+            return (<Redirect to={{pathname:'/Authentication', state:{
+                    password:password,
+                    email:email,
+                    lastname:lastname
+                    }}}/>)
         }
         else{
-            alert("Algo fallo");
+            alert("Usiario o contraseña no permitidos");
         }
     };
 
