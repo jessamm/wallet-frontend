@@ -10,7 +10,7 @@ const CreateUser = () => {
 
     
     const [name, setName] = useState("");
-    const [lastname, setLastName] = useState("");
+    const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -18,10 +18,10 @@ const CreateUser = () => {
         e.preventDefault();   
         
         const json_data = {
-            'name': name,
-            'last_name': lastname,
-            'email': email,
-            'password':password
+            name,
+            last_name,
+            email,
+            password
         };
 
         const res = await fetch(`${API}/create-user`, {
@@ -32,10 +32,11 @@ const CreateUser = () => {
 
      const data = await res.json();
         if (data.result == "success"){
-          aler('usuruario permitido')
+            window.location.href = "http://localhost:3000/authentication";
+            //aler('usuruario permitido')
         }
         else{
-            alert("Usiario o contraseña no permitidos");
+            alert("Usuario o contraseña no permitidos");
         }
     };
 
@@ -94,21 +95,11 @@ const CreateUser = () => {
                             <div className="col-lg-5">
                                 <div className="card bg-secondary shadow border-0">
                                     <div className="card-header bg-white pb-5">
-                                        <div className="text-muted text-center mb-3"><small>Registrate con</small></div>
-                                        <div className="text-center">
-                                            <button className="btn btn-neutral btn-icon mr-4">
-                                                <span className="btn-inner--icon"><img src={github} alt="logo" /></span>
-                                                <span className="btn-inner--text">Github</span>
-                                            </button>
-                                            <button className="btn btn-neutral btn-icon">
-                                                <span className="btn-inner--icon"><img src={google} alt="logo" /></span>
-                                                <span className="btn-inner--text">Google</span>
-                                            </button>
-                                        </div>
+                                        <div className="text-muted text-center mb-3"><h2>Registrate con</h2></div>
                                     </div>
                                     <div className="card-body px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <small>O regístrate con credenciales</small>
+                                            <h4>Regístrate con credenciales</h4>
                                         </div>
                                         <form>
                                             <div className="form-group">

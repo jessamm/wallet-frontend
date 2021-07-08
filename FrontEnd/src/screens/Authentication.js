@@ -24,7 +24,7 @@ const Authentication = () => {
             'id_validation': 1
         };
 
-        const res = await fetch(`${API}/create-user`, {
+        const res = await fetch(`${API}/mail-validation`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(json_data),
@@ -32,7 +32,7 @@ const Authentication = () => {
 
         const data = await res.json();
         if (data.result == "success"){
-
+            window.location.href = "http://localhost:3000/main";
             alert("Usuario Creado");
         }
         else{
@@ -63,16 +63,6 @@ const Authentication = () => {
                                 <div className="card-header bg-white pb-5">
                                     <div className="text-muted text-center mb-3 "><small className="h3 font-weight-bold" >Crear cuenta</small></div>
                                     <div className="text-muted text-center mb-1 text-primary"><small className="font-weight-bold">Autenticación OTP</small></div>
-                                    <div className="btn-wrapper text-center">
-                                        <button className="btn btn-neutral btn-icon">
-                                            <span className="btn-inner--icon"><img src={github} alt="logo" /></span>
-                                            <span className="btn-inner--text">Github</span>
-                                        </button>
-                                        <button className="btn btn-neutral btn-icon">
-                                            <span className="btn-inner--icon"><img src={google} alt="logo" /></span>
-                                            <span className="btn-inner--text">Google</span>
-                                        </button>
-                                    </div>
                                 </div>
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center mb-4">
@@ -110,7 +100,7 @@ const Authentication = () => {
                                             </div>
                                         </div>
                                         <div className="text-center">
-                                            <button type="button" className="btn btn-primary my-4" >Validar y crear</button>
+                                            <button type="button" className="btn btn-primary my-4" onClick={handleSubmitValidator} >Validar y crear</button>
                                         </div>
                                     </form>
                                 </div>

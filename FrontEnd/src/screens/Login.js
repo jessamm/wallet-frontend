@@ -28,9 +28,8 @@ const Login = () => {
         const data = await res.json();
         console.log(data.Session);
         if (data.Session == true){
-
+            window.location.href = "http://localhost:3000/main";
 //--------------cambiar a la ventana Main--------------
-
             alert("Session Iniciada");
         }
         else{
@@ -91,21 +90,11 @@ const Login = () => {
                         <div className="col-lg-5">
                             <div className="card bg-secondary shadow border-0">
                                 <div className="card-header bg-white pb-5">
-                                    <div className="text-muted text-center mb-3"><small>Inicia sesión con</small></div>
-                                    <div className="btn-wrapper text-center">
-                                        <button className="btn btn-neutral btn-icon">
-                                            <span className="btn-inner--icon"><img src={github} alt="logo" /></span>
-                                            <span className="btn-inner--text">Github</span>
-                                        </button>
-                                        <button className="btn btn-neutral btn-icon">
-                                            <span className="btn-inner--icon"><img src={google} alt="logo" /></span>
-                                            <span className="btn-inner--text">Google</span>
-                                        </button>
-                                    </div>
+                                    <div className="text-muted text-center mb-3"><h4>Inicia sesión con</h4></div>
                                 </div>
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <small>O inicie sesión con credenciales</small>
+                                        <h2>Inicie sesión con credenciales</h2>
                                     </div>
                                     <form >
                                         <div className="form-group mb-3">

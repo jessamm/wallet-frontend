@@ -32,7 +32,7 @@ def login():
   }
 
   result["Data"] = SQLEngine.db_select(f"SELECT id, name, last_name, email, validated  FROM User WHERE email = '{user}' AND password = '{password}';")
-  print()
+  print("Data: ",result["Data"])
   
   if len(result["Data"]) > 0 and result["Data"][0]["validated"] == True:
     result["Session"] = True
@@ -54,7 +54,7 @@ def createUser():
   query = f"INSERT INTO User (`name`, last_name, email, `password`) VALUES ('{name}','{last_name}','{email}','{password}')"
   result_id = SQLEngine.db_insert(query)
 
-  print(result_id)
+  print("result_id: ",result_id )
 
   
   input_1 = random.randint(0, 99)
@@ -64,9 +64,9 @@ def createUser():
   query = f"INSERT INTO mail_validation (code_1, code_2, code_3, code_4, fk_id_user) VALUES ({input_1}, {input_2}, {input_3}, {input_4}, {result_id})"
   result = SQLEngine.db_insert(query)
 
-  print(result)
+  print("result: ", result)
   mail_content = f"Tu codigo de validacion es: {input_1} - {input_2} - {input_3} - {input_4}\n el id de tu transaccion es: {result}"
-  print(mail_content)
+  print("mail content: ",mail_content)
   send_mail.Send(email, "Codigo de validacion Wallet", mail_content)
 
   if result > 0:
