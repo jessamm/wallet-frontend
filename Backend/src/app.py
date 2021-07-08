@@ -34,7 +34,7 @@ def login():
   result["Data"] = SQLEngine.db_select(f"SELECT id, name, last_name, email, validated  FROM User WHERE email = '{user}' AND password = '{password}';")
   print()
   
-  if result["Data"][0]["validated"] is True:
+  if len(result["Data"]) > 0 and result["Data"][0]["validated"] == True:
     result["Session"] = True
   else:
     result["Session"] = False

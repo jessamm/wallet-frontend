@@ -26,7 +26,8 @@ const Login = () => {
         });
 
         const data = await res.json();
-        if (data.Session){
+        console.log(data.Session);
+        if (data.Session == true){
 
 //--------------cambiar a la ventana Main--------------
 

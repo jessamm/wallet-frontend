@@ -76,10 +76,13 @@ class MySQLEngine:
         self.link.execute(query)
         row_headers=[x[0] for x in self.link.description] #this will extract row headers
         rv = self.link.fetchall()
-        json_data=[]
-        for result in rv:
-            json_data.append(dict(zip(row_headers,result)))
-        return json_data
+        if len(rv) > 0:
+            json_data=[]
+            for result in rv:
+                json_data.append(dict(zip(row_headers,result)))
+            return json_data
+        else:
+            return []
 
     def db_insert(self,query):
         self.link.execute(query)
