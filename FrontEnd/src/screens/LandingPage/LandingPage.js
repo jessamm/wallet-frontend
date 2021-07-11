@@ -28,14 +28,14 @@ const LandingPage = () => {
                             {/*<Link to="/"><img src={Logo} className="img-fluid" alt="" /></Link>*/}
                             
                         </div>
-                        <nav className="navbar">
+                        <nav className="navbar-global">
                             <ul>
                                 <li><Link to="/" className="active"><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
-                                <li><Link to="/"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
+                                <li><Link to="/equipo"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
                                 <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
                                 <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
-                            <i className="bi bi-list mobile-nav-toggle"></i>
+                            
                         </nav>
                     </div>
                 </header>
@@ -51,7 +51,7 @@ const LandingPage = () => {
                             </div>
                         </div>
 
-                        {/*<!-- Slide 2 -->*/}
+                        {/*<!-- Slide 2 -->
                         <div className="carousel-item">
                             <div className="carousel-container">
                             <h2 className="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
@@ -60,14 +60,14 @@ const LandingPage = () => {
                             </div>
                         </div>
 
-                        {/*<!-- Slide 3 -->*/}
+                        {/*<!-- Slide 3 -->
                         <div className="carousel-item">
                             <div className="carousel-container">
                             <h2 className="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
                             <p className="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
                             <Link to="/" className="btn-get-started animate__animated animate__fadeInUp">Lee Mas</Link>
                             </div>
-                        </div>
+                        </div>*/}
                         <Link to="#heroCarousel" className="carousel-control-prev" role="button" data-bs-slide="prev">
                             <span className="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
                         </Link>

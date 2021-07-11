@@ -1,4 +1,6 @@
 import React,  {useState} from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 //import google from '../assets/img/google.svg';
 //import github from '../assets/img/github.svg';
 
@@ -31,7 +33,7 @@ const Authentication = () => {
         });
 
         const data = await res.json();
-        if (data.result == "success"){
+        if (data.result == "True"){
             window.location.href = "http://localhost:3000/main";
             alert("Usuario Creado");
         }
@@ -41,10 +43,29 @@ const Authentication = () => {
     };
 
 
-
-
     return (
         <div className="login-page" style={{ height: '100vh' }} >
+            <header className="header header-scrolled fixed-top d-flex align-items-center header-transparent">
+                    <div className="container d-flex justify-content-between align-items-center">
+                        <div className="logo">
+                            <h1 className="text-light">
+                                <Link to="/" ><span>Wallet</span></Link>
+                            </h1>
+                            {/**ARREGLAR LOGO POR SI SE NECESITA */}
+                            {/*<Link to="/"><img src={Logo} className="img-fluid" alt="" /></Link>*/}
+                            
+                        </div>
+                        <nav className="navbar-global">
+                            <ul>
+                                <li><Link to="/" className="active"><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
+                                <li><Link to="/equipo"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
+                                <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
+                                <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
+                            </ul>
+                            <i className="bi bi-list mobile-nav-toggle"></i>
+                        </nav>
+                    </div>
+                </header>
             <section className="section section-shaped section-lg">
                 <div className="shape shape-style-1 bg-gradient-default">
                     <span />
@@ -70,6 +91,7 @@ const Authentication = () => {
                                     </div>
                                     <form>
                                         <div className="row" >
+
                                             <div className="col-3" >
                                                 <div className="form-group m-0">
                                                     <div className="input-group input-group-alternative">
@@ -77,6 +99,7 @@ const Authentication = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
@@ -84,6 +107,7 @@ const Authentication = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
@@ -91,6 +115,7 @@ const Authentication = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">

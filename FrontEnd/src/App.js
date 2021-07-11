@@ -4,7 +4,7 @@ import Authentication from './screens/Authentication/Authentication';
 import CreateUser from './screens/CreateUser/CreateUser';
 import LandingPage from './screens/LandingPage/LandingPage';
 import Login from './screens/Login/Login';
-import Informacion from './screens/Informacion/Informacion';
+import Equipo from './screens/Equipo/Equipo';
 import Main from './screens/Main/Main';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,7 +17,7 @@ const App = () => {
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/create-user' component={CreateUser}></Route>
       <Route exact path='/authentication' component={Authentication}></Route>
-      <Route exact path='/informacion' component={Informacion}></Route>
+      <Route exact path='/equipo' component={Equipo}></Route>
       <Route exact path='/main' component={Main}></Route>
     </Router>
   )

@@ -55,12 +55,12 @@ const Login = () => {
                             {/*<Link to="/"><img src={Logo} className="img-fluid" alt="" /></Link>*/}
                             
                         </div>
-                        <nav className="navbar">
+                        <nav className="navbar-global">
                             <ul>
-                                <li><Link to="/" className="active"><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
+                                <li><Link to="/" ><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
                                 <li><Link to="/"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
                                 <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
-                                <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
+                                <li><Link to="/login" className="active"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
                             <i className="bi bi-list mobile-nav-toggle"></i>
                         </nav>
