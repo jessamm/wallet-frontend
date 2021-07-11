@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Authentication from './screens/Authentication'; 
-import CreateUser from './screens/CreateUser';
-import LandingPage from './screens/LandingPage';
-import Login from './screens/Login';
-import Informacion from './screens/Informacion'
-import Main from './screens/Main'
+import Authentication from './screens/Authentication/Authentication'; 
+import CreateUser from './screens/CreateUser/CreateUser';
+import LandingPage from './screens/LandingPage/LandingPage';
+import Login from './screens/Login/Login';
+import Informacion from './screens/Informacion/Informacion';
+import Main from './screens/Main/Main';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 

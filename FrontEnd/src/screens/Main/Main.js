@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import profile from '../assets/img/profile-img.jpg';
-import finanzas from '../assets/img/finanzas.jpg';
+import profile from '../../assets/img/profile-img.jpg';
+//import finanzas from '../assets/img/finanzas.jpg';
 
 
 const Main = () => {

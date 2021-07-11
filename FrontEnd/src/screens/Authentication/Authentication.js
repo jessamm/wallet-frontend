@@ -1,6 +1,6 @@
 import React,  {useState} from 'react';
-import google from '../assets/img/google.svg';
-import github from '../assets/img/github.svg';
+//import google from '../assets/img/google.svg';
+//import github from '../assets/img/github.svg';
 
 
 const API = process.env.REACT_APP_API;

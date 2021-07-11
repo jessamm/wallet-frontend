@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../styles/global.css"
-import finanzas from '../assets/img/finanzas.jpg';
+import "../../styles/global.css"
+import finanzas from '../../assets/img/finanzas.jpg';
 
 const Informacion = () => {
     return (
