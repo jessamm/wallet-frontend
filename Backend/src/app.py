@@ -30,8 +30,8 @@ def login():
     "Session": False,
     "Data": None
   }
-
-  result["Data"] = SQLEngine.db_select(f"SELECT id, name, last_name, email, validated  FROM User WHERE email = '{user}' AND password = '{password}';")
+  print('llego------------------------------------>')
+  result["Data"] = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
   print("Data: ",result["Data"])
   
   if len(result["Data"]) > 0 and result["Data"][0]["validated"] == True:
@@ -97,6 +97,15 @@ def mail_validation():
     return jsonify({"result":"True"})
   else:
     return jsonify({"result":"fail"})
+
+
+@app.route('/get-categories', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_categories():
+  categories = SQLEngine.db_select(f"SELECT * FROM categorie;")
+  
+  return jsonify(categories)
+
 
 
 if __name__ == "__main__":
