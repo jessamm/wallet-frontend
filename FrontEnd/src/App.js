@@ -6,7 +6,10 @@ import LandingPage from './screens/LandingPage/LandingPage';
 import Login from './screens/Login/Login';
 import Equipo from './screens/Equipo/Equipo';
 import Main from './screens/Main/Main';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Cuentas from './screens/Cuentas/Cuentas';
+import CrearCuentaAhorro from './screens/Cuentas/CrearCuentaAhorro';
+import CrearCuentaEfectivo from './screens/Cuentas/CrearCuentaEfectivo';
 
 
 
@@ -19,6 +22,12 @@ const App = () => {
       <Route exact path='/authentication' component={Authentication}></Route>
       <Route exact path='/equipo' component={Equipo}></Route>
       <Route path='/main' component={Main}></Route>
+      <Route path='/cuentas' component={Cuentas}></Route>
+      <Route path='/crear-cuenta-ahorro' component={CrearCuentaAhorro}></Route>
+      <Route path='/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route>
+
+
+
     </Router>
   )
 }
