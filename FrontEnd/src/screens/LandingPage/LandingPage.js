@@ -4,7 +4,7 @@ import "../../styles/global.css"
 import WhyUs from '../../assets/img/finanzas.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "../../fontawesome/fontawesome.js";
+//import "../../fontawesome/fontawesome.js";
 //import Header from '../Componentes/header';
 //import Logo from '../assets/img/logo.jpeg';
 //import seccionUno from '../assets/img/features-1.svg/';

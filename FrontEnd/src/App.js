@@ -18,7 +18,7 @@ const App = () => {
       <Route exact path='/create-user' component={CreateUser}></Route>
       <Route exact path='/authentication' component={Authentication}></Route>
       <Route exact path='/equipo' component={Equipo}></Route>
-      <Route exact path='/main' component={Main}></Route>
+      <Route path='/main' component={Main}></Route>
     </Router>
   )
 }
