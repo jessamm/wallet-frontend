@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../../styles/global.css"
-import WhyUs from '../../assets/img/finanzas.jpg';
+import "../../../styles/global.css"
+import WhyUs from '../../../assets/img/finanzas.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //import "../../fontawesome/fontawesome.js";
@@ -35,7 +35,7 @@ const LandingPage = () => {
                                 <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
                                 <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
-                            
+                            <i class="bi bi-list mobile-nav-toggle"></i>
                         </nav>
                     </div>
                 </header>
