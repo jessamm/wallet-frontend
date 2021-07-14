@@ -206,7 +206,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 /**
 * Mobile Navigation 
 */
-.mobile-nav-toggle {
+.mobile-navbar-global-toggle {
   color: #fff;
   font-size: 28px;
   cursor: pointer;
@@ -216,7 +216,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 }
 
 @media (max-width: 991px) {
-  .mobile-nav-toggle {
+  .mobile-navbar-global-toggle {
     display: block;
   }
   .navbar-global ul {
@@ -235,7 +235,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   transition: 0.3s;
 }
 
-.navbar-global-mobile .mobile-nav-toggle {
+.navbar-global-mobile .mobile-navbar-global-toggle {
   position: absolute;
   top: 15px;
   right: 15px;
