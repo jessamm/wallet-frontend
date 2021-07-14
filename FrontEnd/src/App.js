@@ -21,13 +21,11 @@ const App = () => {
       <Route exact path='/create-user' component={CreateUser}></Route>
       <Route exact path='/authentication' component={Authentication}></Route>
       <Route exact path='/equipo' component={Equipo}></Route>
+      <Route exact path='/cuentas' component={Cuentas}></Route>
+      <Route exact path='/crear-cuenta-ahorro' component={CrearCuentaAhorro}></Route>
+      <Route exact path='/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route>
       <Route path='/main' component={Main}></Route>
-      <Route path='/cuentas' component={Cuentas}></Route>
-      <Route path='/crear-cuenta-ahorro' component={CrearCuentaAhorro}></Route>
-      <Route path='/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route>
-
-
-
+      
     </Router>
   )
 }

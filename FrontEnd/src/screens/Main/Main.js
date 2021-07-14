@@ -6,6 +6,9 @@ import "../Main/Main.css";
 import Grafica from '../Grafica/Grafica';
 import Cuentas from '../Cuentas/Cuentas';
 import Estadistica from '../Estadistica/Estadistica';
+import '../../fontawesome/fontawesome'
+import CrearCuentaAhorro from '../Cuentas/CrearCuentaAhorro';
+import CrearCuentaEfectivo from '../Cuentas/CrearCuentaEfectivo';
 //import finanzas from '../assets/img/finanzas.jpg';
 
 
@@ -30,7 +33,7 @@ const Main = () => {
                         <ul>
                             <li><Link to="/main/grafica" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span>Inicio</span></Link></li>
                             <li><Link to="/main/estadistica" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'sort-amount-down']} size="2x" /><span>Estadisticas</span></Link></li>
-                            <li><Link to="/main/cuentas"  className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
+                            <li><Link to="/main/cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
                             <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
                             <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span>Cerrar Sesion</span></Link></li>
 
@@ -43,8 +46,10 @@ const Main = () => {
                 <div className="container">
                     <Switch>
                         <Route exact path="/main/grafica" component={Grafica} />
-                        <Route exact path="/main/cuentas" component={Cuentas} />
-                        <Route exact path="/main/estadistica" component={Estadistica} />
+                        {/*<Route exact path='/main/cuentas' component={Cuentas}></Route>
+                         <Route exact path='/main/estadistica' component={Estadistica}></Route>
+                        <Route exact path='/main/crear-cuenta-ahorro' component={CrearCuentaAhorro}></Route>
+                        <Route exact path='/main/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route> */}
                         <Redirect to="/main/grafica" />
                     </Switch>
                 </div>

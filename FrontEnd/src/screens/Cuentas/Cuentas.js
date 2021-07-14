@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Cuentas = () => {
     const [cuentasAhorro, setCuentasAhorro] = useState([]);
@@ -25,8 +25,8 @@ const Cuentas = () => {
     }
 
     useEffect(() => {
-        obtenerCuentasAhorro();
-        obtenerCuentasEfectivo();
+        // obtenerCuentasAhorro();
+        // obtenerCuentasEfectivo();
     }, [])
 
 
