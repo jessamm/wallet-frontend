@@ -62,7 +62,7 @@ const Login = () => {
                                 <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
                                 <li><Link to="/login" className="active"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
-                            <i className="bi bi-list mobile-nav-toggle"></i>
+                            {/*<i className="bi bi-list mobile-nav-toggle"></i>*/}
                         </nav>
                     </div>
                 </header>
