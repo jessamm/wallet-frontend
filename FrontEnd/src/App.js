@@ -6,7 +6,7 @@ import LandingPage from './screens/LandingPage/LandingPage';
 import Login from './screens/Login/Login';
 import Equipo from './screens/Equipo/Equipo';
 import Main from './screens/Main/Main';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import Cuentas from './screens/Cuentas/Cuentas';
 import CrearCuentaAhorro from './screens/Cuentas/CrearCuentaAhorro';
 import CrearCuentaEfectivo from './screens/Cuentas/CrearCuentaEfectivo';

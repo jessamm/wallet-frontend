@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 
 const Cuentas = () => {
+    const [cuentasAhorro, setCuentasAhorro] = useState([]);
+    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
+
+
+    const obtenerCuentasAhorro = async () => {
+        const urlApi = '';
+        const response = await fetch(urlApi);
+        if (response.status === 200) {
+            const body = response.json();
+            setCuentasAhorro(body);
+        }
+    }
+
+    const obtenerCuentasEfectivo = async () => {
+        const urlApi = '';
+        const response = await fetch(urlApi);
+        if (response.status === 200) {
+            const body = response.json();
+            setCuentasEfectivo(body);
+        }
+    }
+
+    useEffect(() => {
+        obtenerCuentasAhorro();
+        obtenerCuentasEfectivo();
+    }, [])
+
+
     return (
         <div className="container" >
             <h3 className="mt-4 card-title">Cuentas de ahorro </h3>
@@ -21,16 +49,22 @@ const Cuentas = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Banco atlantida</td>
-                        <td>$ 1200</td>
-                        <td>$ 5000</td>
-                        <td>$ 5000</td>
-                        <th scope="col">
-                            <button className="btn btn-sm btn-danger" >Eliminar</button>
-                        </th>
-                    </tr>
+                    {
+                        cuentasAhorro.map((cuenta, key) => {
+                            return (
+                                <tr>
+                                    <th scope="row">{key++}</th>
+                                    <td>{cuenta.nombreBanco}</td>
+                                    <td>$ {cuenta.saldoMes}</td>
+                                    <td>$ {cuenta.saldoActual}</td>
+                                    <td>$ {cuenta.balance}</td>
+                                    <th scope="col">
+                                        <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                    </th>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </table>
 
@@ -52,17 +86,22 @@ const Cuentas = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Banco atlantida</td>
-                        <td>$ 1200</td>
-                        <td>$ 5000</td>
-                        <td>$ 5000</td>
-                        <th scope="col">
-                            <button className="btn btn-sm btn-danger" >Eliminar</button>
-                        </th>
-
-                    </tr>
+                    {
+                        cuentasEfectivo.map((cuenta, key) => {
+                            return (
+                                <tr>
+                                    <th scope="row">{key++}</th>
+                                    <td>{cuenta.nombreBanco}</td>
+                                    <td>$ {cuenta.saldoMes}</td>
+                                    <td>$ {cuenta.saldoActual}</td>
+                                    <td>$ {cuenta.balance}</td>
+                                    <th scope="col">
+                                        <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                    </th>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </table>
 

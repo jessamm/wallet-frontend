@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AnyChart from 'anychart-react'
 
 const Grafica = () => {
 
+    const [data, setData] = useState([1, 2, 3, 4]);
+
     const complexSettings = {
-        width: 800,
-        height: 600,
-        type: 'column',
-        data: "Nombre1,50\nNombre2,30\nNombre3,66\nNombre4,80",
+        width: 700,
+        height: 500,
+        type: 'pie',
+        data: data,
         title: 'Resumen',
         yAxis: [1, {
-            orientation: 'right',
+            orientation: 'center',
             enabled: true,
             labels: {
                 format: '{%Value}{decimalPoint:\\,}',
@@ -25,6 +27,19 @@ const Grafica = () => {
             value: 4.5
         }
     };
+
+    const obtenerData = async () => {
+        const urlApi = '';
+        const response = await fetch(urlApi);
+        if (response.status === 200) {
+            const body = await response.json();
+            setData(body);
+        }
+    }
+
+    useEffect(() => {
+        obtenerData();
+    }, [])
 
 
     return (
