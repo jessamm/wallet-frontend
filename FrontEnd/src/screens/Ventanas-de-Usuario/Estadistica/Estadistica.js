@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,11 +6,26 @@ import AnyChart from 'anychart-react';
 
 const Estadistica = () => {
 
+    const [data, setData] = useState([1,2,3,4]);
+
+    useEffect(() => {
+        //obtenerData();
+    }, []);
+
+    const obtenerData = async () => {
+        const response = await fetch('');
+
+        if (response.status === 200) {
+            const body = await response.json();
+            setData(body)
+        }
+    }
+
     const complexSettings = {
         width: 800,
         height: 600,
-        type: 'column',
-        data: "Gastos Fijos,50\nIngresos Fijos,30\nGastos Variables,66\nIngresos Variables,80",
+        type: 'pie',
+        data: data,
         title: 'Estadisticas Parciales',
         yAxis: [1, {
             orientation: 'right',

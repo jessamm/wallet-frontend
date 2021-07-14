@@ -1,9 +1,37 @@
-import React from 'react';
-import { Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Cuentas = () => {
+
+    const [cuentasAhorro, setCuentasAhorro] = useState([]);
+    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
+
+
+    const obtenerCuentasAhorro = async () => {
+        const response = await fetch('');
+
+        if (response.status === 200) {
+            const body = await response.json();
+            setCuentasAhorro(body)
+        }
+    }
+
+    const obtenerCuentasEfectivo = async () => {
+        const response = await fetch('');
+
+        if (response.status === 200) {
+            const body = await response.json();
+            setCuentasEfectivo(body)
+        }
+    }
+
+    useEffect(() => {
+        //    obtenerCuentasAhorro();
+        //    obtenerCuentasEfectivo();
+    }, [])
+
     return (
         <div className="login-page" style={{ height: '100vh' }}>
             <header className="barra-lateral">
@@ -25,7 +53,7 @@ const Cuentas = () => {
                         <ul>
                             <li><Link to="/main" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span>Inicio</span></Link></li>
                             <li><Link to="/Estadistica" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'sort-amount-down']} size="2x" /><span>Estadisticas</span></Link></li>
-                            <li><Link to="/Cuentas"  className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
+                            <li><Link to="/Cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
                             <li><Link to="/configuracion" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
                             <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span>Cerrar Sesion</span></Link></li>
                         </ul>
@@ -34,11 +62,11 @@ const Cuentas = () => {
             </header>
             <main className="main-main">
                 <div className="panel-header panel-header-sm">
-                     informacion fija del perfil se agregara posteriormente
+                    informacion fija del perfil se agregara posteriormente
                 </div>
-                 
+
                 <div className="content">
-                    <div className="row-perfil">        
+                    <div className="row-perfil">
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="card-header">
@@ -72,7 +100,7 @@ const Cuentas = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div> 
+                                </div>
                             </div>
                         </div>
 
@@ -109,7 +137,7 @@ const Cuentas = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div> 
+                                </div>
                             </div>
                         </div>
 
@@ -117,7 +145,7 @@ const Cuentas = () => {
                     </div>
                 </div>
             </main>
-            
+
         </div>
     )
 }

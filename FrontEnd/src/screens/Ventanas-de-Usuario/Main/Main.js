@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Main.css";
+import '../../../fontawesome/fontawesome'
 /*
 import Grafica from '../Grafica/Grafica';
 import Cuentas from '../Cuentas/Cuentas';
