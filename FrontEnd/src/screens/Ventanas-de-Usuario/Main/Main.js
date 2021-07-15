@@ -15,7 +15,7 @@ import Estadistica from '../Estadistica/Estadistica';*/
 const Main = () => {
 
     const data = {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: ['Gastos', 'Ingresos', 'Variables'],
         datasets: [
             {
                 label: '# of Votes',
@@ -71,33 +71,30 @@ const Main = () => {
             </header>
 
             <main className="main-main">
-                <div className="panel-header panel-header-sm">INFORMACION FIJA SE PONDRA POSTERIORMENTE</div>
+                <div className="panel-header panel-header-sm"></div>
                 <div className="content">
                     <div className="row-perfil">
                         <div className="col-md-12">
                             <div className="card">
-                                <div className="card-header">
-                                    <h3 className="text-center d-none">INICIO</h3>
-                                </div>
                                 <div className="card-body">
-                                    <h1 className="d-none" >aca vas a trabajar Emerson</h1>
                                     <div className="row" >
                                         <div className="col-md-4 p-4" >
-                                        <p className="font-weight-bold h6" >Dashboard</p>
-
-                                            <p className="font-weight-bold h3" >$2,128,022.00</p>
+                                            <p className="font-weight-bold h6" >Resumen General</p>
+                                            <p className="font-weight-bold h3" >L 2,128,022.00</p>
                                             <br></br>
                                             <div className="row" >
                                                 <div className="col-6" >
-                                                    <p className="font-weight-bold h5" >$2,128,022.00</p>
+                                                    <p>Ingreso</p>
+                                                    <p className="font-weight-bold h5" >L 2,128,022.00</p>
                                                     <br></br>
-                                                    <button className="btn btn-sm btn-primary btn-block mt-2" >boton 1</button>
+                                                    <button className="btn btn-sm btn-primary btn-block mt-2">Agregar Ingreso</button>
                                                 </div>
                                                 <div className="col-6" >
-                                                    <p className="font-weight-bold h5" >$2,128,022.00</p>
+                                                    <p>Egreso</p>
+                                                    <p className="font-weight-bold h5" >L 2,128,022.00</p>
                                                     <br></br>
 
-                                                    <button className="btn btn-sm btn-secondary btn-block mt-2" >boton 2</button>
+                                                    <button className="btn btn-sm btn-secondary btn-block mt-2">Agregar Egreso</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,17 +102,17 @@ const Main = () => {
                                             <PolarArea data={data} />
                                         </div>
                                         <div className="col-md-3" >
-                                            <ul class="list-group border-0" >
+                                            <ul className="list-group border-0" >
                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                                                    Red
+                                                    Gastos Fijos
                                                     <span className="badge badge-primary badge-pill">50%</span>
                                                 </li>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                                                    Blue
+                                                <li className="list-group-item d-flex justify-content-between align-items-center border-0">
+                                                    Ingresos
                                                     <span className="badge badge-primary badge-pill">25%</span>
                                                 </li>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                                                    Yellow
+                                                <li className="list-group-item d-flex justify-content-between align-items-center border-0">
+                                                    Variables
                                                     <span className="badge badge-primary badge-pill">25%</span>
                                                 </li>
                                             </ul>
@@ -123,7 +120,7 @@ const Main = () => {
                                     </div>
                                     <div className="row mt-5 p-4" >
                                         <div className="col-md-9" >
-                                            <p className="font-weight-bold" >Titulo</p>
+                                            <p className="font-weight-bold" >Ultimos movimientos</p>
                                             <div className="row" >
                                                 <div className="col-md-3" >
                                                     <div className="p-2 bg-warning" style={{ borderRadius: 10 }} >
@@ -158,27 +155,28 @@ const Main = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-3" >
-                                            <p className="font-weight-bold" >Titulo</p>
-                                            <div className="card" style={{ borderRadius: 10 }}  >
-                                                <div className="card-body" >
-                                                    <p className="font-weight-bold" > <span>Icono</span> 0,069% </p>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style={{ width: '70%' }} aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card" style={{ borderRadius: 10 }}  >
-                                                <div className="card-body" >
-                                                    <p className="font-weight-bold" > <span>Icono</span> 0,075% </p>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style={{ width: '75%' }} aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <button className="btn btn-sm btn-danger btn-block mt-2 col-md-2 text-center">Eliminar Movimiento</button>
                                         </div>
 
+                                        <div className="col-md-3" >
+                                            <p className="font-weight-bold" >% Porcentaje del ultimo mes</p>
+                                            <div className="card" style={{ borderRadius: 10 }}  >
+                                                <div className="card-body" >
+                                                    <p className="font-weight-bold"><span>Perdidas</span> 0,069% </p>
+                                                    <div className="progress">
+                                                        <div className="progress-bar" role="progressbar" style={{ width: '70%' }} aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="card" style={{ borderRadius: 10 }}  >
+                                                <div className="card-body" >
+                                                    <p className="font-weight-bold"><span>Ingresos</span> 0,075% </p>
+                                                    <div className="progress">
+                                                        <div className="progress-bar" role="progressbar" style={{ width: '75%' }} aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
