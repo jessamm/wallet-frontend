@@ -1,5 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+# import openpyxl
+import xlsxwriter
+from io import BytesIO
+output = BytesIO()
+import base64
 from MySQLEngine import *
 from mail_manager import *
 import random
@@ -106,7 +111,45 @@ def get_categories():
   
   return jsonify(categories)
 
+@app.route('/get-download-excel', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_report_xlsx():
+  # wb = openpyxl.Workbook()
+  # sheet = wb.create_sheet("DEFAULT")
+  # sheet = wb.active
+  # sheet.cell(row=1, column=2, value='INSERT')
 
+  # wb.save("EST_RESULT.xlsx")
+  # base64_encoded = base64.b64encode(wb).decode('UTF-8')
+  # data = {
+  #   'workbook': wb
+  # }
+
+  # xlsx = io.BytesIO(wb)
+  file_data = BytesIO()
+  workbook = xlsxwriter.Workbook(file_data)
+
+
+  sheet = workbook.add_worksheet('Planilla')
+  sheet.set_column('A:A', 5)
+  sheet.set_column('B:B', 14)
+  sheet.set_column('C:C', 14)
+  sheet.set_column('D:D', 30)
+  sheet.set_column('E:E', 14)
+  sheet.set_column('F:F', 50)
+  sheet.set_column('G:O', 10)
+
+  bold_center = workbook.add_format({'bold': True})
+
+  sheet.write(0, 0, '010101010101: ',bold_center)
+
+  workbook.close()
+
+  file_data.seek(0)
+
+  base = base64.encodestring(file_data.getvalue())
+  print('devuelve------------->',base)
+  return (base)
 
 if __name__ == "__main__":
     app.run('0.0.0.0', 5001, debug=True)
