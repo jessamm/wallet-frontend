@@ -60,7 +60,7 @@ const CreateUser = () => {
                         <nav className="navbar-global">
                             <ul>
                                 <li><Link to="/"><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
-                                <li><Link to="/"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
+                                <li><Link to="/Equipo"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
                                 <li><Link to="/create-user" className="active"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
                                 <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
@@ -84,11 +84,11 @@ const CreateUser = () => {
                             <div className="col-lg-5">
                                 <div className="card bg-secondary shadow border-0">
                                     <div className="card-header bg-white pb-5">
-                                        <div className="text-muted text-center mb-3"><h2>Registrate con</h2></div>
+                                        <div className="text-muted text-center mb-3"><h2>Registrate Con Nosotros</h2></div>
                                     </div>
                                     <div className="card-body px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <h4>Regístrate con credenciales</h4>
+                                            
                                         </div>
                                         <form>
                                             <div className="form-group">
@@ -145,10 +145,10 @@ const CreateUser = () => {
             <footer className="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
                     <div class="container">
                         <div class="copyright">
-                            &copy; Copyright <strong><span>Wallet</span></strong>. All Rights Reserved
+                            &copy; Copyright <strong><span>Wallet</span></strong>.
                         </div>
                         <div class="credits">
-                            Designed by Grupo Wallet
+                            Diseñado por Grupo Wallet
                         </div>
                     </div>
             </footer>

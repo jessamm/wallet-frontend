@@ -86,7 +86,6 @@ const Login = () => {
                                 </div>
                                 <div className="card-body px-lg-5 py-lg-5">
                                     <div className="text-center text-muted mb-4">
-                                        <h2>Inicie sesión con credenciales</h2>
                                     </div>
                                     <form >
                                         <div className="form-group mb-3">
@@ -117,7 +116,7 @@ const Login = () => {
                             </div>
                             <div className="row mt-3">
                                 <div className="col-6">
-                                    <Link to="/" className="text-light"><small>¿Se te olvidó tu contraseña?</small></Link>
+                                    <Link to="/RecuperacionPassword" className="text-light"><small>¿Se te olvidó tu contraseña?</small></Link>
                                 </div>
                                 <div className="col-6 text-right">
                                     <Link to="/create-user" className="text-light"><small>Crear una nueva cuenta</small></Link>
@@ -128,13 +127,14 @@ const Login = () => {
                 </div>
             </section>
             {/**FOOOOTER */}
+
             <footer className="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
                     <div class="container">
                         <div class="copyright">
-                            &copy; Copyright <strong><span>Wallet</span></strong>. All Rights Reserved
+                            &copy; Copyright <strong><span>Wallet</span></strong>. 
                         </div>
                         <div class="credits">
-                            Designed by Grupo Wallet
+                            Diseñado por Grupo Wallet
                         </div>
                     </div>
             </footer>

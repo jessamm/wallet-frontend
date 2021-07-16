@@ -7,6 +7,8 @@ import CreateUser from './screens/Ventanas-de-Pagina/CreateUser/CreateUser';
 import LandingPage from './screens/Ventanas-de-Pagina/LandingPage/LandingPage';
 import Login from './screens/Ventanas-de-Pagina/Login/Login';
 import Equipo from './screens/Ventanas-de-Pagina/Equipo/Equipo';
+import RecuperacionPassword from './screens/Ventanas-de-Pagina/RecuperacionPassword/RecuperacionPassword';
+
 //Ventanas de Usuario
 import Main from './screens/Ventanas-de-Usuario/Main/Main';
 import Configuracion from './screens/Ventanas-de-Usuario/Configuracion/Configuracion';
@@ -23,6 +25,7 @@ const App = () => {
     <Router>
       <Route exact path='/' component={LandingPage}></Route>
       <Route exact path='/login' component={Login}></Route>
+      <Route exact path='/RecuperacionPassword' component={RecuperacionPassword}></Route>
       <Route exact path='/create-user' component={CreateUser}></Route>
       <Route exact path='/authentication' component={Authentication}></Route>
       <Route exact path='/equipo' component={Equipo}></Route>

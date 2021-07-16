@@ -148,6 +148,7 @@ const LandingPage = () => {
                     {/*<!-- End Why Us Section -->*/}
                     {/**<!-- ======= Features Section ======= --> */}
                     <hr></hr>
+                    {/**
                     <section className="features">
                         <div className="container">
                             <div className="section-title">
@@ -157,9 +158,7 @@ const LandingPage = () => {
 
                             <div className="row" data-aos="fade-up">
                                 <div className="col-md-5">
-                                    {/**INVESTIGAR SOBRE SVG */}
-                                    {/*<img src={seccionUno} className="img-fluid" alt="" />*/}
-                                    {/*<img src="assets/img/features-1.svg" className="img-fluid" alt="">*/}
+                                    
                                 </div>
                                 <div className="col-md-7 pt-4">
                                     <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
@@ -176,7 +175,7 @@ const LandingPage = () => {
 
                             <div className="row" data-aos="fade-up">
                                 <div className="col-md-5 order-1 order-md-2">
-                                    {/*<img src="assets/img/features-2.svg" className="img-fluid" alt="">*/}
+                                    
                                 </div>
                                 <div className="col-md-7 pt-5 order-2 order-md-1">
                                     <h3>Corporis temporibus maiores provident</h3>
@@ -194,7 +193,7 @@ const LandingPage = () => {
 
                             <div className="row" data-aos="fade-up">
                                 <div className="col-md-5">
-                                    {/*<img src="assets/img/features-3.svg" className="img-fluid" alt="">*/}
+                                    
                                 </div>
                                 <div className="col-md-7 pt-5">
                                     <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
@@ -209,7 +208,7 @@ const LandingPage = () => {
 
                             <div className="row" data-aos="fade-up">
                                 <div className="col-md-5 order-1 order-md-2">
-                                    {/*<img src="assets/img/features-4.svg" className="img-fluid" alt="">*/}
+                                    
                                 </div>
                                 <div className="col-md-7 pt-5 order-2 order-md-1">
                                     <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
@@ -225,7 +224,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> */}
                     {/**<!-- End Features Section --> */}
                 </main>
                 {/** */}
@@ -235,15 +234,12 @@ const LandingPage = () => {
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6">
+                                    
                                     <h4>Suscribete</h4>
                                     <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <form>
-                                        {/**<input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/> */}
-                                        <input type="submit" value="Suscribete"></input><input type="email" name="email"></input>
-                                    {/*<input type="email" name="email"><input type="submit" value="Subscribe">*/}
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>

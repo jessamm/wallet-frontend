@@ -43,8 +43,7 @@ const Configuracion = () => {
 
         const data = await res.json ();
         console.log(data)
-        
-        //crear condicion
+        //crear condicion y sustituir valores en BD
     };
 
     const getUsers = async () => {

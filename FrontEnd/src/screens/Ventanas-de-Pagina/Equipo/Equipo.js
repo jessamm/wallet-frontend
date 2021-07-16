@@ -189,10 +189,10 @@ const Equipo = () => {
 
                     <div class="container">
                         <div class="copyright">
-                            &copy; Copyright <strong><span>Wallet</span></strong>. All Rights Reserved
+                            &copy; Copyright <strong><span>Wallet</span></strong>. 
                         </div>
                         <div class="credits">
-                            Designed by Grupo Wallet
+                            Diseñado por Grupo Wallet
                         </div>
                     </div>
                 </footer>
