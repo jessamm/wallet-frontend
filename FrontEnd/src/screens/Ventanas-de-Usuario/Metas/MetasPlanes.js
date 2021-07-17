@@ -3,7 +3,101 @@ import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const API = process.env.REACT_APP_API;
+
 const MetasPlanes = () => {
+    /**llenado de tablas */
+    const [datosMetas, setDatosMetas] = useState([]);
+    const [planAhorro, setPlanAhorro] = useState([]);
+
+    //imprimir datos de las tablas
+    const obtenerDatosMetas = async () => {
+        const response = await fetch('');
+        /**
+        if (response.status === ){
+            const body = await response.json();
+            setDatosMetas(body)
+        } */
+    }
+    const obtenerPlanAhorro = async () => {
+        const response = await fetch('');
+        /**
+        if (response.status === ){
+            const body = await response.json();
+            setPlanAhorro(body)
+        } */
+    }
+    useEffect(() =>{
+        //obtenerDatosMetas();
+        //obtenerPlanAhorro
+    }, [])
+
+    //mandar datos a la base
+    const [categorie, setCategorie] = useState("");
+    const [limite, setLimite] = useState("");
+    const [fechaInicial, setFechaInicial] = useState("");
+    const [nameMeta, setNameMeta] = useState("");
+    //state del error   
+    const [errorLlenado, handleError] = useState(false);
+
+    const handleSubmitMetas = async (e) => {
+        e.preventDefault();
+
+        if(categorie.trim() === "" || limite.trim()==="" || fechaInicial === "" || nameMeta.trim()===""){
+            handleError(true);
+            alert("Todos los campos deben ser llenados");
+            return;
+        }
+        handleError(false);
+
+        const json_data = {
+            'categorie': categorie,
+            'limite': limite,
+            'fechaInicial':fechaInicial,
+            'nameMeta': nameMeta
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        const data = await res.json();
+        //console.log(data.Session);
+    };
+    //categoire esta arriba
+    const [cuentaAhorrar, setCuentaAhorrar] = useState("");
+    const [fechaInicialAhorro, setFechaInicialAhorro] = useState("");
+    const [nameAhorro, setNameAhorro] = useState("");
+
+    const handleSubmitAhorro = async (e) => {
+        e.preventDefault();
+
+        if(categorie.trim() === "" || cuentaAhorrar.trim()==="" || fechaInicialAhorro === "" || nameAhorro.trim()===""){
+            handleError(true);
+            alert("Todos los campos deben ser llenados");
+            return;
+        }
+        handleError(false);
+
+        const json_data = {
+            'categorie': categorie,
+            'cuentaAhorrar': cuentaAhorrar,
+            'fechaInicialAhorro':fechaInicialAhorro,
+            'nameAhorro': nameAhorro
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        const data = await res.json();
+        //console.log(data.Session);
+    };
+
     return (
         <div>
             <div className="login-page" style={{ height: '100vh' }}>
@@ -35,9 +129,7 @@ const MetasPlanes = () => {
                     </div>
                 </header>
                 <main className="main-main">
-                    <div className="panel-header panel-header-sm">
-                        informacion fija del perfil se agregara posteriormente
-                    </div>
+                    <div className="panel-header panel-header-sm"></div>
 
                     <div className="content">
                         <div className="row-perfil">
@@ -45,7 +137,7 @@ const MetasPlanes = () => {
                                 <div className="card">
                                     <div className="card-header">
                                         <h5 className="title">Metas creadas</h5>
-                                        <Link to="/crear-cuenta-ahorro" className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
+                                        {/*<Link to="/crear-cuenta-ahorro" className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>*/}
                                     </div>
                                     <div className="card-body">
 
@@ -62,14 +154,14 @@ const MetasPlanes = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    [].map((cuenta, key) => {
+                                                    datosMetas.map((datos, key) => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{cuenta.nombreBanco}</td>
-                                                                <td>$ {cuenta.saldoMes}</td>
-                                                                <td>$ {cuenta.saldoActual}</td>
-                                                                <td>$ {cuenta.balance}</td>
+                                                                <td>{datos.name}</td>
+                                                                <td>{datos.fecha}</td>
+                                                                <td>L {datos.maximo}</td>
+                                                                <td>L {datos.gastos}</td>
                                                                 <th scope="col">
                                                                     <button className="btn btn-sm btn-danger" >Eliminar</button>
                                                                 </th>
@@ -110,14 +202,14 @@ const MetasPlanes = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    [2, 3, 4].map((cuenta, key) => {
+                                                    planAhorro.map((datos, key) => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{cuenta.nombreBanco}</td>
-                                                                <td>$ {cuenta.saldoMes}</td>
-                                                                <td>$ {cuenta.saldoActual}</td>
-                                                                <td>$ {cuenta.balance}</td>
+                                                                <td>{datos.name}</td>
+                                                                <td>{datos.fecha}</td>
+                                                                <td>L {datos.goal}</td>
+                                                                <td>L {datos.balance}</td>
                                                                 <th scope="col">
                                                                     <button className="btn btn-sm btn-danger" >Eliminar</button>
                                                                 </th>
@@ -173,9 +265,14 @@ const MetasPlanes = () => {
                                     </div>
                                 </div>
                             </div>
+                            {errorLlenado ? (
+                                <p className="alert alert-danger error-p text-white">
+                                    Todos los campos deben ser llenados
+                                </p>
+                            ) : null}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1">
+                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitAhorro}>
                                     Agregar
                                 </button>
                             </div>
@@ -199,25 +296,30 @@ const MetasPlanes = () => {
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" />
+                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setCategorie(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" />
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setLimite(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Fecha Inicial</label>
-                                        <input type="date" className="form-control" id="formGroupExampleInput2" />
+                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setFechaInicial(e.target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Nombre</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" />
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameMeta(e.target.value)} />
                                     </div>
                                 </div>
                             </div>
+                            {errorLlenado ? (
+                                <p className="alert alert-danger error-p text-white">
+                                    Todos los campos deben ser llenados
+                                </p>
+                            ) : null}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1">
+                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitMetas}>
                                     Agregar
                                 </button>
                             </div>

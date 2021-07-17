@@ -9,6 +9,7 @@ const API = process.env.REACT_APP_API;
 
 const Authentication = () => {
 
+    const [error, handleError] = useState(false);
 
     const [input_1, setInput_1] = useState("");
     const [input_2, setInput_2] = useState("");
@@ -16,7 +17,12 @@ const Authentication = () => {
     const [input_4, setInput_4] = useState("");
 
     const handleSubmitValidator = async (e) => {
-        e.preventDefault();   
+        e.preventDefault();
+
+        if (input_1.trim() === "" || input_2.trim() === "" || input_3.trim() === "" || input_4.trim() === "") {
+            handleError(true);
+            return;
+        }
         
         const json_data = {
             'input_1': input_1,
@@ -34,7 +40,7 @@ const Authentication = () => {
 
         const data = await res.json();
         if (data.result == "True"){
-            window.location.href = "http://localhost:3000/main";
+            window.location.href = "http://localhost:3000/metas-planes";
             alert("Usuario Creado");
         }
         else{
@@ -95,7 +101,7 @@ const Authentication = () => {
                                             <div className="col-3" >
                                                 <div className="form-group m-0">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="number" min="0" max="1"/>
+                                                        <input className="form-control" type="number" min="0" max="1" onChange={(e) => setInput_1(e.target.value)}/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,7 +109,7 @@ const Authentication = () => {
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="number" min="0" max="1"/>
+                                                        <input className="form-control" type="number" min="0" max="1"onChange={(e) => setInput_2(e.target.value)}/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +117,7 @@ const Authentication = () => {
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="number" min="0" max="1"/>
+                                                        <input className="form-control" type="number" min="0" max="1"onChange={(e) => setInput_3(e.target.value)}/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,11 +125,16 @@ const Authentication = () => {
                                             <div className="col-3" >
                                                 <div className="form-group mb-3">
                                                     <div className="input-group input-group-alternative">
-                                                        <input className="form-control" type="number" min="0" max="1"/>
+                                                        <input className="form-control" type="number" min="0" max="1"onChange={(e) => setInput_4(e.target.value)}/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        {error ? (
+                                        <p className="alert alert-danger error-p text-white">
+                                            Debe llenar todos los campos
+                                        </p>
+                                        ) : null}
                                         <div className="text-center">
                                             <button type="button" className="btn btn-primary my-4" onClick={handleSubmitValidator} >Validar y crear</button>
                                         </div>

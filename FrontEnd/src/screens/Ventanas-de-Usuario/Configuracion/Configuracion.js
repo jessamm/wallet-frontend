@@ -45,13 +45,13 @@ const Configuracion = () => {
         console.log(data)
         //crear condicion y sustituir valores en BD
     };
-
+    /*
     const getUsers = async () => {
         const res = await fetch(`${API}/`);
         const data = await res.json();
         //setUsers(data); 
       };
-
+*/
     return (
         <>
         <div className="login-page" style={{ height: '100vh' }} >
