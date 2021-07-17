@@ -62,9 +62,7 @@ const Cuentas = () => {
                 </div>
             </header>
             <main className="main-main">
-                <div className="panel-header panel-header-sm">
-                    informacion fija del perfil se agregara posteriormente
-                </div>
+                <div className="panel-header panel-header-sm"></div>
 
                 <div className="content">
                     <div className="row-perfil">

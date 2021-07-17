@@ -42,7 +42,7 @@ const Login = () => {
         const data = await res.json();
         console.log(data.Session);
         if (data.Session == true){
-            window.location.href = "http://localhost:3000/main";
+            window.location.href = "http://localhost:3000/metas-planes";
 //--------------cambiar a la ventana Main--------------
             alert("Session Iniciada");
         }

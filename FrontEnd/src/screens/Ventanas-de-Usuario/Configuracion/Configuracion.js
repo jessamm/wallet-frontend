@@ -48,11 +48,6 @@ const Configuracion = () => {
         //crear condicion y sustituir valores en BD
     };
 
-    const getUsers = async () => {
-        const res = await fetch(`${API}/`);
-        const data = await res.json();
-        //setUsers(data); 
-    };
 
     const handelSutmitImagen = (e) => {
         let imagen = e.target.files[0];
@@ -63,6 +58,16 @@ const Configuracion = () => {
     const openDialogoImagen = () => {
         document.getElementById('input-img-perfil').click();
     }
+    /*
+    const getUsers = async () => {
+        const res = await fetch(`${API}/`);
+        const data = await res.json();
+        //setUsers(data); 
+    };
+
+
+      };
+*/
 
     return (
         <>
