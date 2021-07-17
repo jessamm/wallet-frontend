@@ -45,7 +45,6 @@ const MetasPlanes = () => {
                                 <div className="card">
                                     <div className="card-header">
                                         <h5 className="title">Metas creadas</h5>
-                                        <Link to="/crear-cuenta-ahorro" className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
                                     </div>
                                     <div className="card-body">
 

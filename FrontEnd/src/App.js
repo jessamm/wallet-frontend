@@ -19,6 +19,9 @@ import Administrador from './screens/Ventanas-de-Usuario/Administrador/Administr
 import CrearCuentaAhorro from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaAhorro';
 import CrearCuentaEfectivo from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaEfectivo';
 import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
+import GestionUsuarios from './screens/Ventanas-de-Usuario/Administrador/GestionUsuarios';
+import Bitacora from './screens/Ventanas-de-Usuario/Administrador/Bitacora';
+import CuentasPorAprobar from './screens/Ventanas-de-Usuario/Administrador/CuentasPorAprobar';
 
 
 const App = () => {
@@ -38,6 +41,9 @@ const App = () => {
       <Route exact path='/metas-planes' component={MetasPlanes}></Route>
       <Route exact path='/Estadistica' component={Estadistica}></Route>
       <Route exact path='/Administrador' component={Administrador}></Route>
+      <Route exact path='/gestion-usuarios' component={GestionUsuarios}></Route>
+      <Route exact path='/cuentas-por-aprobar' component={CuentasPorAprobar}></Route>
+      <Route exact path='/bitacora' component={Bitacora}></Route>
     </Router>
   )
 }

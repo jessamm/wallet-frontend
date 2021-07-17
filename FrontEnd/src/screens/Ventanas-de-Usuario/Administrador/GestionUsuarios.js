@@ -2,15 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import "./Main.css";
-/*
-import Grafica from '../Grafica/Grafica';
-import Cuentas from '../Cuentas/Cuentas';
-import Estadistica from '../Estadistica/Estadistica';*/
-//import finanzas from '../assets/img/finanzas.jpg';
 
-
-const Administrador = () => {
+const GestionUsuarios = () => {
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <header className="barra-lateral">
@@ -49,18 +42,25 @@ const Administrador = () => {
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="card-header">
-                                    <h3 className="text-center">Ventana Administrador</h3>
+                                    <h3 className="text-center">Gestion de usuarios</h3>
                                 </div>
                                 <div className="card-body">
+                                    <h3 >Listado de usuarios</h3>
+
+
+                                    <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#exampleModal">
+                                        Agreagr
+                                    </button>
+
                                     <table class="table table-sm mt-4">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
+                                                <th scope="col">Nombre</th>
                                                 <th scope="col">Nombre Usuario</th>
-                                                <th scope="col">Apellido Usuario</th>
                                                 <th scope="col">Correo</th>
                                                 <th scope="col">Fecha Creacion Cuenta</th>
-                                                <th scope="col">Ultimo inicio sesion</th>
+                                                <th scope="col">Admin</th>
                                                 <th scope="col">Eliminar</th>
 
                                             </tr>
@@ -79,6 +79,51 @@ const Administrador = () => {
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo usuario</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div>
+                                                        <div className="form-group">
+                                                            <label >Nombre</label>
+                                                            <input type="text" className="form-control" placeholder="Nombre" />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Apellido</label>
+                                                            <input type="text" className="form-control" placeholder="Apellido" />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label >Nombre de usuario</label>
+                                                            <input type="text" className="form-control" placeholder="Nombre Usuario" />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label >Correo</label>
+                                                            <input type="email" className="form-control" placeholder="Correo electronico" />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label >Contraseña</label>
+                                                            <input type="email" className="form-control" placeholder="Contraseña" />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label >Confirmar Contraseña</label>
+                                                            <input type="email" className="form-control" placeholder="Confirmar Contraseña" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-sm btn-primary">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -89,4 +134,4 @@ const Administrador = () => {
     )
 }
 
-export default Administrador;
+export default GestionUsuarios

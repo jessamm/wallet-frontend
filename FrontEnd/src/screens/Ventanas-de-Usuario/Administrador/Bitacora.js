@@ -2,15 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import "./Main.css";
-/*
-import Grafica from '../Grafica/Grafica';
-import Cuentas from '../Cuentas/Cuentas';
-import Estadistica from '../Estadistica/Estadistica';*/
-//import finanzas from '../assets/img/finanzas.jpg';
 
-
-const Administrador = () => {
+const Bitacora = () => {
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <header className="barra-lateral">
@@ -49,20 +42,19 @@ const Administrador = () => {
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="card-header">
-                                    <h3 className="text-center">Ventana Administrador</h3>
+                                    <h3 className="text-center">Bitacora</h3>
                                 </div>
-                                <div className="card-body">
+                                <div className="card-body container">
+                                    <h3 className="text-center">Lista de actividad</h3>
+
+
                                     <table class="table table-sm mt-4">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Nombre Usuario</th>
-                                                <th scope="col">Apellido Usuario</th>
-                                                <th scope="col">Correo</th>
-                                                <th scope="col">Fecha Creacion Cuenta</th>
-                                                <th scope="col">Ultimo inicio sesion</th>
-                                                <th scope="col">Eliminar</th>
-
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Tipo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,11 +63,6 @@ const Administrador = () => {
                                                 <td>XXXX XXXX</td>
                                                 <td>XXXX XXXX</td>
                                                 <td>XXX@XXX.com</td>
-                                                <td>XX/xX/XX</td>
-                                                <td>XX/XX/XX</td>
-                                                <th scope="col">
-                                                    <button className="btn btn-sm btn-danger" >Eliminar</button>
-                                                </th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -89,4 +76,4 @@ const Administrador = () => {
     )
 }
 
-export default Administrador;
+export default Bitacora
