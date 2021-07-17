@@ -18,6 +18,7 @@ import Administrador from './screens/Ventanas-de-Usuario/Administrador/Administr
 
 import CrearCuentaAhorro from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaAhorro';
 import CrearCuentaEfectivo from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaEfectivo';
+import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
       <Route exact path='/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route>
       <Route path='/main' component={Main}></Route>
       <Route exact path='/configuracion' component={Configuracion}></Route>
+      <Route exact path='/metas-planes' component={MetasPlanes}></Route>
       <Route exact path='/Estadistica' component={Estadistica}></Route>
       <Route exact path='/Administrador' component={Administrador}></Route>
     </Router>
