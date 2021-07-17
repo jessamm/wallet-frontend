@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS bank_account(
     validation_digits VARCHAR(5) COMMENT 'Numero de validacion para tarjetas.',
     number_account VARCHAR(15) COMMENT 'Numero de cuenta.',
     id_user INT, 
-    mount NUMERIC(6,2) COMMENT 'Monto total que tendra la cuenta.',
+    mount FLOAT COMMENT 'Monto total que tendra la cuenta.',
     type_bank ENUM('Credito','Debito','Ahorro'),
     FOREIGN KEY (id_user) REFERENCES `user`(id)
 );
