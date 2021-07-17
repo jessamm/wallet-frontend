@@ -22,12 +22,10 @@ const CuentasPorAprobar = () => {
                     {/*<!-- .nav-menu -->*/}
                     <nav className="navbar nav-menu navbar">
                         <ul>
-                            <li><Link to="/Administrador" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Inicio</span></Link></li>
                             <li><Link to="/gestion-usuarios" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Gestion Usuario</span></Link></li>
                             <li><Link to="/bitacora" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Bitacora</span></Link></li>
                             <li><Link to="/cuentas-por-aprobar" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Cuentas por aprobar</span></Link></li>
                             <li><Link to="/Administrador" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span className="m-2" >Configuracion</span></Link></li>
-                            <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span className="m-2" >Cerrar Sesion</span></Link></li>
                         </ul>
                     </nav>{/*<!-- .nav-menu -->*/}
                 </div>
@@ -60,14 +58,14 @@ const CuentasPorAprobar = () => {
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>
-                                                    <div class="input-group-text">
+
                                                     <button className="btn btn-sm btn-success" >Aprobar</button>
-                                                    </div>
+
                                                 </td>
                                                 <td>
-                                                    <div class="input-group-text">
+
                                                     <button className="btn btn-sm btn-danger" >Denegar</button>
-                                                    </div>
+
                                                 </td>
                                                 <td>XXX@XXX.com</td>
                                                 <td>XX/xX/XX</td>
