@@ -21,7 +21,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();  
 
-        if (Usuario.trim() === "" || Contraseña.trim() === "") {
+        if (email.trim() === "" || password.trim() === "") {
             handleError(true);
             return;
         }
@@ -105,11 +105,6 @@ const Login = () => {
                                                 </div>
                                                 <input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
                                             </div>
-                                            {errorEmail ? (
-                                                <p className="alert alert-danger error-p text-white">
-                                                    El correo ingresado no es valido!!!
-                                                </p>
-                                            ) : null}
                                         </div>
                                         <div className="form-group focused">
                                             <div className="input-group input-group-alternative">
