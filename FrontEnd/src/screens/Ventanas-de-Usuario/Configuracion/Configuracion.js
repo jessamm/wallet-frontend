@@ -12,6 +12,9 @@ const Configuracion = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [imagen, setImagen] = useState(null);
+    const [contraseña, setContraseña] = useState('');
+    const [contraseñaNueva, setContraseñaNueva] = useState('');
+    const [confirmar, setConfirmar] = useState('');
     const [last_name, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [nameImage, setNameImage] = useState('')
@@ -57,6 +60,21 @@ const Configuracion = () => {
 
     const openDialogoImagen = () => {
         document.getElementById('input-img-perfil').click();
+    }
+
+    const actualizarContrasena = () =>{
+        if (contraseñaNueva !== confirmar) {
+            console.log('NO hacer la peticion');
+        } else {
+            console.log('hacer la peticion');
+
+            let data = {
+                contraseña,
+                confirmar,
+                contraseñaNueva
+            }
+            console.log(data)
+        }
     }
     /*
     const getUsers = async () => {
@@ -151,16 +169,25 @@ const Configuracion = () => {
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Contraseña</label>
-                                                        <input placeholder="Contraseña" type="password" className="form-control" onChange={(e) => setPassword(e.target.value)}></input>
+                                                        <input placeholder="Contraseña" type="password" className="d-none form-control" onChange={(e) => setPassword(e.target.value)}></input>
+                                                        <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                            Actualiza contraseña
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-md-12">
+                                                <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Direccion</label>
                                                         <input placeholder="Direccion" type="text" className="form-control" onChange={(e) => setDireccion(e.target.value)}></input>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label>Telefono</label>
+                                                        <input placeholder="Numero de telefono" type="text" className="form-control"></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -241,7 +268,44 @@ const Configuracion = () => {
                                         <i className="fab fa-google-plus-g"></i>
                                     </a>
                                 </div>
+                                
  */}
+
+                                    <div>
+                                        {/* Button trigger modal */}
+
+                                        {/* Modal */}
+                                        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">Actualizar contraseña</h5>
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="form-group">
+                                                            <label>Contraseña anterior</label>
+                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseña(e.target.value)} type="password" className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Contraseña nueva</label>
+                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Confirmar Contraseña</label>
+                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" onClick={actualizarContrasena} className="btn btn-sm btn-primary">Actualizar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
