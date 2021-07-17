@@ -15,9 +15,19 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    //State oara llenado
+    const [error, handleError] = useState(false);
+
     const handleSubmit = async (e) => {
-        e.preventDefault();   
-        
+        e.preventDefault();  
+
+        if (Usuario.trim() === "" || Contraseña.trim() === "") {
+            handleError(true);
+            return;
+        }
+      
+        handleError(false);
+
         const json_data = {
             'user': email,
             'password':password
@@ -95,6 +105,11 @@ const Login = () => {
                                                 </div>
                                                 <input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
                                             </div>
+                                            {errorEmail ? (
+                                                <p className="alert alert-danger error-p text-white">
+                                                    El correo ingresado no es valido!!!
+                                                </p>
+                                            ) : null}
                                         </div>
                                         <div className="form-group focused">
                                             <div className="input-group input-group-alternative">
@@ -104,6 +119,11 @@ const Login = () => {
                                                 <input className="form-control" placeholder="Contraseña" type="password" onChange={(e) => setPassword(e.target.value)}/>
                                             </div>
                                         </div>
+                                        {error ? (
+                                        <p className="alert alert-danger error-p text-white">
+                                            La contraseña no puede estar vacia
+                                        </p>
+                                        ) : null}
                                         <div className="custom-control custom-control-alternative custom-checkbox">
                                             <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
                                             <label className="custom-control-label" htmlFor=" customCheckLogin"><span>Recuérdame</span></label>
