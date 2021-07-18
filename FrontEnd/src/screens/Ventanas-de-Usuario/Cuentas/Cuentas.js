@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../Configuracion/Configuracion.css";
 
 const Cuentas = () => {
 
     const [cuentasAhorro, setCuentasAhorro] = useState([]);
     const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
+    const [saldoMesAnterior,setSaldoMesAnterior]=useState("");
+    const [saldoActual,setSaldoActual]=useState("");
+    const [nombreBanco,setNombreBanco]=useState("");
+    
 
 
     const obtenerCuentasAhorro = async () => {
@@ -70,7 +75,9 @@ const Cuentas = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <h5 className="title">Cuentas de Ahorro </h5>
-                                    <Link to="/crear-cuenta-ahorro" className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
+                                        <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#cuentaahorro">
+                                            Agregar Cuenta
+                                        </button>
                                 </div>
                                 <div className="card-body">
 
@@ -113,7 +120,9 @@ const Cuentas = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <h5 className="title">Cuentas de efectivo</h5>
-                                    <Link to="/crear-cuenta-efectivo" className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
+                                    <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#cuentaefectivo">
+                                            Agregar Cuenta
+                                    </button>
                                 </div>
                                 <div className="card-body">
                                     <table class="table table-sm mt-4">
@@ -149,6 +158,71 @@ const Cuentas = () => {
                                     </table>
                                 </div>
                             </div>
+                        </div>
+
+
+
+
+                     {/* Modal */}
+                     <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Cuenta de ahorro</h5>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>                                                </button>
+                                                </div>
+                                                    <div className="modal-body">
+                                                        <div className="form-group">
+                                                            <label>Nombre del banco</label>
+                                                            <input placeholder="Ingrese el nombre del banco"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Saldo Mes Anterior</label>
+                                                            <input placeholder="Ingrese saldo mes anterior"  onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Saldo Actual</label>
+                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" className="btn btn-sm btn-primary">Agregar</button>
+                                                    </div>
+                                    </div>
+                                </div>
+                        </div>
+
+
+                        <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Cuenta en efectivo</h5>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>                                                </button>
+                                                </div>
+                                                    <div className="modal-body">
+                                                        <div className="form-group">
+                                                            <label>Categoria</label>
+                                                            <input placeholder="Ingrese el nombre del banco"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Saldo Mes Anterior</label>
+                                                            <input placeholder="Ingrese saldo mes anterior"  onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Saldo Actual</label>
+                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" className="btn btn-sm btn-primary">Agregar</button>
+                                                    </div>
+                                    </div>
+                                </div>
                         </div>
 
 
