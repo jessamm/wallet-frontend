@@ -1,3 +1,4 @@
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 # import openpyxl
@@ -24,77 +25,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:5001"}})
 
 # Routes
-# Devuelve las metas del usuario en especifico.?=
-@app.route('/get-goals', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def get_goals():
-  json_data = request.json
-  user = json_data["user"]
-  goals = SQLEngine.db_select(f"SELECT * FROM goal_line WHERE id_user = '{user}';")
-  return jsonify(goals)
-
-
-# Devuelve los planes del usuario en especifico.?=
-@app.route('/get-planning', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def get_planning():
-  json_data = request.json
-  user = json_data["user"]
-  planning = SQLEngine.db_select(f"SELECT * FROM planning_line WHERE id_user = '{user}';")
-  return jsonify(planning)
-
-
-# inserta una meta nueva al usuario en especifico.?=
-@app.route('/set-goals', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def set_goals():
-  json_data = request.json
-  id_user = json_data.get('id_user')
-  date_end = json_data.get('date_end')
-  id_categorie = json_data.get('id_categorie')
-  mount_limit = json_data.get('mount_limit')
-  print('esta es la fecha------->',date_end)
-  SQLEngine.db_insert(f"insert into goal_line(id_user,date_end,id_categorie,mount_limit) values ({id_user},'{date_end}',{id_categorie},{mount_limit});;")
-  return jsonify(True)
-
-
-# inserta un plan nueva al usuario en especifico.?=
-@app.route('/set-planning', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def set_planning():
-  json_data = request.json
-  id_user = json_data.get('id_user')
-  date_end = json_data.get('date_end')
-  id_categorie = json_data.get('id_categorie')
-  mount_limit = json_data.get('mount_limit')
-  print('esta es la fecha------->',date_end)
-  SQLEngine.db_insert(f"insert into planning_line(id_user,date_end,id_categorie,mount_limit) values ({id_user},'{date_end}',{id_categorie},{mount_limit});")
-  return jsonify(True)
-
-@app.route('/total-user', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def total_user():
-  user = SQLEngine.db_select(f"select * from user;")
-  return jsonify(user)
-
-
-@app.route('/total-binnacle', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def total_binnacle():
-  binnacle = SQLEngine.db_select(f"select * from binnacle;")
-  return jsonify(binnacle)
-
-@app.route('/account-validation', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def account_validation():
-  # json_data = request.json
-  # id_user = json_data.get('id_user')
-  # SQLEngine.db_update(f"select * from bank_account;")
-  return jsonify(True)
-
-
-
-
 @app.route('/login', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def login():
