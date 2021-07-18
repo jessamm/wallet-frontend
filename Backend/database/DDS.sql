@@ -62,11 +62,15 @@ CREATE TABLE IF NOT EXISTS goal(
 -- un gasto maximo.
 CREATE TABLE IF NOT EXISTS goal_line (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    id_user INT,
     id_goal INT,
+    date_init TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de inicio',
+    date_end TIMESTAMP COMMENT 'Fecha de finalizacion',
     id_categorie INT,
     mount_limit FLOAT COMMENT 'limite de gasto de la meta',
     mount_actual FLOAT COMMENT 'Saldo actual gastado',
     FOREIGN KEY (id_goal) REFERENCES goal(id),
+    FOREIGN KEY (id_user) REFERENCES `user`(id),
     FOREIGN KEY (id_categorie) REFERENCES categorie(id)
 );
 
@@ -96,10 +100,14 @@ CREATE TABLE IF NOT EXISTS planning(
 CREATE TABLE IF NOT EXISTS planning_line (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
     id_goal INT,
+    id_user INT,
     id_categorie INT,
+    date_init TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de inicio',
+    date_end TIMESTAMP COMMENT 'Fecha de finalizacion',
     mount_limit FLOAT COMMENT 'limite de gasto de la meta',
     mount_actual FLOAT COMMENT 'Saldo actual gastado',
     FOREIGN KEY (id_goal) REFERENCES goal(id),
+    FOREIGN KEY (id_user) REFERENCES `user`(id),
     FOREIGN KEY (id_categorie) REFERENCES categorie(id)
 );
 
@@ -111,7 +119,7 @@ CREATE TABLE IF NOT EXISTS binnacle (
     date_operation TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de la operacion',
     description_operation VARCHAR(255) COMMENT 'Breve descripcion de la operacion, adjuntar montos y categoria en la cual se efectuo.',
     type_operation ENUM('Registro de gasto','Registro de ahorro'),
-    FOREIGN KEY (id_user) REFERENCES user(id)
+    FOREIGN KEY (id_user) REFERENCES `user`(id)
 );
 
 -- new version 2.1
