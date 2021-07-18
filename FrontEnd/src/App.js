@@ -22,6 +22,7 @@ import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
 import GestionUsuarios from './screens/Ventanas-de-Usuario/Administrador/GestionUsuarios';
 import Bitacora from './screens/Ventanas-de-Usuario/Administrador/Bitacora';
 import CuentasPorAprobar from './screens/Ventanas-de-Usuario/Administrador/CuentasPorAprobar';
+//import ConfigAdmin from './screens/Ventanas-de-Usuario/Administrador/Config-Admin';
 
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
       <Route exact path='/gestion-usuarios' component={GestionUsuarios}></Route>
       <Route exact path='/cuentas-por-aprobar' component={CuentasPorAprobar}></Route>
       <Route exact path='/bitacora' component={Bitacora}></Route>
+      {/**<Route exact path='/configAdmi' component={configAdmi}></Route>*/}
     </Router>
   )
 }

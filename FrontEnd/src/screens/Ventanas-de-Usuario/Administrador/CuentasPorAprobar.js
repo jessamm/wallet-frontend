@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const API = process.env.REACT_APP_API;
+
 const CuentasPorAprobar = () => {
+    //nombre apellido, fecha, ¿Estado?
+    const [datos, setDatos] = useState([]);
+    
+    const obtenerDatos = async () => {
+        const response = await fetch('');
+        
+        //if (response.status === ){
+            const body = await response.json();
+            setDatos(body)
+        //}
+    }
+    useEffect(() =>{
+        //obtenerDatos
+    }, [])
+
+    //datos usuario || foto, nombre apellido
+    const [datosUsuario, setDatosUsuario] = useState([]);
+    const obtenerDatosUsuario = async () => {
+        const response = await fetch('');
+        
+        //if (response.status === ){
+            const body = await response.json();
+            //setDatosUsuario(body)
+       //} */
+    }
+    useEffect(() =>{
+        //obtenerDatosUsuario();
+    }, [])
+
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <header className="barra-lateral">
@@ -11,8 +42,8 @@ const CuentasPorAprobar = () => {
 
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">@Nombre Usuario</Link></h1>
+                        <img src={datosUsuario.foto} className="span-img-profile rounded-circle img-fluid" alt="" />
+                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{datosUsuario.name} {datosUsuario.last_name}</Link></h1>
                         <div className="social-links mt-3 text-center">
                             <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
                             <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
@@ -55,22 +86,24 @@ const CuentasPorAprobar = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>
-
-                                                    <button className="btn btn-sm btn-success" >Aprobar</button>
-
-                                                </td>
-                                                <td>
-
-                                                    <button className="btn btn-sm btn-danger" >Denegar</button>
-
-                                                </td>
-                                                <td>XXX@XXX.com</td>
-                                                <td>XX/xX/XX</td>
-                                                <td>XX/XX/XX</td>
-                                            </tr>
+                                            {
+                                                datos.map((datos, key)=>{
+                                                    return (
+                                                    <tr>
+                                                        <th scope="row">{key++}</th>
+                                                        <td>
+                                                            <button className="btn btn-sm btn-success" >Aprobar</button>
+                                                        </td>
+                                                        <td>
+                                                            <button className="btn btn-sm btn-danger" >Denegar</button>
+                                                        </td>
+                                                        <td>{datos.name}</td>
+                                                        <td>{datos.Fecha}</td>
+                                                        <td>{datos.Estado}</td>
+                                                    </tr>
+                                                    )
+                                                })
+                                            } 
                                         </tbody>
                                     </table>
                                     <button className="btn btn-sm btn-primary m-2" >Guardar</button>
