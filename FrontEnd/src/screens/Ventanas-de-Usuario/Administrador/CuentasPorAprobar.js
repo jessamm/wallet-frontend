@@ -10,30 +10,29 @@ const CuentasPorAprobar = () => {
     const [datos, setDatos] = useState([]);
     
     const obtenerDatos = async () => {
-        const response = await fetch('');
+        const response = await fetch(`${API}/account-validation`);
         
-        //if (response.status === ){
+        if (response.status){
             const body = await response.json();
             setDatos(body)
-        //}
+        }
     }
-    useEffect(() =>{
-        //obtenerDatos
-    }, [])
 
     //datos usuario || foto, nombre apellido
     const [datosUsuario, setDatosUsuario] = useState([]);
     const obtenerDatosUsuario = async () => {
-        const response = await fetch('');
+        const response = await fetch(`${API}/login`);
         
-        //if (response.status === ){
+        if (response.status){
             const body = await response.json();
-            //setDatosUsuario(body)
-       //} */
+            setDatosUsuario(body)
+        }
     }
     useEffect(() =>{
-        //obtenerDatosUsuario();
+        obtenerDatos();
+        obtenerDatosUsuario();
     }, [])
+
 
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -97,9 +96,9 @@ const CuentasPorAprobar = () => {
                                                         <td>
                                                             <button className="btn btn-sm btn-danger" >Denegar</button>
                                                         </td>
-                                                        <td>{datos.name}</td>
-                                                        <td>{datos.Fecha}</td>
-                                                        <td>{datos.Estado}</td>
+                                                        <td>{datos.name} {datos.last_name}</td>
+                                                        <td>{/**crear fecha creacion de cuenta */}</td>
+                                                        <td>Pendiente</td>
                                                     </tr>
                                                     )
                                                 })

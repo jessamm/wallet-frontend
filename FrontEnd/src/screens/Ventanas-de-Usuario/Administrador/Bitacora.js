@@ -10,30 +10,28 @@ const Bitacora = () => {
     const [datosBitacora, setdatosBitacora] = useState([]);
 
     const obtenerBitacora = async () => {
-        const response = await fetch('');
-        
-        //if (response.status === ){
+        const response = await fetch(`${API}/total-binnacles`);
+        if (response.status){
             const body = await response.json();
             setdatosBitacora(body)
-       //} */
+        }
     }
-    useEffect(() =>{
-        //obtenerBitacora();
-    }, [])
 
     //datos usuario || foto, nombre apellido
     const [datosUsuario, setDatosUsuario] = useState([]);
     const obtenerDatosUsuario = async () => {
-        const response = await fetch('');
+        const response = await fetch(`${API}/login`);
         
-        //if (response.status === ){
+        if (response.status){
             const body = await response.json();
-            //setDatosUsuario(body)
-       //} */
+            setDatosUsuario(body)
+        }
     }
     useEffect(() =>{
-        //obtenerDatosUsuario();
+        obtenerBitacora();
+        obtenerDatosUsuario();
     }, [])
+
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <header className="barra-lateral">
@@ -93,9 +91,9 @@ const Bitacora = () => {
                                                         <tr>
                                                             <th scope="row">{key++}</th>
                                                             <td>{datos.name} {datos.last_name}</td>
-                                                            <td>{datos.Correo}</td>
-                                                            <td>{datos.fecha}</td>
-                                                            <td>{datos.tipo}</td>
+                                                            <td>{datos.email}</td>
+                                                            <td>{datos.date_operation}</td>
+                                                            <td>{datos.type_operation}</td>
                                                         </tr>
                                                     )
                                                 })

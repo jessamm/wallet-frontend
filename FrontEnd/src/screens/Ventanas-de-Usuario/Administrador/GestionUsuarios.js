@@ -10,30 +10,27 @@ const GestionUsuarios = () => {
     const [datosGestion, setGestionDatos] = useState([]);
 
     const obtenerDatosGestion = async () => {
-        const response = await fetch('');
-        
-        //if (response.status === ){
+        const response = await fetch(`${API}/total-user`);
+        if (response.status){
             const body = await response.json();
             setGestionDatos(body)
-       //} */
+       } 
     }
     useEffect(() =>{
-        //obtenerDatosUsuario();
+        obtenerDatosGestion();
+        obtenerDatosUsuario();
     }, [])
 
     //datos usuario || foto, nombre apellido
     const [datosUsuario, setDatosUsuario] = useState([]);
     const obtenerDatosUsuario = async () => {
-        const response = await fetch('');
+        const response = await fetch(`${API}/login`);
         
-        //if (response.status === ){
+        if (response.status){
             const body = await response.json();
-            //setDatosUsuario(body)
-       //} */
+            setDatosUsuario(body)
+        }
     }
-    useEffect(() =>{
-        //obtenerDatosUsuario();
-    }, [])
     
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -76,11 +73,6 @@ const GestionUsuarios = () => {
                                 <div className="card-body">
                                     <h3 >Listado de usuarios</h3>
 
-
-                                    <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#exampleModal">
-                                        Agregar
-                                    </button>
-
                                     <table class="table table-sm mt-4">
                                         <thead>
                                             <tr>
@@ -103,8 +95,8 @@ const GestionUsuarios = () => {
                                                             <td>{datos.name}</td>
                                                             <td>{datos.last_name}</td>
                                                             <td>{datos.email}</td>
-                                                            <td>{datos.fechaCreacion}</td>
-                                                            <td>{datos.admi}</td>
+                                                            <td>{/**no hay fecha de creacion de usuario */}</td>
+                                                            <td>{/** */}</td>
                                                             <th scope="col">
                                                                 <button className="btn btn-sm btn-danger" >Eliminar</button>
                                                             </th>
@@ -114,51 +106,6 @@ const GestionUsuarios = () => {
                                             }
                                         </tbody>
                                     </table>
-
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo usuario</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div>
-                                                        <div className="form-group">
-                                                            <label >Nombre</label>
-                                                            <input type="text" className="form-control" placeholder="Nombre" />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Apellido</label>
-                                                            <input type="text" className="form-control" placeholder="Apellido" />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label >Nombre de usuario</label>
-                                                            <input type="text" className="form-control" placeholder="Nombre Usuario" />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label >Correo</label>
-                                                            <input type="email" className="form-control" placeholder="Correo electronico" />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label >Contraseña</label>
-                                                            <input type="email" className="form-control" placeholder="Contraseña" />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label >Confirmar Contraseña</label>
-                                                            <input type="email" className="form-control" placeholder="Confirmar Contraseña" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-sm btn-primary">Guardar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

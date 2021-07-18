@@ -10,40 +10,37 @@ const MetasPlanes = () => {
     const [datosMetas, setDatosMetas] = useState([]);
     const [planAhorro, setPlanAhorro] = useState([]);
 
-    //imprimir datos de las tablas
     const obtenerDatosMetas = async () => {
-        const response = await fetch('');
-        /**
-        if (response.status === ){
+        const response = await fetch(`${API}/get-goals`);
+        if (response.status){
             const body = await response.json();
-            setDatosMetas(body)
-        } */
+            setDatosMetas(body);
+        }
     }
     const obtenerPlanAhorro = async () => {
-        const response = await fetch('');
-        /**
-        if (response.status === ){
+        const response = await fetch(`${API}/get-planning`);
+        if (response.status){
             const body = await response.json();
-            setPlanAhorro(body)
-        } */
+            setPlanAhorro(body);
+        }
     }
     useEffect(() =>{
-        //obtenerDatosMetas();
-        //obtenerPlanAhorro
+        obtenerDatosMetas();
+        obtenerPlanAhorro();
     }, [])
 
-    //mandar datos a la base
-    const [categorie, setCategorie] = useState("");
-    const [limite, setLimite] = useState("");
-    const [fechaInicial, setFechaInicial] = useState("");
-    const [nameMeta, setNameMeta] = useState("");
-    //state del error   
+    //METAS de gasto
+    const [id_categorie, setId_categorie] = useState("");
+    const [mount_limit, setMount_limit] = useState("");
+    const [date_end, setDate_end] = useState("");
+    const [nameMeta, setNameMeta] = useState("");//agregar a la base el nombre de las metas
+
     const [errorLlenado, handleError] = useState(false);
 
     const handleSubmitMetas = async (e) => {
         e.preventDefault();
 
-        if(categorie.trim() === "" || limite.trim()==="" || fechaInicial === "" || nameMeta.trim()===""){
+        if(id_categorie.trim() === "" || mount_limit.trim()==="" || date_end === "" || nameMeta.trim()===""){
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -51,30 +48,33 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'categorie': categorie,
-            'limite': limite,
-            'fechaInicial':fechaInicial,
+            'id_categorie': id_categorie,
+            'mount_limit': mount_limit,
+            'date_end': date_end,
             'nameMeta': nameMeta
         };
 
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/set-goals`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(json_data),
         });
-
-        const data = await res.json();
+        //const data = await res.json();
         //console.log(data.Session);
+        if(res.status){
+            const data = await res.json();
+            console.log(data.Session);
+        }
     };
-    //categoire esta arriba
-    const [cuentaAhorrar, setCuentaAhorrar] = useState("");
-    const [fechaInicialAhorro, setFechaInicialAhorro] = useState("");
-    const [nameAhorro, setNameAhorro] = useState("");
+    //AHORROS
+    //se usa id categorie y mount limit de arriba date end
+    const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
+
 
     const handleSubmitAhorro = async (e) => {
         e.preventDefault();
 
-        if(categorie.trim() === "" || cuentaAhorrar.trim()==="" || fechaInicialAhorro === "" || nameAhorro.trim()===""){
+        if(id_categorie.trim() === "" || mount_limit.trim()==="" || date_end === "" || nameAhorro.trim()===""){
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -82,20 +82,22 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'categorie': categorie,
-            'cuentaAhorrar': cuentaAhorrar,
-            'fechaInicialAhorro':fechaInicialAhorro,
+            'id_categorie': id_categorie,
+            'mount_limit': mount_limit,
+            'date_end': date_end,
             'nameAhorro': nameAhorro
         };
 
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/set-planning`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(json_data),
         });
 
-        const data = await res.json();
-        //console.log(data.Session);
+        if(res.status){
+            const data = await res.json();
+            console.log(data.Session);
+        };
     };
 
     return (
@@ -144,10 +146,11 @@ const MetasPlanes = () => {
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Fecha</th>
-                                                    <th scope="col">Maximo</th>
-                                                    <th scope="col">Gastos</th>
+                                                    <th scope="col">Nombre Usuario</th>
+                                                    <th scope="col">Fecha Inicio</th>
+                                                    <th scope="col">Categoria</th>
+                                                    <th scope="col">Maximo a Gastar</th>
+                                                    <th scope="col">Gastos Actuales</th>
                                                     <th scope="col">Eliminar</th>
                                                 </tr>
                                             </thead>
@@ -157,10 +160,11 @@ const MetasPlanes = () => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{datos.name}</td>
-                                                                <td>{datos.fecha}</td>
-                                                                <td>L {datos.maximo}</td>
-                                                                <td>L {datos.gastos}</td>
+                                                                <td>{datos.name} {datos.last_name}</td>
+                                                                <td>{datos.date_init}</td>
+                                                                <td>{datos.id_categorie}</td>
+                                                                <td>L {datos.mount_limit}</td>
+                                                                <td>L {datos.mount_actual}</td>
                                                                 <th scope="col">
                                                                     <button className="btn btn-sm btn-danger" >Eliminar</button>
                                                                 </th>
@@ -191,10 +195,10 @@ const MetasPlanes = () => {
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Fecha</th>
-                                                    <th scope="col">Objetivo</th>
-                                                    <th scope="col">Actual</th>
+                                                    <th scope="col">Nombre Usuario</th>
+                                                    <th scope="col">Fecha Inicio</th>
+                                                    <th scope="col">Fecha Final</th>
+                                                    <th scope="col">Monto Actual</th>
                                                     <th scope="col">Eliminar</th>
 
                                                 </tr>
@@ -205,10 +209,10 @@ const MetasPlanes = () => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{datos.name}</td>
-                                                                <td>{datos.fecha}</td>
-                                                                <td>L {datos.goal}</td>
-                                                                <td>L {datos.balance}</td>
+                                                                <td>{datos.name} {datos.last_name}</td>
+                                                                <td>{datos.date_init}</td>
+                                                                <td>L {datos.date_end}</td>
+                                                                <td>L {datos.mount_actual}</td>
                                                                 <th scope="col">
                                                                     <button className="btn btn-sm btn-danger" >Eliminar</button>
                                                                 </th>
@@ -248,19 +252,19 @@ const MetasPlanes = () => {
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" />
+                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Cuenta ahorrar</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" />
+                                        <label htmlFor="formGroupExampleInput2">Limite</label>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Fecha Final</label>
-                                        <input type="date" className="form-control" id="formGroupExampleInput2" />
+                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Nombre</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" />
+                                        <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)}/>
                                     </div>
                                 </div>
                             </div>
@@ -295,18 +299,18 @@ const MetasPlanes = () => {
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setCategorie(e.target.value)}/>
+                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setLimite(e.target.value)}/>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Fecha Inicial</label>
-                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setFechaInicial(e.target.value)} />
+                                        <label htmlFor="formGroupExampleInput2">Fecha Final</label>
+                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Nombre</label>
+                                        <label htmlFor="formGroupExampleInput2">Nombre Meta</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameMeta(e.target.value)} />
                                     </div>
                                 </div>
