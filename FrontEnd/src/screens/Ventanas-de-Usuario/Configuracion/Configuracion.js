@@ -25,6 +25,7 @@ const Configuracion = () => {
     const [codigoPostal, setCodigoPostal] = useState("");
     const [descripccion, setDescripccion] = useState("");
     const [telefono, setTelefono] = useState("")
+    const [urlImagen, setUrlImage]=useState("")
     /*falta implementacion dinamica en imput*/
     const handleSubmitActualizar = async (e) => {
         e.preventDefault();
@@ -48,15 +49,40 @@ const Configuracion = () => {
         });
 
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         //crear condicion y sustituir valores en BD
     };
 
+    
 
     const handelSutmitImagen = (e) => {
         let imagen = e.target.files[0];
         setImagen(imagen);
         setNameImage(imagen.name);
+    }
+
+    const subirImagen=async(e)=>{
+        let formData=new FormData();
+        let imagen=e.target.files[0];
+        let uploadPreset='h7gfbvl6';
+        let urlApiImagen='https://api.cloudinary.com/v1_1/dnnfs5ttk/image/upload';
+        formData.append('file',imagen);
+        formData.append('upload_preset',uploadPreset);  
+        
+        const response= await fetch(urlApiImagen,{
+            method:'POST',
+            body: formData
+        });
+
+        const body= await response.json();
+        const {url}=body;
+
+        const res =await fetch('Direccion de su endepoing para visualizar la foto',{
+            method:'PUT',
+            body: JSON.stringify({urlFoto: url})
+        });
+        const bodyFoto=await res.json();
+        console.log(bodyFoto);
     }
 
     const openDialogoImagen = () => {
@@ -97,6 +123,7 @@ const Configuracion = () => {
                         <div className="profile">
                             {/*<img src="assets/img/profile-img.jpg" alt="" className="img-fluid rounded-circle">*/}
                             <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
+                            
                             <h1 className="text-light"><Link to="/Main" className="navbar-a-header-pro">Nombre Usuario</Link></h1>
                             <div className="social-links mt-3 text-center">
                                 <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
@@ -134,7 +161,7 @@ const Configuracion = () => {
                                                 <div className="pr-1 col-md-6">
                                                     <div className="form-group">
                                                         <label>Imagen perfil</label>
-                                                        <input onChange={handelSutmitImagen} className="d-none" type="file" id="input-img-perfil" />
+                                                        <input onChange={subirImagen} className="d-none" type="file" id="input-img-perfil" />
                                                         <input disabled="" placeholder="img" type="text" className="form-control d-none"></input>
                                                         <div className="alert subir-img" role="alert" onClick={openDialogoImagen} >
                                                             <p className="text-dark text-sm" >
