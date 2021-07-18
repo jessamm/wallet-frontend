@@ -24,10 +24,10 @@ const Configuracion = () => {
     const [pais, setPais] = useState("");
     const [codigoPostal, setCodigoPostal] = useState("");
     const [descripccion, setDescripccion] = useState("");
+    const [telefono, setTelefono] = useState("")
     /*falta implementacion dinamica en imput*/
     const handleSubmitActualizar = async (e) => {
         e.preventDefault();
-
         const json_data = {
             'email': email,
             'name': name,
@@ -37,7 +37,8 @@ const Configuracion = () => {
             'ciudad': ciudad,
             'pais': pais,
             'codigoPostal': codigoPostal,
-            'descripcion': descripccion
+            'descripcion': descripccion,
+            'telefono':telefono
         }
 
         const res = await fetch(`${API}/`, {
@@ -187,7 +188,7 @@ const Configuracion = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Telefono</label>
-                                                        <input placeholder="Numero de telefono" type="text" className="form-control"></input>
+                                                        <input placeholder="Numero de telefono" type="text" className="form-control" onChange={(e)=>setTelefono(e.target.value)}></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,7 +225,9 @@ const Configuracion = () => {
                                             </div>
 
                                             <div className="text-center">
-                                                <button type="button" className="btn btn-primary my-4" onClick={handleSubmitActualizar}>Actualizar Perfil</button>
+                                                <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal1">
+                                                            Actualizar Perfil
+                                                        </button>
                                             </div>
                                         </form>
                                     </div>
@@ -287,15 +290,71 @@ const Configuracion = () => {
                                                     <div className="modal-body">
                                                         <div className="form-group">
                                                             <label>Contraseña anterior</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseña(e.target.value)} type="password" className="form-control" ></input>
+                                                            <input placeholder="Codigo Postal" onChange={(e) => setContraseña(e.target.value)} type="password" className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Contraseña nueva</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
+                                                            <input placeholder="Codigo Postal" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Confirmar Contraseña</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
+                                                            <input placeholder="Codigo Postal" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" onClick={actualizarContrasena} className="btn btn-sm btn-primary">Actualizar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="modal fade" id="exampleModal1" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">Actualizar Perfil</h5>
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="form-group">
+                                                            <label>Correo Electronico</label>
+                                                            <input placeholder="Ingrese su correo electronico" onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Nombre</label>
+                                                            <input placeholder="Ingrese su nombre" onChange={(e) => setName(e.target.value)} type="text"  className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Apellido</label>
+                                                            <input placeholder="Ingrese su apellido" onChange={(e) => setLastName(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Direccion</label>
+                                                            <input placeholder="Ingrese su direccion" onChange={(e) => setDireccion(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Telefono</label>
+                                                            <input placeholder="Ingrese su numero de telefono"  onChange={(e) => setTelefono(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Ciudad</label>
+                                                            <input placeholder="Ingrese su cuidad"  onChange={(e) => setCiudad(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Pais</label>
+                                                            <input placeholder="Ingrese su Pais"  onChange={(e) => setPais(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Codigo Postal</label>
+                                                            <input placeholder="Ingrese su codigo Postal"  onChange={(e) => setCodigoPostal(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Descripcion del perfil</label>
+                                                            <textarea placeholder="Descripcion del perfil"  onChange={(e) => setDescripccion(e.target.value)} type="text"  className="form-control"></textarea>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
@@ -315,5 +374,4 @@ const Configuracion = () => {
         </>
     );
 }
-
 export default Configuracion;
