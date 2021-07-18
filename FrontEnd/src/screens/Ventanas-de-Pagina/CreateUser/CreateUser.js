@@ -16,8 +16,38 @@ const CreateUser = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    
+    //State para el error de llenado:
+    const [error, handleError] = useState(false);
+    //State para validacion del correo:
+    const [errorEmail, handleErrorEmail] = useState(false);
+
+    //funcion validar email
+    const validarEmail = () => {
+        const patron = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (patron.test(document.getElementById("emailInput").value)) {
+          handleErrorEmail(false);
+        } else {
+          handleErrorEmail(true);
+        }
+    };
+
     const handleSubmitCreate = async (e) => {
         e.preventDefault();   
+        validarEmail();
+        
+        //Validacion:
+        if (
+        name.trim() === "" ||
+        last_name.trim() === "" ||
+        email.trim() === "" ||
+        password.trim() === "" 
+        ) {
+        handleError(true);
+        return;
+        }
+
+        handleError(false);
         
         const json_data = {
             'name': name,
@@ -60,7 +90,7 @@ const CreateUser = () => {
                         <nav className="navbar-global">
                             <ul>
                                 <li><Link to="/"><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
-                                <li><Link to="/"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
+                                <li><Link to="/Equipo"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
                                 <li><Link to="/create-user" className="active"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
                                 <li><Link to="/login"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
                             </ul>
@@ -84,11 +114,11 @@ const CreateUser = () => {
                             <div className="col-lg-5">
                                 <div className="card bg-secondary shadow border-0">
                                     <div className="card-header bg-white pb-5">
-                                        <div className="text-muted text-center mb-3"><h2>Registrate con</h2></div>
+                                        <div className="text-muted text-center mb-3"><h2>Registrate Con Nosotros</h2></div>
                                     </div>
                                     <div className="card-body px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <h4>Regístrate con credenciales</h4>
+                                            
                                         </div>
                                         <form>
                                             <div className="form-group">
@@ -112,8 +142,13 @@ const CreateUser = () => {
                                                     <div className="input-group-prepend">
                                                         <span className="input-group-text"><FontAwesomeIcon icon={['fa', 'at']}/></span>
                                                     </div>
-                                                    <input className="form-control" placeholder="Numero de Teléfono o Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
+                                                    <input id="emailInput" className="form-control" placeholder="Numero de Teléfono o Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
                                                 </div>
+                                                {errorEmail ? (
+                                                    <p className="alert alert-danger error-p text-white">
+                                                        El correo ingresado no es valido
+                                                    </p>
+                                                ) : null}
                                             </div>
                                             <div className="form-group focused">
                                                 <div className="input-group input-group-alternative">
@@ -123,6 +158,11 @@ const CreateUser = () => {
                                                     <input className="form-control" placeholder="Contraseña" type="password" onChange={(e) => setPassword(e.target.value)}/>
                                                 </div>
                                             </div>
+                                            {error ? (
+                                                <p className="alert alert-danger error-p text-white">
+                                                    Todos los campos deben ser llenados.
+                                                </p>
+                                            ) : null}
                                             <div className="row my-4">
                                                 <div className="col-12">
                                                     <div className="custom-control custom-control-alternative custom-checkbox">
@@ -145,10 +185,10 @@ const CreateUser = () => {
             <footer className="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
                     <div class="container">
                         <div class="copyright">
-                            &copy; Copyright <strong><span>Wallet</span></strong>. All Rights Reserved
+                            &copy; Copyright <strong><span>Wallet</span></strong>.
                         </div>
                         <div class="credits">
-                            Designed by Grupo Wallet
+                            Diseñado por Grupo Wallet
                         </div>
                     </div>
             </footer>
