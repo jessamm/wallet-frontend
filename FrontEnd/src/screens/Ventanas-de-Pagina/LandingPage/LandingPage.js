@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../../../styles/global.css"
 import WhyUs from '../../../assets/img/finanzas.jpg';
+import fin from '../../../assets/img/finanzas1.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //import "../../fontawesome/fontawesome.js";
@@ -46,7 +47,7 @@ const LandingPage = () => {
                         <div className="carousel-item active">
                             <div className="carousel-container">
                             <h2 className="animate__animated animate__fadeInDown">¡Bienvenido a <span>Wallet!</span></h2>
-                            <p className="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                            <h2 style={{color: "DarkGrey"}}>La plataforma que te ayuda a gestionar tus finanzas personales. ¡Ahorra dinero, vive mejor!</h2>
                             <Link to="/create-user" className="btn-get-started animate__animated animate__fadeInUp">SUSCRIBETE</Link>
                             </div>
                         </div>
@@ -87,32 +88,32 @@ const LandingPage = () => {
                                    
                                     <div className="icon-box icon-box-pink">
                                     <div className="icon"> <FontAwesomeIcon icon={['fa', 'dollar-sign']}/><i className="bx bxl-dribbble"></i></div>
-                                    <h4 className="title"><Link to="/">Lorem Ipsum</Link></h4>
-                                    <p className="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                                    <h4 className="title"><Link to="/">Cuentas</Link></h4>
+                                    <p className="description">Haz el registro de tus cuentas bancarias y tus tarjetas de crédito.</p>
                                     </div>
                                 </div>
 
                                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                                     <div className="icon-box icon-box-cyan">
                                     <div className="icon"><FontAwesomeIcon icon={['fa', 'search-dollar']}/><i className="bx bx-file"></i></div>
-                                    <h4 className="title"><Link to="/">Sed ut perspiciatis</Link></h4>
-                                    <p className="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                                    <h4 className="title"><Link to="/">Seguimiento</Link></h4>
+                                    <p className="description">Mantén el registro de tus activos de forma segura. </p>
                                     </div>
                                 </div>
 
                                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                                     <div className="icon-box icon-box-green">
                                     <div className="icon"><FontAwesomeIcon icon={['fa', 'hand-holding-usd']}/><i className="bx bx-tachometer"></i></div>
-                                    <h4 className="title"><Link to="/">Magni Dolores</Link></h4>
-                                    <p className="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                    <h4 className="title"><Link to="/">Estadísticas</Link></h4>
+                                    <p className="description">Visualiza el progreso de tus ingresos y egresos de forma gráfica.</p>
                                     </div>
                                 </div>
 
                                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                                     <div className="icon-box icon-box-blue">
                                     <div className="icon"><FontAwesomeIcon icon={['fa', 'wallet']}/><i className="bx bx-world"></i></div>
-                                    <h4 className="title"><Link to="/">Nemo Enim</Link></h4>
-                                    <p className="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                                    <h4 className="title"><Link to="/">Metas y resultados</Link></h4>
+                                    <p className="description">Define tus metas y visualiza los resultados.</p>
                                     </div>
                                 </div>
                             </div>
@@ -121,9 +122,9 @@ const LandingPage = () => {
                     <hr></hr>
                     {/*<!-- End Services Section -->*/}
                     {/*<!-- ======= Why Us Section ======= -->*/}
-                    <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
+                    <section class="feature" data-aos="fade-up" date-aos-delay="200">
                         <div class="container">
-                            <div class="row">
+                            <div class="row" style={{color:"white"}}>
                                 <div class="col-lg-6 video-box">
                                     {/*<img src="assets/img/why-us.jpg" class="img-fluid" alt="">*/}
                                     <img src={WhyUs} className="img-fluid" alt="" />
@@ -133,13 +134,13 @@ const LandingPage = () => {
                                 <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
                                     <div class="icon-box">
                                         <div class="icon"><FontAwesomeIcon icon={['fa', 'fingerprint']}/><i class="bx bx-fingerprint"></i></div>
-                                        <h4 class="title"><Link to="/">Lorem Ipsum</Link></h4>
-                                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                                        <h4 class="title"><Link to="/">Productividad</Link></h4>
+                                        <p class="description" style={{color:"black"}}>Haz uso de tu información financiera de una mejor manera.</p>
                                     </div>
                                     <div class="icon-box">
                                         <div class="icon"><FontAwesomeIcon icon={['fa', 'hand-point-up']}/><i class="bx bx-gift"></i></div>
-                                        <h4 class="title"><Link to="/">Nemo Ipsum</Link></h4>
-                                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                                        <h4 class="title"><Link to="/">Tecnología</Link></h4>
+                                        <p class="description" style={{color:"black"}}>Deja que la tecnología sea una aliada para lograr sus objetivos financieros.</p>
                                     </div>
                                 </div>
                             </div>
@@ -148,83 +149,32 @@ const LandingPage = () => {
                     {/*<!-- End Why Us Section -->*/}
                     {/**<!-- ======= Features Section ======= --> */}
                     <hr></hr>
-                    {/**
                     <section className="features">
                         <div className="container">
                             <div className="section-title">
-                                <h2>Caracteristicas</h2>
-                                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                                <h2>Características</h2>
+                                {/*<p>Posee una interfaz atractiva al usuario.</p>*/}
                             </div>
 
                             <div className="row" data-aos="fade-up">
                                 <div className="col-md-5">
-                                    
+                                    {/**INVESTIGAR SOBRE SVG */}
+                                    <img src={fin} className="img-fluid" alt="" />
+                                    {/*<img src="assets/img/features-1.svg" className="img-fluid" alt="">*/}
                                 </div>
                                 <div className="col-md-7 pt-4">
-                                    <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-                                    <p className="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua.
-                                    </p>
                                     <ul>
-                                        <li><i className="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li><i className="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                                        <li><i className="bi bi-check"></i> Posee una interfaz intuitiva</li>
+                                        <li><i className="bi bi-check"></i> 1. Lleva el control de tus cuentas bancarias.</li>
+                                        <li><i className="bi bi-check"></i> 2. Controla el registro de tus movimientos.</li>
+                                        <li><i className="bi bi-check"></i> 3. Establece metas de ahorro.</li>
+                                        <li><i className="bi bi-check"></i> 4. Visualiza la información proporcionada de forma gráfica.</li>
+                                        <li><i className="bi bi-check"></i> 5. Visualiza tus logros.</li>
                                     </ul>
-                                </div>
-                            </div>
-
-                            <div className="row" data-aos="fade-up">
-                                <div className="col-md-5 order-1 order-md-2">
-                                    
-                                </div>
-                                <div className="col-md-7 pt-5 order-2 order-md-1">
-                                    <h3>Corporis temporibus maiores provident</h3>
-                                    <p className="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua.
-                                    </p>
-                                    <p>
-                                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="row" data-aos="fade-up">
-                                <div className="col-md-5">
-                                    
-                                </div>
-                                <div className="col-md-7 pt-5">
-                                    <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
-                                    <p>Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic voluptas dolor doloremque.</p>
-                                    <ul>
-                                        <li><i className="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li><i className="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                                        <li><i className="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div className="row" data-aos="fade-up">
-                                <div className="col-md-5 order-1 order-md-2">
-                                    
-                                </div>
-                                <div className="col-md-7 pt-5 order-2 order-md-1">
-                                    <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
-                                    <p className="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua.
-                                    </p>
-                                    <p>
-                                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum
-                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </section> */}
+                    </section>
                     {/**<!-- End Features Section --> */}
                 </main>
                 {/** */}
@@ -234,12 +184,15 @@ const LandingPage = () => {
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    
                                     <h4>Suscribete</h4>
-                                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                                    <p>Registrese en Wallet y comience a controlar su vida financiera</p>
                                 </div>
                                 <div class="col-lg-6">
-                                    
+                                    <form>
+                                        {/**<input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/> */}
+                                        <input type="submit" value="Suscribete"></input><input type="email" name="email"></input>
+                                    {/*<input type="email" name="email"><input type="submit" value="Subscribe">*/}
+                                    </form>
                                 </div>
                             </div>
                         </div>
