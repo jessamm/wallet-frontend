@@ -16,6 +16,13 @@ const MetasPlanes = () => {
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
 
+    /*
+    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
+    const nameUsuario = JSON.parse(localStorage.getItem("name"));
+    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
+    const emailUsuario = JSON.parse(localStorage.getItem("email"));
+    */
+
     //llenar datos metas
     const obtenerDatosMetas = async () => {
 
@@ -40,7 +47,7 @@ const MetasPlanes = () => {
             //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        const res = await fetch(`${API}/get-goals`, {
+        const res = await fetch(`${API}/get-planning`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(json_data),
@@ -74,7 +81,7 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'id': idUsuario,
+            'id_user': idUsuario,
             'date_end': date_end,
             //'id_categorie': id_categorie, averiguar como imprimirlos en la modal y solo elegir 1
             'mount_limit': mount_limit
@@ -109,7 +116,7 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'id': idUsuario,
+            'id_user': idUsuario,
             'date_end': date_end,
             //'id_categorie': id_categorie, imprimir todas las categorias alla
             'mount_limit': mount_limit,
@@ -125,6 +132,40 @@ const MetasPlanes = () => {
         if(res.status){
             const data = await res.json();
             console.log(data.Session);
+        };
+    };
+
+    const EliminarMeta = async (e) => {
+        const json_data = {
+            'id_user': idUsuario
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        if(res.status){
+            //const data = await res.json();
+            console.log("==========================Meta eliminada ==============================");
+        };
+    };
+
+    const EliminarPlan = async (e) => {
+        const json_data = {
+            'id_user': idUsuario
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        if(res.status){
+            //const data = await res.json();
+            console.log("==========================Plan eliminado ==============================");
         };
     };
 
@@ -190,7 +231,7 @@ const MetasPlanes = () => {
                                                                 <td>L {datos.mount_limit}</td>
                                                                 <td>L {datos.mount_actual}</td>
                                                                 <th scope="col">
-                                                                    <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                                                    <button className="btn btn-sm btn-danger" onClick={EliminarMeta} >Eliminar</button>
                                                                 </th>
                                                             </tr>
                                                         )
@@ -238,7 +279,7 @@ const MetasPlanes = () => {
                                                                 <td>L {datos.date_end}</td>
                                                                 <td>L {datos.mount_actual}</td>
                                                                 <th scope="col">
-                                                                    <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                                                    <button className="btn btn-sm btn-danger" onClick={EliminarPlan}>Eliminar</button>
                                                                 </th>
                                                             </tr>
                                                         )

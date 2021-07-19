@@ -6,31 +6,53 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const API = process.env.REACT_APP_API;
 
 const GestionUsuarios = () => {
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+    /*
+    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
+    const nameUsuario = JSON.parse(localStorage.getItem("name"));
+    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
+    const emailUsuario = JSON.parse(localStorage.getItem("email"));
+    */
     //datos gestion nombre, apellido, correo, fecha creacion cuenta
     const [datosGestion, setGestionDatos] = useState([]);
 
     const obtenerDatosGestion = async () => {
-        const response = await fetch(`${API}/total-user`);
-        if (response.status){
-            const body = await response.json();
-            setGestionDatos(body)
-       } 
+        /*const json_data = {
+            
+            'id_user': idUsuario
+        };*/
+        const res = await fetch(`${API}/total-user`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(),
+        });
+        const data = await res.json();
+        if(data){
+            setGestionDatos(data);
+        }
     }
     useEffect(() =>{
         obtenerDatosGestion();
-        obtenerDatosUsuario();
-    }, [])
+    }, []) 
+    
+    const EliminarCuenta = async (e) => {
+        const json_data = {
+            'id': datosGestion.id //verificar sea ese
+        };
 
-    //datos usuario || foto, nombre apellido
-    const [datosUsuario, setDatosUsuario] = useState([]);
-    const obtenerDatosUsuario = async () => {
-        const response = await fetch(`${API}/login`);
-        
-        if (response.status){
-            const body = await response.json();
-            setDatosUsuario(body)
-        }
-    }
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        if(res.status){
+            //const data = await res.json();
+            console.log("==========================Efectivo eliminada ==============================");
+        };
+    };
     
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -39,12 +61,10 @@ const GestionUsuarios = () => {
 
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={datosUsuario.foto} className="span-img-profile rounded-circle img-fluid" alt="" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{datosUsuario.name} {datosUsuario.last_name}</Link></h1>
+                        <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="" />
+                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{nameUsuario} {last_nameUsuario}</Link></h1>
                         <div className="social-links mt-3 text-center">
-                            <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-instagram"></i></Link>
+                            <h3>{emailUsuario}</h3>
                         </div>
                     </div>
                     {/*<!-- .nav-menu -->*/}
@@ -98,7 +118,7 @@ const GestionUsuarios = () => {
                                                             <td>{/**no hay fecha de creacion de usuario */}</td>
                                                             <td>{/** */}</td>
                                                             <th scope="col">
-                                                                <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                                                <button className="btn btn-sm btn-danger" onClick={EliminarCuenta}>Eliminar</button>
                                                             </th>
                                                         </tr>
                                                     )

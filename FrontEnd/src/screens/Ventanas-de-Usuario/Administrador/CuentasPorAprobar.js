@@ -6,33 +6,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const API = process.env.REACT_APP_API;
 
 const CuentasPorAprobar = () => {
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+    /*
+    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
+    const nameUsuario = JSON.parse(localStorage.getItem("name"));
+    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
+    const emailUsuario = JSON.parse(localStorage.getItem("email"));
+    */
     //nombre apellido, fecha, ¿Estado?
     const [datos, setDatos] = useState([]);
     
     const obtenerDatos = async () => {
-        const response = await fetch(`${API}/account-validation`);
-        
-        if (response.status){
-            const body = await response.json();
-            setDatos(body)
-        }
-    }
-
-    //datos usuario || foto, nombre apellido
-    const [datosUsuario, setDatosUsuario] = useState([]);
-    const obtenerDatosUsuario = async () => {
-        const response = await fetch(`${API}/login`);
-        
-        if (response.status){
-            const body = await response.json();
-            setDatosUsuario(body)
+        const res = await fetch(`${API}/account-validation`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(),
+        });
+        const data = await res.json();
+        if(data){
+            setDatos(data);
         }
     }
     useEffect(() =>{
         obtenerDatos();
-        obtenerDatosUsuario();
     }, [])
-
 
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -41,12 +40,10 @@ const CuentasPorAprobar = () => {
 
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={datosUsuario.foto} className="span-img-profile rounded-circle img-fluid" alt="" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{datosUsuario.name} {datosUsuario.last_name}</Link></h1>
+                        <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="" />
+                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{nameUsuario} {last_nameUsuario}</Link></h1>
                         <div className="social-links mt-3 text-center">
-                            <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-instagram"></i></Link>
+                            <h3>{emailUsuario}</h3>
                         </div>
                     </div>
                     {/*<!-- .nav-menu -->*/}

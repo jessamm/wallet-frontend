@@ -14,11 +14,17 @@ const Cuentas = () => {
     const [saldoMesAnterior,setSaldoMesAnterior]=useState("");
     const [saldoActual, setSaldoActual]=useState("");
     const [nombreBanco,setNombreBanco]=useState("");
-    //
+    //probar 
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
+    /*
+    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
+    const nameUsuario = JSON.parse(localStorage.getItem("name"));
+    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
+    const emailUsuario = JSON.parse(localStorage.getItem("email"));
+    */
 
     const [errorLlenado, handleError] = useState(false);
     
@@ -54,7 +60,6 @@ const Cuentas = () => {
             setCuentasEfectivo(data);
         }
     }
-
     useEffect(() => {
         obtenerCuentasAhorro();
         obtenerCuentasEfectivo();
@@ -118,6 +123,40 @@ const Cuentas = () => {
             const data = await res.json();
             console.log(data.Session);
         }
+    };
+
+    const EliminarCuentaEfectivo = async (e) => {
+        const json_data = {
+            'id_user': idUsuario
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        if(res.status){
+            //const data = await res.json();
+            console.log("==========================Efectivo eliminada ==============================");
+        };
+    };
+
+    const EliminarCuentaAhorro = async (e) => {
+        const json_data = {
+            'id_user': idUsuario
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+
+        if(res.status){
+            //const data = await res.json();
+            console.log("==========================Ahorro eliminado ==============================");
+        };
     };
 
     return (
@@ -186,7 +225,7 @@ const Cuentas = () => {
                                                             <td>$ {cuenta.saldoActual}</td>
                                                             <td>$ {cuenta.balance}</td>
                                                             <th scope="col">
-                                                            <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                                            <button className="btn btn-sm btn-danger" onClick={EliminarCuentaAhorro}>Eliminar</button>
                                                             </th>
                                                         </tr>
                                                     )
@@ -211,7 +250,7 @@ const Cuentas = () => {
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Categoria</th>
+                                                <th scope="col">Nombre Usuario</th>
                                                 <th scope="col">Saldo mes anterior</th>
                                                 <th scope="col">Saldo actual</th>
                                                 <th scope="col">Balance</th>
@@ -225,12 +264,12 @@ const Cuentas = () => {
                                                     return (
                                                         <tr>
                                                             <th scope="row">{key++}</th>
-                                                            <td>{cuenta.nombreBanco}</td>
+                                                            <td>{nameUsuario} {last_nameUsuario}</td>
                                                             <td>$ {cuenta.saldoMes}</td>
                                                             <td>$ {cuenta.saldoActual}</td>
                                                             <td>$ {cuenta.balance}</td>
                                                             <th scope="col">
-                                                                <button className="btn btn-sm btn-danger" >Eliminar</button>
+                                                                <button className="btn btn-sm btn-danger" onClick={EliminarCuentaEfectivo} >Eliminar</button>
                                                             </th>
                                                         </tr>
                                                     )
@@ -293,7 +332,7 @@ const Cuentas = () => {
                                                     <div className="modal-body">
                                                         <div className="form-group">
                                                             <label>Categoria</label>
-                                                            <input placeholder="Ingrese el nombre del banco"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                                            <input placeholder="Seleccione la categoria"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Saldo Mes Anterior</label>

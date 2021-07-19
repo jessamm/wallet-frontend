@@ -1,35 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import profile from '../../../assets/img/profile-img.jpg';
 
 const API = process.env.REACT_APP_API;
 
 const Bitacora = () => {
+    //const idUsuario = localStorage.getItem("idUsuario");
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+    /*
+    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
+    const nameUsuario = JSON.parse(localStorage.getItem("name"));
+    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
+    const emailUsuario = JSON.parse(localStorage.getItem("email"));
+    */
+
     //nombre apellido, correo, fecha transaccion, tipo
     const [datosBitacora, setdatosBitacora] = useState([]);
 
     const obtenerBitacora = async () => {
-        const response = await fetch(`${API}/total-binnacles`);
-        if (response.status){
-            const body = await response.json();
-            setdatosBitacora(body)
-        }
-    }
-
-    //datos usuario || foto, nombre apellido
-    const [datosUsuario, setDatosUsuario] = useState([]);
-    const obtenerDatosUsuario = async () => {
-        const response = await fetch(`${API}/login`);
-        
-        if (response.status){
-            const body = await response.json();
-            setDatosUsuario(body)
+        /*const json_data = {
+            
+            'id_user': idUsuario
+        };*/
+        const res = await fetch(`${API}/total-binnacles`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(),
+        });
+        const data = await res.json();
+        if(data){
+            setdatosBitacora(data);
         }
     }
     useEffect(() =>{
         obtenerBitacora();
-        obtenerDatosUsuario();
     }, [])
 
     return (
@@ -39,12 +46,10 @@ const Bitacora = () => {
 
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={datosUsuario.foto} className="span-img-profile rounded-circle img-fluid" alt="" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{datosUsuario.name} {datosUsuario.last_name}</Link></h1>
+                        <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="" />
+                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{nameUsuario} {last_nameUsuario}</Link></h1>
                         <div className="social-links mt-3 text-center">
-                            <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-instagram"></i></Link>
+                            <h3>{emailUsuario}</h3>
                         </div>
                     </div>
                     {/*<!-- .nav-menu -->*/}
@@ -78,8 +83,8 @@ const Bitacora = () => {
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Nombre Usuario</th>
-                                                <th scope="col">Correo</th>
+                                                <th scope="col">Usuario</th>
+                                                <th scope="col">Descripcion Operacion</th>
                                                 <th scope="col">Fecha</th>
                                                 <th scope="col">Tipo</th>
                                             </tr>
@@ -90,8 +95,8 @@ const Bitacora = () => {
                                                     return(
                                                         <tr>
                                                             <th scope="row">{key++}</th>
-                                                            <td>{datos.name} {datos.last_name}</td>
-                                                            <td>{datos.email}</td>
+                                                            <td>{datos.id_user}</td>
+                                                            <td>{datos.description_operation}</td>
                                                             <td>{datos.date_operation}</td>
                                                             <td>{datos.type_operation}</td>
                                                         </tr>

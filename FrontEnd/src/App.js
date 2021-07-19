@@ -16,8 +16,7 @@ import Estadistica from './screens/Ventanas-de-Usuario/Estadistica/Estadistica';
 import Cuentas from './screens/Ventanas-de-Usuario/Cuentas/Cuentas';
 import Administrador from './screens/Ventanas-de-Usuario/Administrador/Administrador';
 
-import CrearCuentaAhorro from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaAhorro';
-import CrearCuentaEfectivo from './screens/Ventanas-de-Usuario/Cuentas/CrearCuentaEfectivo';
+
 import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
 import GestionUsuarios from './screens/Ventanas-de-Usuario/Administrador/GestionUsuarios';
 import Bitacora from './screens/Ventanas-de-Usuario/Administrador/Bitacora';
@@ -35,8 +34,7 @@ const App = () => {
       <Route exact path='/authentication' component={Authentication}></Route>
       <Route exact path='/equipo' component={Equipo}></Route>
       <Route exact path='/cuentas' component={Cuentas}></Route>
-      <Route exact path='/crear-cuenta-ahorro' component={CrearCuentaAhorro}></Route>
-      <Route exact path='/crear-cuenta-efectivo' component={CrearCuentaEfectivo}></Route>
+    
       <Route path='/main' component={Main}></Route>
       <Route exact path='/configuracion' component={Configuracion}></Route>
       <Route exact path='/metas-planes' component={MetasPlanes}></Route>
