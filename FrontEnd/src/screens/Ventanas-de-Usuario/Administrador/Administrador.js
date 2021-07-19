@@ -130,8 +130,8 @@ const Administrador = () => {
                                                         <div className="alert subir-img" role="alert" onClick={openDialogoImagen} >
                                                             <p className="text-dark text-sm" >
                                                                 <span>
-                                                                    <img height="25px" width="25px" src="https://png.pngtree.com/png-clipart/20190903/original/pngtree-file-icon-png-image_4419863.jpg" />
-                                                                </span> {nameImage.trim() == 0 ? 'Haz click para subir la imagen' : nameImage}
+                                                                    <img height="25px" width="25px" src="https://png.pngtree.com/png-clipart/20190903/original/pngtree-file-icon-png-image_4419863.jpg" alt=""/>
+                                                                </span> {nameImage.trim() === 0 ? 'Haz click para subir la imagen' : nameImage}
                                                             </p>
                                                         </div>
                                                     </div>

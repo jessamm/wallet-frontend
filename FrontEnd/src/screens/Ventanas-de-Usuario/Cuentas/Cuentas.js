@@ -4,43 +4,121 @@ import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../Configuracion/Configuracion.css";
 
+const API = process.env.REACT_APP_API;
+
 const Cuentas = () => {
 
     const [cuentasAhorro, setCuentasAhorro] = useState([]);
     const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
+    
     const [saldoMesAnterior,setSaldoMesAnterior]=useState("");
-    const [saldoActual,setSaldoActual]=useState("");
+    const [saldoActual, setSaldoActual]=useState("");
     const [nombreBanco,setNombreBanco]=useState("");
     //
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
+
+    const [errorLlenado, handleError] = useState(false);
     
-
-
     const obtenerCuentasAhorro = async () => {
-        const response = await fetch('');
 
-        if (response.status === 200) {
-            const body = await response.json();
-            setCuentasAhorro(body)
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if(data){
+            setCuentasAhorro(data);
         }
     }
 
     const obtenerCuentasEfectivo = async () => {
-        const response = await fetch('');
-
-        if (response.status === 200) {
-            const body = await response.json();
-            setCuentasEfectivo(body)
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if(data){
+            setCuentasEfectivo(data);
         }
     }
 
     useEffect(() => {
-        //    obtenerCuentasAhorro();
-        //    obtenerCuentasEfectivo();
+        obtenerCuentasAhorro();
+        obtenerCuentasEfectivo();
     }, [])
+
+    const handleSubmitCuentasAhorro = async (e) => {
+        e.preventDefault();
+
+        if(nombreBanco.trim()==="" || saldoMesAnterior === "" || saldoActual.trim()===""){
+            handleError(true);
+            alert("Todos los campos deben ser llenados");
+            return;
+        }
+        handleError(false);
+
+        const json_data = {
+            '': saldoMesAnterior,
+            '': nombreBanco,
+            '': saldoActual
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        //const data = await res.json();
+       
+        //console.log(data.Session);
+        if(res.status){
+            const data = await res.json();
+            console.log(data.Session);
+        }
+    };
+
+    const handleSubmitCuentaEfectivo = async (e) => {
+        e.preventDefault();
+
+        if(nombreBanco.trim()==="" || saldoMesAnterior === "" || saldoActual.trim()===""){
+            handleError(true);
+            alert("Todos los campos deben ser llenados");
+            return;
+        }
+        handleError(false);
+
+        const json_data = {
+            '': saldoMesAnterior,
+            '': nombreBanco,
+            '': saldoActual
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        //const data = await res.json();
+       
+        //console.log(data.Session);
+        if(res.status){
+            const data = await res.json();
+            console.log(data.Session);
+        }
+    };
 
     return (
         <div className="login-page" style={{ height: '100vh' }}>
@@ -168,7 +246,7 @@ const Cuentas = () => {
 
 
                      {/* Modal */}
-                     <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -187,19 +265,24 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Saldo Actual</label>
-                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control"></input>
+                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoActual(e.target.value)} type="text"  className="form-control"></input>
                                                         </div>
                                                     </div>
+                                                    {errorLlenado ? (
+                                                        <p className="alert alert-danger error-p text-white">
+                                                            Todos los campos deben ser llenados
+                                                        </p>
+                                                    ) : null}
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" className="btn btn-sm btn-primary">Agregar</button>
+                                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentasAhorro}>Agregar</button>
                                                     </div>
                                     </div>
                                 </div>
                         </div>
 
 
-                        <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -221,9 +304,14 @@ const Cuentas = () => {
                                                             <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control"></input>
                                                         </div>
                                                     </div>
+                                                    {errorLlenado ? (
+                                                        <p className="alert alert-danger error-p text-white">
+                                                            Todos los campos deben ser llenados
+                                                        </p>
+                                                    ) : null}
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" className="btn btn-sm btn-primary">Agregar</button>
+                                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentaEfectivo}>Agregar</button>
                                                     </div>
                                     </div>
                                 </div>
@@ -239,116 +327,3 @@ const Cuentas = () => {
 }
 
 export default Cuentas
-/*import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-
-const Cuentas = () => {
-    const [cuentasAhorro, setCuentasAhorro] = useState([]);
-    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
-
-
-    const obtenerCuentasAhorro = async () => {
-        const urlApi = '';
-        const response = await fetch(urlApi);
-        if (response.status === 200) {
-            const body = response.json();
-            setCuentasAhorro(body);
-        }
-    }
-
-    const obtenerCuentasEfectivo = async () => {
-        const urlApi = '';
-        const response = await fetch(urlApi);
-        if (response.status === 200) {
-            const body = response.json();
-            setCuentasEfectivo(body);
-        }
-    }
-
-    useEffect(() => {
-        // obtenerCuentasAhorro();
-        // obtenerCuentasEfectivo();
-    }, [])
-
-
-    return (
-        <div className="container" >
-            <h3 className="mt-4 card-title">Cuentas de ahorro </h3>
-
-            <Link className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
-
-            <table class="table table-sm mt-4">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre del banco</th>
-                        <th scope="col">Saldo mes anterior</th>
-                        <th scope="col">Saldo actual</th>
-                        <th scope="col">Balance</th>
-                        <th scope="col">Eliminar</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        cuentasAhorro.map((cuenta, key) => {
-                            return (
-                                <tr>
-                                    <th scope="row">{key++}</th>
-                                    <td>{cuenta.nombreBanco}</td>
-                                    <td>$ {cuenta.saldoMes}</td>
-                                    <td>$ {cuenta.saldoActual}</td>
-                                    <td>$ {cuenta.balance}</td>
-                                    <th scope="col">
-                                        <button className="btn btn-sm btn-danger" >Eliminar</button>
-                                    </th>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-
-
-            <h3 className="mt-4 card-title">Cuentas de efectivo </h3>
-
-            <Link className="btn btn-sm btn-primary m-2" >Agregar cuenta</Link>
-
-            <table class="table table-sm mt-4">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre del banco</th>
-                        <th scope="col">Saldo mes anterior</th>
-                        <th scope="col">Saldo actual</th>
-                        <th scope="col">Balance</th>
-                        <th scope="col">Eliminar</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        cuentasEfectivo.map((cuenta, key) => {
-                            return (
-                                <tr>
-                                    <th scope="row">{key++}</th>
-                                    <td>{cuenta.nombreBanco}</td>
-                                    <td>$ {cuenta.saldoMes}</td>
-                                    <td>$ {cuenta.saldoActual}</td>
-                                    <td>$ {cuenta.balance}</td>
-                                    <th scope="col">
-                                        <button className="btn btn-sm btn-danger" >Eliminar</button>
-                                    </th>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-
-        </div>
-    )
-}
-
-export default Cuentas
-*/

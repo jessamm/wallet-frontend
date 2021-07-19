@@ -63,7 +63,7 @@ const CreateUser = () => {
         });
 
      const data = await res.json();
-        if (data.result == "success"){
+        if (data.result === "success"){
             window.location.href = "http://localhost:3000/authentication";
             //aler('usuruario permitido')
         }

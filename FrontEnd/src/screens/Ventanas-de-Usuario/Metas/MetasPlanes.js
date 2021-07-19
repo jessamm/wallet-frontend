@@ -21,7 +21,7 @@ const MetasPlanes = () => {
 
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
-            'id': idUsuario
+            'id_user': idUsuario
         };
         const res = await fetch(`${API}/get-goals`, {
             method: "POST",
@@ -38,7 +38,7 @@ const MetasPlanes = () => {
 
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
-            'id': idUsuario
+            'id_user': idUsuario
         };
         const res = await fetch(`${API}/get-goals`, {
             method: "POST",
@@ -56,7 +56,7 @@ const MetasPlanes = () => {
     }, [])
 
     //METAS de gasto
-    const [id_categorie, setId_categorie] = useState("");
+    //const [id_categorie, setId_categorie] = useState("");
     const [mount_limit, setMount_limit] = useState("");
     const [date_end, setDate_end] = useState("");
     const [nameMeta, setNameMeta] = useState("");//agregar a la base el nombre de las metas
@@ -66,7 +66,7 @@ const MetasPlanes = () => {
     const handleSubmitMetas = async (e) => {
         e.preventDefault();
 
-        if(id_categorie.trim() === "" || mount_limit.trim()==="" || date_end === "" || nameMeta.trim()===""){
+        if(mount_limit.trim()==="" || date_end === "" || nameMeta.trim()===""){
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -101,7 +101,7 @@ const MetasPlanes = () => {
     const handleSubmitAhorro = async (e) => {
         e.preventDefault();
 
-        if(id_categorie.trim() === "" || mount_limit.trim()==="" || date_end === "" || nameAhorro.trim()===""){
+        if( mount_limit.trim()==="" || date_end === "" || nameAhorro.trim()===""){
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -174,7 +174,6 @@ const MetasPlanes = () => {
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nombre Usuario</th>
                                                     <th scope="col">Fecha Inicio</th>
-                                                    <th scope="col">Categoria</th>
                                                     <th scope="col">Maximo a Gastar</th>
                                                     <th scope="col">Gastos Actuales</th>
                                                     <th scope="col">Eliminar</th>
@@ -188,7 +187,6 @@ const MetasPlanes = () => {
                                                                 <th scope="row">{key++}</th>
                                                                 <td>{nameUsuario} {last_nameUsuario}</td>
                                                                 <td>{datos.date_init}</td>
-                                                                <td>{datos.id_categorie}</td>
                                                                 <td>L {datos.mount_limit}</td>
                                                                 <td>L {datos.mount_actual}</td>
                                                                 <th scope="col">
@@ -235,7 +233,7 @@ const MetasPlanes = () => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{datos.name} {datos.last_name}</td>
+                                                                <td>{nameUsuario} {last_nameUsuario}</td>
                                                                 <td>{datos.date_init}</td>
                                                                 <td>L {datos.date_end}</td>
                                                                 <td>L {datos.mount_actual}</td>
@@ -276,10 +274,12 @@ const MetasPlanes = () => {
                             </div>
                             <div class="modal-body">
                                 <div>
+                                    {/**
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
                                     </div>
+                                     */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>
@@ -323,10 +323,12 @@ const MetasPlanes = () => {
                             </div>
                             <div class="modal-body">
                                 <div>
+                                {/** 
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
                                     </div>
+                                */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>

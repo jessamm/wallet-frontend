@@ -39,7 +39,7 @@ const Authentication = () => {
         });
 
         const data = await res.json();
-        if (data.result == "True"){
+        if (data.result === "True"){
             window.location.href = "http://localhost:3000/metas-planes";
             alert("Usuario Creado");
         }
