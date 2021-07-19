@@ -13,6 +13,9 @@ import Estadistica from '../Estadistica/Estadistica';*/
 
 
 const Main = () => {
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
 
     const data = {
         labels: ['Gastos', 'Ingresos', 'Variables'],
@@ -49,11 +52,9 @@ const Main = () => {
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
                         <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">@Nombre Usuario</Link></h1>
+                        <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
                         <div className="social-links mt-3 text-center">
-                            <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
-                            <Link to="/" className=""><i className="bx bxl-instagram"></i></Link>
+                            <h3>{emailUsuario}</h3>
                         </div>
                     </div>
 

@@ -6,6 +6,10 @@ import AnyChart from 'anychart-react';
 
 const Estadistica = () => {
 
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+
     const [data, setData] = useState([1,2,3,4]);
 
     useEffect(() => {
@@ -51,11 +55,9 @@ const Estadistica = () => {
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
                         <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">Nombre Usuario</Link></h1>
+                        <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
                         <div className="social-links mt-3 text-center">
-                            <Link to="/" className="twitter"><i className="bx bxl-twitter"></i></Link>
-                            <Link to="/" className="facebook"><i className="bx bxl-facebook"></i></Link>
-                            <Link to="/" className="instagram"><i className="bx bxl-instagram"></i></Link>
+                            <h3>{emailUsuario}</h3>
                         </div>
                     </div>
 
@@ -63,7 +65,8 @@ const Estadistica = () => {
                         <ul>
                             <li><Link to="/main" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span>Inicio</span></Link></li>
                             <li><Link to="/Estadistica" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'sort-amount-down']} size="2x" /><span>Estadisticas</span></Link></li>
-                            <li><Link to="/Cuentas"  className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
+                            <li><Link to="/Cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
+                            <li><Link to="/metas-planes" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Metas y planes</span></Link></li>
                             <li><Link to="/configuracion" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
                             <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span>Cerrar Sesion</span></Link></li>
                         </ul>
@@ -73,7 +76,7 @@ const Estadistica = () => {
             
             <main className="main-main">
                 <div className="panel-header panel-header-sm">
-                    <p>Ira Informacion del usuario fija, como el balance y nombre de usuario</p>
+                    
                 </div>
                 <div className="content">
                     <div className="row-perfil">

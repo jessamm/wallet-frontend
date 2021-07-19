@@ -9,6 +9,11 @@ import "../Configuracion/Configuracion.css";
 const API = process.env.REACT_APP_API;
 
 const Configuracion = () => {
+    //
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+    //
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [imagen, setImagen] = useState(null);
@@ -53,7 +58,6 @@ const Configuracion = () => {
         //crear condicion y sustituir valores en BD
     };
 
-    
 
     const handelSutmitImagen = (e) => {
         let imagen = e.target.files[0];
@@ -103,16 +107,6 @@ const Configuracion = () => {
             console.log(data)
         }
     }
-    /*
-    const getUsers = async () => {
-        const res = await fetch(`${API}/`);
-        const data = await res.json();
-        //setUsers(data); 
-    };
-
-
-      };
-*/
 
     return (
         <>
@@ -121,14 +115,11 @@ const Configuracion = () => {
                     <div className="d-flex flex-column">
 
                         <div className="profile">
-                            {/*<img src="assets/img/profile-img.jpg" alt="" className="img-fluid rounded-circle">*/}
+                            {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
                             <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                            
-                            <h1 className="text-light"><Link to="/Main" className="navbar-a-header-pro">Nombre Usuario</Link></h1>
+                            <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
                             <div className="social-links mt-3 text-center">
-                                <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
-                                <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
-                                <Link to="/" className=""><i className="bx bxl-instagram"></i></Link>
+                                <h3>{emailUsuario}</h3>
                             </div>
                         </div>
 
@@ -272,7 +263,7 @@ const Configuracion = () => {
                                         <div className="author">
                                             <Link to="" className="usuario-config">
                                                 <img alt="..." className="avatar border-gray" src={profile}></img>
-                                                <h5 className="title">@Nombre Usuario</h5>
+                                                <h5 className="title">{nameUsuario} {last_nameUsuario}</h5>
                                             </Link>
                                         </div>
                                         <p></p>

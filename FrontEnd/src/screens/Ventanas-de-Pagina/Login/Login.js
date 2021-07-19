@@ -43,6 +43,10 @@ const Login = () => {
         console.log('True=============================>');
         // console.log(data[0]);
         if (data){
+            localStorage.setItem("idUsuario", JSON.stringify(data[0]['id']))
+            localStorage.setItem("name", JSON.stringify(data[0]['name']))
+            localStorage.setItem("last_name", JSON.stringify(data[0]['last_name']))
+            localStorage.setItem("email", JSON.stringify(data[0]['email']))
             // localStorage.setItem (1,data[0]['id'])
             window.location.href = "http://localhost:3000/metas-planes";
 //--------------cambiar a la ventana Main--------------

@@ -11,30 +11,43 @@ const MetasPlanes = () => {
     const [planAhorro, setPlanAhorro] = useState([]);
     console.log('cargo doom metas===============================>')
     // localStorage.getItem(1)
+    const idUsuario = localStorage.getItem("idUsuario");
+    const nameUsuario = localStorage.getItem("name");
+    const last_nameUsuario = localStorage.getItem("last_name");
+    const emailUsuario = localStorage.getItem("email");
+
+    //llenar datos metas
     const obtenerDatosMetas = async () => {
-        // hay que probar===============================
-        // const json_data = {
-        //     'id': email
-        // };
 
-        // const res = await fetch(`${API}/get-goals`, {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify(json_data),
-        // });
-
-        // const data = await res.json();
-        const response = await fetch(`${API}/get-goals`);
-        if (response.status){
-            const body = await response.json();
-            setDatosMetas(body);
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id': idUsuario
+        };
+        const res = await fetch(`${API}/get-goals`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if(data){
+            setDatosMetas(data);
         }
     }
+    //llenar plan ahorro
     const obtenerPlanAhorro = async () => {
-        const response = await fetch(`${API}/get-planning`);
-        if (response.status){
-            const body = await response.json();
-            setPlanAhorro(body);
+
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id': idUsuario
+        };
+        const res = await fetch(`${API}/get-goals`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if(data){
+            setPlanAhorro(data);
         }
     }
     useEffect(() =>{
@@ -61,10 +74,10 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'id_categorie': id_categorie,
-            'mount_limit': mount_limit,
+            'id': idUsuario,
             'date_end': date_end,
-            'nameMeta': nameMeta
+            //'id_categorie': id_categorie, averiguar como imprimirlos en la modal y solo elegir 1
+            'mount_limit': mount_limit
         };
 
         const res = await fetch(`${API}/set-goals`, {
@@ -96,10 +109,11 @@ const MetasPlanes = () => {
         handleError(false);
 
         const json_data = {
-            'id_categorie': id_categorie,
-            'mount_limit': mount_limit,
+            'id': idUsuario,
             'date_end': date_end,
-            'nameAhorro': nameAhorro
+            //'id_categorie': id_categorie, imprimir todas las categorias alla
+            'mount_limit': mount_limit,
+        //    'nameAhorro': nameAhorro
         };
 
         const res = await fetch(`${API}/set-planning`, {
@@ -124,11 +138,9 @@ const MetasPlanes = () => {
                         <div className="profile">
                             {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
                             <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                            <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">Nombre Usuario</Link></h1>
+                            <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
                             <div className="social-links mt-3 text-center">
-                                <Link to="/" className="twitter"><i className="bx bxl-twitter"></i></Link>
-                                <Link to="/" className="facebook"><i className="bx bxl-facebook"></i></Link>
-                                <Link to="/" className="instagram"><i className="bx bxl-instagram"></i></Link>
+                                <h3>{emailUsuario}</h3>
                             </div>
                         </div>
 
@@ -174,7 +186,7 @@ const MetasPlanes = () => {
                                                         return (
                                                             <tr>
                                                                 <th scope="row">{key++}</th>
-                                                                <td>{datos.name} {datos.last_name}</td>
+                                                                <td>{nameUsuario} {last_nameUsuario}</td>
                                                                 <td>{datos.date_init}</td>
                                                                 <td>{datos.id_categorie}</td>
                                                                 <td>L {datos.mount_limit}</td>

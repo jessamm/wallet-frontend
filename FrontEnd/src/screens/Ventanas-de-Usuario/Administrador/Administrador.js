@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import "./Main.css";
 /*
@@ -12,6 +11,9 @@ import Estadistica from '../Estadistica/Estadistica';*/
 const API = process.env.REACT_APP_API;
 
 const Administrador = () => {
+    
+
+
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [imagen, setImagen] = useState(null);
@@ -80,19 +82,7 @@ const Administrador = () => {
         }
     }
     //foto,name, apellido, descripcion, balance
-    const [datosUsuario, setDatosUsuario] = useState([]);
-
-    const obtenerDatosUsuario = async () => {
-        const response = await fetch('');
-        
-        //if (response.status === ){
-            const body = await response.json();
-            setDatosUsuario(body)
-       //} */
-    }
-    useEffect(() =>{
-        //obtenerDatosUsuario();
-    }, [])
+    
     return (
         <div className="login-page" style={{ height: '100vh' }} >
             <header className="barra-lateral">
@@ -100,8 +90,8 @@ const Administrador = () => {
 
                     <div className="profile">
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={datosUsuario.foto} className="span-img-profile rounded-circle img-fluid" alt="" />
-                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro">{datosUsuario.name} {datosUsuario.last_name}</Link></h1>
+                        <img src={imagen} className="span-img-profile rounded-circle img-fluid" alt="" />
+                        <h1 className="text-light"><Link to="/main/grafica" className="navbar-a-header-pro"></Link></h1>
                         <div className="social-links mt-3 text-center">
                             <Link to="/" className=""><i className="bx bxl-twitter"></i></Link>
                             <Link to="/" className=""><i className="bx bxl-facebook"></i></Link>
@@ -243,18 +233,18 @@ const Administrador = () => {
                                     <div className="card-body">
                                         <div className="author">
                                             <Link to="" className="usuario-config">
-                                                <img alt="..." className="avatar border-gray" src={datosUsuario.foto}></img>
-                                                <h5 className="title">{datosUsuario.name} {datosUsuario.last_name}</h5>
+                                                <img alt="..." className="avatar border-gray" src={imagen}></img>
+                                                <h5 className="title">{} {}</h5>
                                             </Link>
                                         </div>
                                         <p></p>
                                         <p className="description text-center">
-                                            {datosUsuario.descripccion}
+                                            {}
                                         </p>
 
 
                                         <p className="description text-center">Balance:</p>
-                                        <p className="description text-center">{datosUsuario.Balance}</p>
+                                        <p className="description text-center">{}</p>
                                     </div>
 
                                     <hr></hr>
