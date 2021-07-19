@@ -40,8 +40,10 @@ const Login = () => {
         });
 
         const data = await res.json();
-        console.log(data.Session);
-        if (data.Session == true){
+        console.log('True=============================>');
+        // console.log(data[0]);
+        if (data){
+            // localStorage.setItem (1,data[0]['id'])
             window.location.href = "http://localhost:3000/metas-planes";
 //--------------cambiar a la ventana Main--------------
             alert("Session Iniciada");

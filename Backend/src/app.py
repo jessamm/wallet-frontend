@@ -102,20 +102,16 @@ def login():
   user = json_data["user"]
   password = json_data["password"]
 
-  result = {
-    "Session": False,
-    "Data": None
-  }
-  print('llego------------------------------------>')
-  result["Data"] = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
-  print("Data: ",result["Data"])
-  
-  if len(result["Data"]) > 0 and result["Data"][0]["validated"] == True:
-    result["Session"] = True
-  else:
-    result["Session"] = False
-
-  return jsonify(result)
+  # result = {
+  #   "Session": False,
+  #   "Data": None
+  # }
+  # print('llego------------------------------------>',user, password)
+  # result["Data"] = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
+  var = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
+  if not var:
+    var = False
+  return jsonify(var)
 
 
 @app.route('/create-user', methods=['GET','POST'])

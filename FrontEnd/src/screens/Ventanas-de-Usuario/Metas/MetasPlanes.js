@@ -9,8 +9,21 @@ const MetasPlanes = () => {
     /**llenado de tablas */
     const [datosMetas, setDatosMetas] = useState([]);
     const [planAhorro, setPlanAhorro] = useState([]);
-
+    console.log('cargo doom metas===============================>')
+    // localStorage.getItem(1)
     const obtenerDatosMetas = async () => {
+        // hay que probar===============================
+        // const json_data = {
+        //     'id': email
+        // };
+
+        // const res = await fetch(`${API}/get-goals`, {
+        //     method: "POST",
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(json_data),
+        // });
+
+        // const data = await res.json();
         const response = await fetch(`${API}/get-goals`);
         if (response.status){
             const body = await response.json();
@@ -60,6 +73,7 @@ const MetasPlanes = () => {
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
+       
         //console.log(data.Session);
         if(res.status){
             const data = await res.json();
