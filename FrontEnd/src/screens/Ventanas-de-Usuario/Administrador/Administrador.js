@@ -29,6 +29,7 @@ const Administrador = () => {
     const [pais, setPais] = useState("");
     const [codigoPostal, setCodigoPostal] = useState("");
     const [descripccion, setDescripccion] = useState("");
+    const [telefono,setTelefono]=useState("");
     /*falta implementacion dinamica en imput*/
     const handleSubmitActualizar = async (e) => {
         e.preventDefault();
@@ -82,6 +83,21 @@ const Administrador = () => {
         }
     }
     //foto,name, apellido, descripcion, balance
+
+    const actualizarInformacion = () =>{
+            let data = {
+                email,
+                name,
+                last_name,
+                direccion,
+                ciudad,
+                pais,
+                telefono,
+                descripccion,
+                codigoPostal
+            }
+            console.log(data)
+    }
     
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -216,7 +232,9 @@ const Administrador = () => {
                                             </div>
 
                                             <div className="text-center">
-                                                <button type="button" className="btn btn-primary my-4" onClick={handleSubmitActualizar}>Actualizar Perfil</button>
+                                                <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#actualizar">
+                                                            Actualiza Perfil
+                                                        </button>
                                             </div>
                                         </form>
                                     </div>
@@ -279,15 +297,15 @@ const Administrador = () => {
                                                     <div className="modal-body">
                                                         <div className="form-group">
                                                             <label>Contraseña anterior</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseña(e.target.value)} type="password" className="form-control" ></input>
+                                                            <input placeholder="Contraseña Actual" onChange={(e) => setContraseña(e.target.value)} type="password" className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Contraseña nueva</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
+                                                            <input placeholder="Nueva contraseña" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Confirmar Contraseña</label>
-                                                            <input placeholder="Codigo Postal" placeholder="ingresa la contraseña" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
+                                                            <input placeholder="Confirme contraseña" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
@@ -297,6 +315,64 @@ const Administrador = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {/* Modal para actualizar*/}
+                                        <div className="modal fade" id="actualizar" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">Actualizar contraseña</h5>
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="form-group">
+                                                            <label>Correo</label>
+                                                            <input placeholder="Correo electronico" onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Nombre</label>
+                                                            <input placeholder="Nombre" onChange={(e) => setName(e.target.value)} type="text"  className="form-control" ></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Apellido</label>
+                                                            <input placeholder="Apellido" onChange={(e) => setLastName(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Direccion</label>
+                                                            <input placeholder="Direccion" onChange={(e) => setDireccion(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Telefono</label>
+                                                            <input placeholder="Telefono" onChange={(e) => setTelefono(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Ciudad</label>
+                                                            <input placeholder="Ciudad" onChange={(e) => setCiudad(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Pais</label>
+                                                            <input placeholder="Pais" onChange={(e) => setPais(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                         <div className="form-group">
+                                                            <label>Codigo postal</label>
+                                                            <input placeholder="codigo postal" onChange={(e) => setCodigoPostal(e.target.value)} type="text"  className="form-control"></input>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Descripcion de Perfil</label>
+                                                            <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" onChange={(e) => setDescripccion(e.target.value)}></textarea>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" onClick={actualizarInformacion} className="btn btn-sm btn-primary">Actualizar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -306,5 +382,4 @@ const Administrador = () => {
         </div>
     )
 }
-
 export default Administrador;
