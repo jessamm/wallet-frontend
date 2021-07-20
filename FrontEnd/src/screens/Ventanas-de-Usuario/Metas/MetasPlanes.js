@@ -72,7 +72,7 @@ const MetasPlanes = () => {
         obtenerDatosMetas();
         obtenerPlanAhorro();
         obtenerCategorias();
-    }, [])
+    })
 
     //METAS de gasto
     //const [id_categorie, setId_categorie] = useState("");
@@ -116,7 +116,6 @@ const MetasPlanes = () => {
     //AHORROS
     //se usa id categorie y mount limit de arriba date end
     const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
-
 
     const handleSubmitAhorro = async (e) => {
         e.preventDefault();
@@ -212,7 +211,6 @@ const MetasPlanes = () => {
                 </header>
                 <main className="main-main">
                     <div className="panel-header panel-header-sm"></div>
-
                     <div className="content">
                         <div className="row-perfil">
                             <div className="col-md-12">
@@ -263,7 +261,6 @@ const MetasPlanes = () => {
                                 </div>
                             </div>
 
-
                             <div className="col-md-12">
                                 <div className="card">
                                     <div className="card-header">
@@ -311,14 +308,10 @@ const MetasPlanes = () => {
                                     <br></br>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </main>
-
                 { /* MODAL */}
-
                 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -354,8 +347,8 @@ const MetasPlanes = () => {
                                         {
                                             categorias.map((datos, key) => {
                                                 return(
-                                                    <select className="form-control" >
-                                                        <option onChange={setIdCategorie(key)}>{datos.name} </option>
+                                                    <select className="form-control" onChange={setIdCategorie(key)}>
+                                                        <option>{datos.name} </option>
                                                         {/**                                                        <option>{datos.name}</option>
                                                         <option>{datos.name}</option>
                                                          */}
@@ -381,9 +374,6 @@ const MetasPlanes = () => {
                         </div>
                     </div>
                 </div>
-
-
-
 
                 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -446,7 +436,6 @@ const MetasPlanes = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )

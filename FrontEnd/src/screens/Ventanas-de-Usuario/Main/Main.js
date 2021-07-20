@@ -4,7 +4,7 @@ import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Main.css";
 import '../../../fontawesome/fontawesome';
-import { Pie, PolarArea } from 'react-chartjs-2';
+import { PolarArea } from 'react-chartjs-2';
 /*
 import Grafica from '../Grafica/Grafica';
 import Cuentas from '../Cuentas/Cuentas';

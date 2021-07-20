@@ -12,10 +12,6 @@ const Estadistica = () => {
 
     const [data, setData] = useState([1,2,3,4]);
 
-    useEffect(() => {
-        //obtenerData();
-    }, []);
-
     const obtenerData = async () => {
         const response = await fetch('');
 
@@ -24,6 +20,9 @@ const Estadistica = () => {
             setData(body)
         }
     }
+    useEffect(() => {
+        obtenerData();
+    }, []);
 
     const complexSettings = {
         width: 800,

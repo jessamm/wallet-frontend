@@ -7,28 +7,23 @@ import "../Configuracion/Configuracion.css";
 const API = process.env.REACT_APP_API;
 
 const Cuentas = () => {
-
-    const [cuentasAhorro, setCuentasAhorro] = useState([]);
-    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
-    const [tipoCuenta, setTipoCuenta] = useState(0)
-    const [saldoMesAnterior, setSaldoMesAnterior] = useState("");
-    const [saldoActual, setSaldoActual] = useState("");
-    const [nombreBanco, setNombreBanco] = useState("");
     //probar 
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
-    /*
-    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
-    const nameUsuario = JSON.parse(localStorage.getItem("name"));
-    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
-    const emailUsuario = JSON.parse(localStorage.getItem("email"));
-    */
 
-    const [errorLlenado, handleError] = useState(false);
+    const [cuentas, setCuentas] = useState([]);
+    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
 
-    const obtenerCuentasAhorro = async () => {
+    const [tipoCuenta, setTipoCuenta] = useState(0);
+    const [nombreBanco, setNombreBanco] = useState("");
+    const [fechaVencimiento, setFechaVencimiento] = useState("");
+    const [csv, setCsv] = useState("");
+    const [numeroCuenta, setNumeroCuenta] = useState("");
+    const [monto, setMonto] = useState("");
+
+    const obtenerCuentas = async () => {
 
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
@@ -41,10 +36,10 @@ const Cuentas = () => {
         });
         const data = await res.json();
         if (data) {
-            setCuentasAhorro(data);
+            setCuentas(data);
         }
     }
-
+    //cambiar por pagos
     const obtenerCuentasEfectivo = async () => {
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
@@ -61,24 +56,20 @@ const Cuentas = () => {
         }
     }
     useEffect(() => {
-        obtenerCuentasAhorro();
+        obtenerCuentas();
         obtenerCuentasEfectivo();
-    }, [])
+    })
 
-    const handleSubmitCuentasAhorro = async (e) => {
+    const handleSubmitCuentas= async (e) => {
         e.preventDefault();
 
-        if (nombreBanco.trim() === "" || saldoMesAnterior === "" || saldoActual.trim() === "") {
-            handleError(true);
-            alert("Todos los campos deben ser llenados");
-            return;
-        }
-        handleError(false);
-
         const json_data = {
-            '': saldoMesAnterior,
+            '': tipoCuenta,
+            '': fechaVencimiento,
+            '': csv,
+            '': numeroCuenta,
+            '': monto,
             '': nombreBanco,
-            '': saldoActual
         };
 
         const res = await fetch(`${API}/`, {
@@ -87,28 +78,18 @@ const Cuentas = () => {
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
-
         //console.log(data.Session);
         if (res.status) {
             const data = await res.json();
-            console.log(data.Session);
+            console.log(data);
         }
     };
 
-    const handleSubmitCuentaEfectivo = async (e) => {
+    const handleSubmitPagos = async (e) => {
         e.preventDefault();
 
-        if (nombreBanco.trim() === "" || saldoMesAnterior === "" || saldoActual.trim() === "") {
-            handleError(true);
-            alert("Todos los campos deben ser llenados");
-            return;
-        }
-        handleError(false);
-
         const json_data = {
-            '': saldoMesAnterior,
-            '': nombreBanco,
-            '': saldoActual
+
         };
 
         const res = await fetch(`${API}/`, {
@@ -195,7 +176,7 @@ const Cuentas = () => {
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="card-header">
-                                    <h5 className="title">Cuentas de Ahorro </h5>
+                                    <h5 className="title">Cuentas</h5>
                                     <div className="row" >
                                         <div className="col-6" >
                                             <div className="form-group">
@@ -222,23 +203,24 @@ const Cuentas = () => {
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Nombre del banco</th>
-                                                <th scope="col">Saldo mes anterior</th>
-                                                <th scope="col">Saldo actual</th>
-                                                <th scope="col">Balance</th>
+                                                <th scope="col">CSV</th>
+                                                <th scope="col">Numero Cuenta</th>
+                                                <th scope="col">Tipo de cuenta</th>
+                                                <th scope="col">Monto</th>
                                                 <th scope="col">Eliminar</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                cuentasAhorro.map((cuenta, key) => {
+                                                cuentas.map((cuenta, key) => {
                                                     return (
                                                         <tr>
                                                             <th scope="row">{key++}</th>
                                                             <td>{cuenta.nombreBanco}</td>
-                                                            <td>$ {cuenta.saldoMes}</td>
-                                                            <td>$ {cuenta.saldoActual}</td>
-                                                            <td>$ {cuenta.balance}</td>
+                                                            <td>$ {cuenta.csv}</td>
+                                                            <td>$ {cuenta.numeroCuenta}</td>
+                                                            <td>$ {cuenta.tipoCuenta}</td>
+                                                            <td>$ {cuenta.monto}</td>
                                                             <th scope="col">
                                                                 <button className="btn btn-sm btn-danger" onClick={EliminarCuentaAhorro}>Eliminar</button>
                                                             </th>
@@ -296,9 +278,6 @@ const Cuentas = () => {
                             </div>
                         </div>
 
-
-
-
                         {/* Modal */}
                         <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
@@ -317,7 +296,8 @@ const Cuentas = () => {
                                         }
 
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>                                                </button>
+                                            <span aria-hidden="true">×</span>                                                
+                                        </button>
                                     </div>
                                     <div className="modal-body">
                                         {
@@ -329,39 +309,44 @@ const Cuentas = () => {
                                                 </div>
                                                 <div className="form-group">
                                                     <label>fecha vencimiento</label>
-                                                    <input type="date" className="form-control" ></input>
+                                                    <input type="date" className="form-control" onChange={(e) => setFechaVencimiento(e.target.value)} ></input>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>CSV</label>
-                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control" onChange={(e) => setCsv(e.target.value)}></input>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Numero de cuenta</label>
-                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control"></input>
+                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control" onChange={(e) => setNumeroCuenta(e.target.value)}></input>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>CSV</label>
-                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label>Monto</label>
-                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                    <label>Monto Cuenta</label>
+                                                    <input placeholder="Ingrese Monto" type="text" className="form-control" onChange={(e) => setMonto(e.target.value)}></input>
                                                 </div>
                                             </>
                                         }
                                         {
-                                            tipoCuenta == 2 && <>
+                                            tipoCuenta == 2 && 
+                                            <>
                                                 <div className="form-group">
                                                     <label>Nombre del banco</label>
                                                     <input placeholder="Ingrese el nombre del banco" onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Numero de cuenta</label>
-                                                    <input placeholder="Ingrese numero de cuenta" type="text" className="form-control" ></input>
+                                                    <label>fecha vencimiento</label>
+                                                    <input type="date" className="form-control" onChange={(e) => setFechaVencimiento(e.target.value)} ></input>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Monto</label>
-                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                    <label>CSV</label>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control" onChange={(e) => setCsv(e.target.value)}></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Numero de cuenta</label>
+                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control" onChange={(e) => setNumeroCuenta(e.target.value)}></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Monto Cuenta</label>
+                                                    <input placeholder="Ingrese Monto" type="text" className="form-control" onChange={(e) => setMonto(e.target.value)}></input>
                                                 </div>
                                             </>
                                         }
@@ -374,23 +359,19 @@ const Cuentas = () => {
                                                 </div>
                                                 <div className="form-group">
                                                     <label>fecha vencimiento</label>
-                                                    <input type="date" className="form-control" ></input>
+                                                    <input type="date" className="form-control" onChange={(e) => setFechaVencimiento(e.target.value)} ></input>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>CSV</label>
-                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control" onChange={(e) => setCsv(e.target.value)}></input>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Numero de cuenta</label>
-                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control"></input>
+                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control" onChange={(e) => setNumeroCuenta(e.target.value)}></input>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>CSV</label>
-                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label>Monto</label>
-                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                    <label>Monto Cuenta</label>
+                                                    <input placeholder="Ingrese Monto" type="text" className="form-control" onChange={(e) => setMonto(e.target.value)}></input>
                                                 </div>
                                             </>
                                         }
@@ -400,19 +381,14 @@ const Cuentas = () => {
                                         }
 
                                     </div>
-                                    {errorLlenado ? (
-                                        <p className="alert alert-danger error-p text-white">
-                                            Todos los campos deben ser llenados
-                                        </p>
-                                    ) : null}
+                
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentasAhorro}>Agregar</button>
+                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentas}>Agregar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
@@ -429,11 +405,7 @@ const Cuentas = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>Monto</label>
-                                            <input placeholder="Ingrese monto" onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text" className="form-control" ></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label>fecha</label>
-                                            <input type="date" className="form-control"></input>
+                                            <input placeholder="Ingrese monto" type="text" className="form-control" onChange={(e) => setMonto(e.target.value)} ></input>
                                         </div>
                                         <div className="form-group">
                                             <label>Cuenta</label>
@@ -452,24 +424,16 @@ const Cuentas = () => {
                                             </select>
                                         </div>
                                     </div>
-                                    {errorLlenado ? (
-                                        <p className="alert alert-danger error-p text-white">
-                                            Todos los campos deben ser llenados
-                                        </p>
-                                    ) : null}
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentaEfectivo}>Agregar</button>
+                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitPagos}>Agregar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </main>
-
         </div>
     )
 }
