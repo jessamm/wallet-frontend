@@ -121,7 +121,13 @@ const Configuracion = () => {
             codigoPostal
         }
         console.log(data)
-}
+    }
+    const cerrarSesion = async (e) => {
+        e.preventDefault();
+
+        localStorage.clear();
+        window.location.href = "http://localhost:3000/login";
+    }
 
     return (
         <>
@@ -145,7 +151,7 @@ const Configuracion = () => {
                                 <li><Link to="/Cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
                                 <li><Link to="/metas-planes" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Metas y planes</span></Link></li>
                                 <li><Link to="/configuracion" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
-                                <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span>Cerrar Sesion</span></Link></li>
+                                <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" onClick={cerrarSesion}/><span>Cerrar Sesion</span></Link></li>
 
                             </ul>
                         </nav>{/*<!-- .nav-menu -->*/}

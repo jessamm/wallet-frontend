@@ -98,6 +98,13 @@ const Administrador = () => {
             }
             console.log(data)
     }
+
+    const cerrarSesion = async (e) => {
+        e.preventDefault();
+
+        localStorage.clear();
+        window.location.href = "http://localhost:3000/login";
+    }
     
     return (
         <div className="login-page" style={{ height: '100vh' }} >
@@ -121,6 +128,7 @@ const Administrador = () => {
                             <li><Link to="/bitacora" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Bitacora</span></Link></li>
                             <li><Link to="/cuentas-por-aprobar" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span className="m-2" >Cuentas por aprobar</span></Link></li>
                             <li><Link to="/Administrador" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span className="m-2" >Configuracion</span></Link></li>
+                            <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" onClick={cerrarSesion}/><span>Cerrar Sesion</span></Link></li>
                         </ul>
                     </nav>{/*<!-- .nav-menu -->*/}
                 </div>
