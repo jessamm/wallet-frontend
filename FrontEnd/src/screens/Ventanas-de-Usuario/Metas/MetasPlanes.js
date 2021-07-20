@@ -9,13 +9,12 @@ const MetasPlanes = () => {
     /**llenado de tablas */
     const [datosMetas, setDatosMetas] = useState([]);
     const [planAhorro, setPlanAhorro] = useState([]);
-    console.log('cargo doom metas===============================>')
+    const [categorias, setCategorias] = useState([]);
     // localStorage.getItem(1)
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
-
     /*
     const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
     const nameUsuario = JSON.parse(localStorage.getItem("name"));
@@ -57,16 +56,31 @@ const MetasPlanes = () => {
             setPlanAhorro(data);
         }
     }
+    const obtenerCategorias = async () => {
+        const res = await fetch(`${API}/get-categories`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(),
+        });
+        const data = await res.json();
+        if (data) {
+            setCategorias(data);
+        }
+    }
+    
     useEffect(() => {
         obtenerDatosMetas();
         obtenerPlanAhorro();
+        obtenerCategorias();
     }, [])
 
     //METAS de gasto
     //const [id_categorie, setId_categorie] = useState("");
     const [mount_limit, setMount_limit] = useState("");
     const [date_end, setDate_end] = useState("");
-    const [nameMeta, setNameMeta] = useState("");//agregar a la base el nombre de las metas
+    const [nameMeta, setNameMeta] = useState("");
+    const [id_categorie, setIdCategorie] = useState("");
+    //agregar a la base el nombre de las metas
 
     const [errorLlenado, handleError] = useState(false);
 
@@ -83,7 +97,7 @@ const MetasPlanes = () => {
         const json_data = {
             'id_user': idUsuario,
             'date_end': date_end,
-            //'id_categorie': id_categorie, averiguar como imprimirlos en la modal y solo elegir 1
+            'id_categorie': id_categorie,
             'mount_limit': mount_limit
         };
 
@@ -93,7 +107,6 @@ const MetasPlanes = () => {
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
-
         //console.log(data.Session);
         if (res.status) {
             const data = await res.json();
@@ -118,9 +131,9 @@ const MetasPlanes = () => {
         const json_data = {
             'id_user': idUsuario,
             'date_end': date_end,
-            //'id_categorie': id_categorie, imprimir todas las categorias alla
-            'mount_limit': mount_limit,
-            //    'nameAhorro': nameAhorro
+            'id_categorie': id_categorie, 
+            'mount_limit': mount_limit
+            //'nameAhorro': nameAhorro
         };
 
         const res = await fetch(`${API}/set-planning`, {
@@ -335,13 +348,22 @@ const MetasPlanes = () => {
                                         <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)} />
                                     </div>
+                                    
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <select className="form-control" >
-                                            <option>Categoria 1</option>
-                                            <option>Categoria 2</option>
-                                            <option>Categoria 3</option>
-                                        </select>
+                                        {
+                                            categorias.map((datos, key) => {
+                                                return(
+                                                    <select className="form-control" >
+                                                        <option onChange={setIdCategorie(key)}>{datos.name} </option>
+                                                        {/**                                                        <option>{datos.name}</option>
+                                                        <option>{datos.name}</option>
+                                                         */}
+
+                                                    </select>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -394,11 +416,19 @@ const MetasPlanes = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <select className="form-control" >
-                                            <option>Categoria 1</option>
-                                            <option>Categoria 2</option>
-                                            <option>Categoria 3</option>
-                                        </select>
+                                        {
+                                            categorias.map((datos, key) => {
+                                                return(
+                                                    <select className="form-control" >
+                                                        <option onChange={setIdCategorie(key)}>{datos.name}</option>
+                                                        {/**<option>{datos.name}</option>
+                                                        <option>{datos.name}</option>
+                                                         */}
+
+                                                    </select>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>
