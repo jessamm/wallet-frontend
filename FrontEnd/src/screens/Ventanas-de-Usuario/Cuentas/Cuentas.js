@@ -15,6 +15,8 @@ const Cuentas = () => {
 
     const [cuentas, setCuentas] = useState([]);
     const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
+    const [Metas, setDatosMetas] = useState([]);
+    const [Ahorro, setPlanAhorro] = useState([]);
 
     const [tipoCuenta, setTipoCuenta] = useState(0);
     const [nombreBanco, setNombreBanco] = useState("");
@@ -39,6 +41,38 @@ const Cuentas = () => {
             setCuentas(data);
         }
     }
+    const obtenerPlan = async () => {
+
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/get-planning`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if (data) {
+            setPlanAhorro(data);
+        }
+    }
+    const obtenerMetas = async () => {
+
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/get-goals`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if (data) {
+            setDatosMetas(data);
+        }
+    }
     //cambiar por pagos
     const obtenerCuentasEfectivo = async () => {
         const json_data = {
@@ -58,6 +92,8 @@ const Cuentas = () => {
     useEffect(() => {
         obtenerCuentas();
         obtenerCuentasEfectivo();
+        obtenerMetas();
+        obtenerPlan();
     })
 
     const handleSubmitCuentas= async (e) => {
@@ -123,7 +159,7 @@ const Cuentas = () => {
         };
     };
 
-    const EliminarCuentaAhorro = async (e) => {
+    const EliminarCuenta = async (e) => {
         const json_data = {
             'id_user': idUsuario
         };
@@ -222,7 +258,7 @@ const Cuentas = () => {
                                                             <td>$ {cuenta.tipoCuenta}</td>
                                                             <td>$ {cuenta.monto}</td>
                                                             <th scope="col">
-                                                                <button className="btn btn-sm btn-danger" onClick={EliminarCuentaAhorro}>Eliminar</button>
+                                                                <button className="btn btn-sm btn-danger" onClick={EliminarCuenta}>Eliminar</button>
                                                             </th>
                                                         </tr>
                                                     )
@@ -396,7 +432,8 @@ const Cuentas = () => {
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel">Agregar pagos</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>                                                </button>
+                                            <span aria-hidden="true">×</span>                                                
+                                        </button>
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group">
@@ -410,17 +447,33 @@ const Cuentas = () => {
                                         <div className="form-group">
                                             <label>Cuenta</label>
                                             <select className="form-control" >
-                                                <option>Cuenta 1</option>
-                                                <option>Cuenta 2</option>
-                                                <option>Cuenta 3</option>
+                                                {
+                                                    cuentas.map((datos)=>{
+                                                        return(
+                                                            <option value={datos.id}>{datos.nombreBanco}</option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                         <div className="form-group">
                                             <label>Tipo</label>
                                             <select defaultValue="0" className="form-control" >
                                                 <option value="0" >Seleccione</option>
-                                                <option value="1" >Pago</option>
-                                                <option value="2" >Meta</option>
+                                                {
+                                                    Metas.map((datos)=>{
+                                                        return(
+                                                            <option value={datos.id}>{datos.nameMeta}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {
+                                                    Ahorro.map((datos)=>{
+                                                        return(
+                                                            <option value={datos.id}>{datos.nameMeta}</option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                     </div>
