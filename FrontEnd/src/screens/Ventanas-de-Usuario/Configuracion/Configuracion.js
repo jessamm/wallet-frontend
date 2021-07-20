@@ -108,6 +108,21 @@ const Configuracion = () => {
         }
     }
 
+    const actualizarInformacion = () =>{
+        let data = {
+            email,
+            name,
+            last_name,
+            direccion,
+            ciudad,
+            pais,
+            telefono,
+            descripccion,
+            codigoPostal
+        }
+        console.log(data)
+}
+
     return (
         <>
             <div className="login-page" style={{ height: '100vh' }} >
@@ -167,7 +182,7 @@ const Configuracion = () => {
                                                 <div className="pl-1 col-md-6">
                                                     <div className="form-group">
                                                         <label>Correo Electronico</label>
-                                                        <input placeholder="Correo Electronico" type="email" className="form-control" onChange={(e) => setEmail(e.target.value)}></input>
+                                                        <input placeholder="Correo Electronico" type="email" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,19 +191,19 @@ const Configuracion = () => {
                                                 <div className="pr-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Nombre</label>
-                                                        <input placeholder="Nombre" type="text" className="form-control" onChange={(e) => setName(e.target.value)}></input>
+                                                        <input placeholder="Nombre" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Apellido</label>
-                                                        <input placeholder="Apellido" type="text" className="form-control" onChange={(e) => setLastName(e.target.value)}></input>
+                                                        <input placeholder="Apellido" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Contraseña</label>
-                                                        <input placeholder="Contraseña" type="password" className="d-none form-control" onChange={(e) => setPassword(e.target.value)}></input>
+                                                        <input placeholder="Contraseña" type="password" className="d-none form-control" ></input>
                                                         <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                                                             Actualiza contraseña
                                                         </button>
@@ -200,13 +215,13 @@ const Configuracion = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Direccion</label>
-                                                        <input placeholder="Direccion" type="text" className="form-control" onChange={(e) => setDireccion(e.target.value)}></input>
+                                                        <input placeholder="Direccion" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Telefono</label>
-                                                        <input placeholder="Numero de telefono" type="text" className="form-control" onChange={(e)=>setTelefono(e.target.value)}></input>
+                                                        <input placeholder="Numero de telefono" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,19 +230,19 @@ const Configuracion = () => {
                                                 <div className="pr-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Ciudad</label>
-                                                        <input placeholder="Ciudad" type="text" className="form-control" onChange={(e) => setCiudad(e.target.value)}></input>
+                                                        <input placeholder="Ciudad" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                                 <div className="px-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Pais</label>
-                                                        <input placeholder="Pais" type="text" className="form-control" onChange={(e) => setPais(e.target.value)}></input>
+                                                        <input placeholder="Pais" type="text" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Codigo Postal</label>
-                                                        <input placeholder="Codigo Postal" type="number" className="form-control" onChange={(e) => setCodigoPostal(e.target.value)}></input>
+                                                        <input placeholder="Codigo Postal" type="number" className="form-control" ></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,8 +251,7 @@ const Configuracion = () => {
                                                 <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label>Sobre Mi</label>
-                                                        <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" onChange={(e) => setDescripccion(e.target.value)}>
-                                                        </textarea>
+                                                        <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" ></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -354,21 +368,23 @@ const Configuracion = () => {
                                                             <label>Direccion</label>
                                                             <input placeholder="Ingrese su direccion" onChange={(e) => setDireccion(e.target.value)} type="text"  className="form-control"></input>
                                                         </div>
-                                                        <div className="form-group">
-                                                            <label>Telefono</label>
-                                                            <input placeholder="Ingrese su numero de telefono"  onChange={(e) => setTelefono(e.target.value)} type="text"  className="form-control"></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Ciudad</label>
-                                                            <input placeholder="Ingrese su cuidad"  onChange={(e) => setCiudad(e.target.value)} type="text"  className="form-control"></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Pais</label>
-                                                            <input placeholder="Ingrese su Pais"  onChange={(e) => setPais(e.target.value)} type="text"  className="form-control"></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Codigo Postal</label>
-                                                            <input placeholder="Ingrese su codigo Postal"  onChange={(e) => setCodigoPostal(e.target.value)} type="text"  className="form-control"></input>
+                                                        <div className="row">
+                                                            <div className="form-group">
+                                                                <label>Ciudad</label>
+                                                                <input placeholder="Ingrese su cuidad"  onChange={(e) => setCiudad(e.target.value)} type="text"  className="form-control"></input>
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Pais</label>
+                                                                <input placeholder="Ingrese su Pais"  onChange={(e) => setPais(e.target.value)} type="text"  className="form-control"></input>
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Codigo Postal</label>
+                                                                <input placeholder="Ingrese su codigo Postal"  onChange={(e) => setCodigoPostal(e.target.value)} type="text"  className="form-control"></input>
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Telefono</label>
+                                                                <input placeholder="Ingrese su numero de telefono"  onChange={(e) => setTelefono(e.target.value)} type="text"  className="form-control"></input>
+                                                            </div>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Descripcion del perfil</label>
@@ -377,7 +393,7 @@ const Configuracion = () => {
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" onClick={actualizarContrasena} className="btn btn-sm btn-primary">Actualizar</button>
+                                                        <button type="button" onClick={actualizarInformacion} className="btn btn-sm btn-primary">Actualizar</button>
                                                     </div>
                                                 </div>
                                             </div>
