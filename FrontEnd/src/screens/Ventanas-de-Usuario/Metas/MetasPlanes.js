@@ -32,11 +32,11 @@ const MetasPlanes = () => {
         };
         const res = await fetch(`${API}/get-goals`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
-        if(data){
+        if (data) {
             setDatosMetas(data);
         }
     }
@@ -49,15 +49,15 @@ const MetasPlanes = () => {
         };
         const res = await fetch(`${API}/get-planning`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
-        if(data){
+        if (data) {
             setPlanAhorro(data);
         }
     }
-    useEffect(() =>{
+    useEffect(() => {
         obtenerDatosMetas();
         obtenerPlanAhorro();
     }, [])
@@ -73,7 +73,7 @@ const MetasPlanes = () => {
     const handleSubmitMetas = async (e) => {
         e.preventDefault();
 
-        if(mount_limit.trim()==="" || date_end === "" || nameMeta.trim()===""){
+        if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -89,13 +89,13 @@ const MetasPlanes = () => {
 
         const res = await fetch(`${API}/set-goals`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
-       
+
         //console.log(data.Session);
-        if(res.status){
+        if (res.status) {
             const data = await res.json();
             console.log(data.Session);
         }
@@ -108,7 +108,7 @@ const MetasPlanes = () => {
     const handleSubmitAhorro = async (e) => {
         e.preventDefault();
 
-        if( mount_limit.trim()==="" || date_end === "" || nameAhorro.trim()===""){
+        if (mount_limit.trim() === "" || date_end === "" || nameAhorro.trim() === "") {
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -120,16 +120,16 @@ const MetasPlanes = () => {
             'date_end': date_end,
             //'id_categorie': id_categorie, imprimir todas las categorias alla
             'mount_limit': mount_limit,
-        //    'nameAhorro': nameAhorro
+            //    'nameAhorro': nameAhorro
         };
 
         const res = await fetch(`${API}/set-planning`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
 
-        if(res.status){
+        if (res.status) {
             const data = await res.json();
             console.log(data.Session);
         };
@@ -142,11 +142,11 @@ const MetasPlanes = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
 
-        if(res.status){
+        if (res.status) {
             //const data = await res.json();
             console.log("==========================Meta eliminada ==============================");
         };
@@ -159,11 +159,11 @@ const MetasPlanes = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
 
-        if(res.status){
+        if (res.status) {
             //const data = await res.json();
             console.log("==========================Plan eliminado ==============================");
         };
@@ -214,6 +214,7 @@ const MetasPlanes = () => {
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nombre Usuario</th>
+                                                    <th scope="col">Descripcion</th>
                                                     <th scope="col">Fecha Inicio</th>
                                                     <th scope="col">Maximo a Gastar</th>
                                                     <th scope="col">Gastos Actuales</th>
@@ -261,6 +262,7 @@ const MetasPlanes = () => {
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nombre Usuario</th>
+                                                    <th scope="col">Descripcion</th>
                                                     <th scope="col">Fecha Inicio</th>
                                                     <th scope="col">Fecha Final</th>
                                                     <th scope="col">Monto Actual</th>
@@ -323,7 +325,7 @@ const MetasPlanes = () => {
                                      */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Fecha Final</label>
@@ -331,7 +333,15 @@ const MetasPlanes = () => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)}/>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Categoria</label>
+                                        <select className="form-control" >
+                                            <option>Categoria 1</option>
+                                            <option>Categoria 2</option>
+                                            <option>Categoria 3</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +374,7 @@ const MetasPlanes = () => {
                             </div>
                             <div class="modal-body">
                                 <div>
-                                {/** 
+                                    {/** 
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput">Categoria</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
@@ -372,7 +382,7 @@ const MetasPlanes = () => {
                                 */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)}/>
+                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Fecha Final</label>
@@ -381,6 +391,14 @@ const MetasPlanes = () => {
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Nombre Meta</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameMeta(e.target.value)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Categoria</label>
+                                        <select className="form-control" >
+                                            <option>Categoria 1</option>
+                                            <option>Categoria 2</option>
+                                            <option>Categoria 3</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

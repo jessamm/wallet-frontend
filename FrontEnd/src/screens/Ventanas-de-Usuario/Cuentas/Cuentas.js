@@ -10,10 +10,10 @@ const Cuentas = () => {
 
     const [cuentasAhorro, setCuentasAhorro] = useState([]);
     const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
-    
-    const [saldoMesAnterior,setSaldoMesAnterior]=useState("");
-    const [saldoActual, setSaldoActual]=useState("");
-    const [nombreBanco,setNombreBanco]=useState("");
+    const [tipoCuenta, setTipoCuenta] = useState(0)
+    const [saldoMesAnterior, setSaldoMesAnterior] = useState("");
+    const [saldoActual, setSaldoActual] = useState("");
+    const [nombreBanco, setNombreBanco] = useState("");
     //probar 
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
@@ -27,7 +27,7 @@ const Cuentas = () => {
     */
 
     const [errorLlenado, handleError] = useState(false);
-    
+
     const obtenerCuentasAhorro = async () => {
 
         const json_data = {
@@ -36,11 +36,11 @@ const Cuentas = () => {
         };
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
-        if(data){
+        if (data) {
             setCuentasAhorro(data);
         }
     }
@@ -52,11 +52,11 @@ const Cuentas = () => {
         };
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
-        if(data){
+        if (data) {
             setCuentasEfectivo(data);
         }
     }
@@ -68,7 +68,7 @@ const Cuentas = () => {
     const handleSubmitCuentasAhorro = async (e) => {
         e.preventDefault();
 
-        if(nombreBanco.trim()==="" || saldoMesAnterior === "" || saldoActual.trim()===""){
+        if (nombreBanco.trim() === "" || saldoMesAnterior === "" || saldoActual.trim() === "") {
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -83,13 +83,13 @@ const Cuentas = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
-       
+
         //console.log(data.Session);
-        if(res.status){
+        if (res.status) {
             const data = await res.json();
             console.log(data.Session);
         }
@@ -98,7 +98,7 @@ const Cuentas = () => {
     const handleSubmitCuentaEfectivo = async (e) => {
         e.preventDefault();
 
-        if(nombreBanco.trim()==="" || saldoMesAnterior === "" || saldoActual.trim()===""){
+        if (nombreBanco.trim() === "" || saldoMesAnterior === "" || saldoActual.trim() === "") {
             handleError(true);
             alert("Todos los campos deben ser llenados");
             return;
@@ -113,13 +113,13 @@ const Cuentas = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
-       
+
         //console.log(data.Session);
-        if(res.status){
+        if (res.status) {
             const data = await res.json();
             console.log(data.Session);
         }
@@ -132,11 +132,11 @@ const Cuentas = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
 
-        if(res.status){
+        if (res.status) {
             //const data = await res.json();
             console.log("==========================Efectivo eliminada ==============================");
         };
@@ -149,11 +149,11 @@ const Cuentas = () => {
 
         const res = await fetch(`${API}/`, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
 
-        if(res.status){
+        if (res.status) {
             //const data = await res.json();
             console.log("==========================Ahorro eliminado ==============================");
         };
@@ -169,9 +169,9 @@ const Cuentas = () => {
                         {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
                         <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
                         <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
-                            <div className="social-links mt-3 text-center">
+                        <div className="social-links mt-3 text-center">
                             <h3>{emailUsuario}</h3>
-                            
+
                         </div>
                     </div>
 
@@ -196,9 +196,24 @@ const Cuentas = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <h5 className="title">Cuentas de Ahorro </h5>
-                                        <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#cuentaahorro">
-                                            Agregar Cuenta
-                                        </button>
+                                    <div className="row" >
+                                        <div className="col-6" >
+                                            <div className="form-group">
+                                                <select defaultValue={tipoCuenta} className="form-control" onChange={e => setTipoCuenta(e.target.value)} >
+                                                    <option value="0"  >Seleccione cuenta</option>
+                                                    <option value="1" >Debito</option>
+                                                    <option value="2" >Ahorro</option>
+                                                    <option value="3" >Credito</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="col-6" >
+                                            <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#cuentaahorro">
+                                                Agregar Cuenta
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div className="card-body">
 
@@ -225,7 +240,7 @@ const Cuentas = () => {
                                                             <td>$ {cuenta.saldoActual}</td>
                                                             <td>$ {cuenta.balance}</td>
                                                             <th scope="col">
-                                                            <button className="btn btn-sm btn-danger" onClick={EliminarCuentaAhorro}>Eliminar</button>
+                                                                <button className="btn btn-sm btn-danger" onClick={EliminarCuentaAhorro}>Eliminar</button>
                                                             </th>
                                                         </tr>
                                                     )
@@ -240,9 +255,9 @@ const Cuentas = () => {
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="card-header">
-                                    <h5 className="title">Cuentas de efectivo</h5>
+                                    <h5 className="title">Pagos</h5>
                                     <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#cuentaefectivo">
-                                            Agregar Cuenta
+                                        Agregar pago
                                     </button>
                                 </div>
                                 <div className="card-body">
@@ -250,10 +265,10 @@ const Cuentas = () => {
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Nombre Usuario</th>
-                                                <th scope="col">Saldo mes anterior</th>
-                                                <th scope="col">Saldo actual</th>
-                                                <th scope="col">Balance</th>
+                                                <th scope="col">Descripcion</th>
+                                                <th scope="col">Monto</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Cuenta</th>
                                                 <th scope="col">Eliminar</th>
 
                                             </tr>
@@ -284,76 +299,170 @@ const Cuentas = () => {
 
 
 
-                     {/* Modal */}
-                    <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        {/* Modal */}
+                        <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Cuenta de ahorro</h5>
-                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        {
+                                            tipoCuenta == 1 && <h5 className="modal-title" id="exampleModalLabel">Cuenta de Debito</h5>
+                                        }
+
+                                        {
+                                            tipoCuenta == 2 && <h5 className="modal-title" id="exampleModalLabel">Cuenta de Ahorro</h5>
+                                        }
+
+                                        {
+                                            tipoCuenta == 3 && <h5 className="modal-title" id="exampleModalLabel">Cuenta de Credito</h5>
+                                        }
+
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>                                                </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        {
+                                            tipoCuenta == 1 &&
+                                            <>
+                                                <div className="form-group">
+                                                    <label>Nombre del banco</label>
+                                                    <input placeholder="Ingrese el nombre del banco" onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
                                                 </div>
-                                                    <div className="modal-body">
-                                                        <div className="form-group">
-                                                            <label>Nombre del banco</label>
-                                                            <input placeholder="Ingrese el nombre del banco"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Saldo Mes Anterior</label>
-                                                            <input placeholder="Ingrese saldo mes anterior"  onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control" ></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Saldo Actual</label>
-                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoActual(e.target.value)} type="text"  className="form-control"></input>
-                                                        </div>
-                                                    </div>
-                                                    {errorLlenado ? (
-                                                        <p className="alert alert-danger error-p text-white">
-                                                            Todos los campos deben ser llenados
-                                                        </p>
-                                                    ) : null}
-                                                    <div className="modal-footer">
-                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentasAhorro}>Agregar</button>
-                                                    </div>
+                                                <div className="form-group">
+                                                    <label>fecha vencimiento</label>
+                                                    <input type="date" className="form-control" ></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>CSV</label>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Numero de cuenta</label>
+                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>CSV</label>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Monto</label>
+                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                </div>
+                                            </>
+                                        }
+                                        {
+                                            tipoCuenta == 2 && <>
+                                                <div className="form-group">
+                                                    <label>Nombre del banco</label>
+                                                    <input placeholder="Ingrese el nombre del banco" onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Numero de cuenta</label>
+                                                    <input placeholder="Ingrese numero de cuenta" type="text" className="form-control" ></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Monto</label>
+                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                </div>
+                                            </>
+                                        }
+                                        {
+                                            tipoCuenta == 3 &&
+                                            <>
+                                                <div className="form-group">
+                                                    <label>Nombre del banco</label>
+                                                    <input placeholder="Ingrese el nombre del banco" onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>fecha vencimiento</label>
+                                                    <input type="date" className="form-control" ></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>CSV</label>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Numero de cuenta</label>
+                                                    <input placeholder="Ingrese el numero de cuenta" ptype="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>CSV</label>
+                                                    <input placeholder="Ingrese CSV" type="text" className="form-control"></input>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Monto</label>
+                                                    <input placeholder="Ingrese el monto" type="text" className="form-control"></input>
+                                                </div>
+                                            </>
+                                        }
+
+                                        {
+                                            tipoCuenta == 0 && <h5 className="modal-title text-center" id="exampleModalLabel">Seleccione un tipo de cuenta</h5>
+                                        }
+
+                                    </div>
+                                    {errorLlenado ? (
+                                        <p className="alert alert-danger error-p text-white">
+                                            Todos los campos deben ser llenados
+                                        </p>
+                                    ) : null}
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentasAhorro}>Agregar</button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
 
 
-                    <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Cuenta en efectivo</h5>
-                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <h5 className="modal-title" id="exampleModalLabel">Agregar pagos</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>                                                </button>
-                                                </div>
-                                                    <div className="modal-body">
-                                                        <div className="form-group">
-                                                            <label>Categoria</label>
-                                                            <input placeholder="Seleccione la categoria"  onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Saldo Mes Anterior</label>
-                                                            <input placeholder="Ingrese saldo mes anterior"  onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control" ></input>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Saldo Actual</label>
-                                                            <input placeholder="Ingrese saldo actual" placonChange={(e) => setSaldoMesAnterior(e.target.value)} type="text"  className="form-control"></input>
-                                                        </div>
-                                                    </div>
-                                                    {errorLlenado ? (
-                                                        <p className="alert alert-danger error-p text-white">
-                                                            Todos los campos deben ser llenados
-                                                        </p>
-                                                    ) : null}
-                                                    <div className="modal-footer">
-                                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentaEfectivo}>Agregar</button>
-                                                    </div>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="form-group">
+                                            <label>Descripcion</label>
+                                            <input placeholder="Seleccione la Descripcion" onChange={(e) => setNombreBanco(e.target.value)} type="text" className="form-control" ></input>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Monto</label>
+                                            <input placeholder="Ingrese monto" onChange={(e) => setSaldoMesAnterior(e.target.value)} type="text" className="form-control" ></input>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>fecha</label>
+                                            <input type="date" className="form-control"></input>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Cuenta</label>
+                                            <select className="form-control" >
+                                                <option>Cuenta 1</option>
+                                                <option>Cuenta 2</option>
+                                                <option>Cuenta 3</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Tipo</label>
+                                            <select defaultValue="0" className="form-control" >
+                                                <option value="0" >Seleccione</option>
+                                                <option value="1" >Pago</option>
+                                                <option value="2" >Meta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {errorLlenado ? (
+                                        <p className="alert alert-danger error-p text-white">
+                                            Todos los campos deben ser llenados
+                                        </p>
+                                    ) : null}
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" className="btn btn-sm btn-primary" onClick={handleSubmitCuentaEfectivo}>Agregar</button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
 
 
