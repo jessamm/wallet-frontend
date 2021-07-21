@@ -10,6 +10,7 @@ import Equipo from './screens/Ventanas-de-Pagina/Equipo/Equipo';
 import RecuperacionPassword from './screens/Ventanas-de-Pagina/RecuperacionPassword/RecuperacionPassword';
 
 //Ventanas de Usuario
+import Dashboard from './dashboard.js';
 import Main from './screens/Ventanas-de-Usuario/Main/Main';
 import Configuracion from './screens/Ventanas-de-Usuario/Configuracion/Configuracion';
 import Estadistica from './screens/Ventanas-de-Usuario/Estadistica/Estadistica';
@@ -36,6 +37,7 @@ const App = () => {
       <Route exact path='/cuentas' component={Cuentas}></Route>
     
       <Route path='/main' component={Main}></Route>
+      <Route path='/dashboard' component={Dashboard}></Route>
       <Route exact path='/configuracion' component={Configuracion}></Route>
       <Route exact path='/metas-planes' component={MetasPlanes}></Route>
       <Route exact path='/Estadistica' component={Estadistica}></Route>
