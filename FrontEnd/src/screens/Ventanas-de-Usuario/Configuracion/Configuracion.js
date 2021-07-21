@@ -13,6 +13,12 @@ const Configuracion = () => {
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
+    const direccionUsuario = localStorage.getItem("direccion");
+    const ciudadUsuario = localStorage.getItem("ciudad");
+    const telefonoUsuario = localStorage.getItem("telefono");
+    const paisUsuario = localStorage.getItem("pais");
+    const codigoPostalUsuario = localStorage.getItem("codigoPostal");
+    const descripcionUsuario = localStorage.getItem("descripcion");
     //
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -188,7 +194,7 @@ const Configuracion = () => {
                                                 <div className="pl-1 col-md-6">
                                                     <div className="form-group">
                                                         <label>Correo Electronico</label>
-                                                        <input placeholder="Correo Electronico" type="email" className="form-control" ></input>
+                                                        <input placeholder="Correo Electronico" type="email" className="form-control">{emailUsuario}</input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,13 +203,13 @@ const Configuracion = () => {
                                                 <div className="pr-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Nombre</label>
-                                                        <input placeholder="Nombre" type="text" className="form-control" ></input>
+                                                        <input placeholder="Nombre" type="text" className="form-control" >{nameUsuario}</input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Apellido</label>
-                                                        <input placeholder="Apellido" type="text" className="form-control" ></input>
+                                                        <input placeholder="Apellido" type="text" className="form-control" >{last_nameUsuario}</input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
@@ -221,13 +227,13 @@ const Configuracion = () => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Direccion</label>
-                                                        <input placeholder="Direccion" type="text" className="form-control" ></input>
+                                                        <input placeholder="Direccion" type="text" className="form-control" >{direccionUsuario}</input>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label>Telefono</label>
-                                                        <input placeholder="Numero de telefono" type="text" className="form-control" ></input>
+                                                        <input placeholder="Numero de telefono" type="text" className="form-control" >{telefonoUsuario}</input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,19 +242,19 @@ const Configuracion = () => {
                                                 <div className="pr-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Ciudad</label>
-                                                        <input placeholder="Ciudad" type="text" className="form-control" ></input>
+                                                        <input placeholder="Ciudad" type="text" className="form-control" >{ciudadUsuario}</input>
                                                     </div>
                                                 </div>
                                                 <div className="px-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Pais</label>
-                                                        <input placeholder="Pais" type="text" className="form-control" ></input>
+                                                        <input placeholder="Pais" type="text" className="form-control" >{paisUsuario}</input>
                                                     </div>
                                                 </div>
                                                 <div className="pl-1 col-md-4">
                                                     <div className="form-group">
                                                         <label>Codigo Postal</label>
-                                                        <input placeholder="Codigo Postal" type="number" className="form-control" ></input>
+                                                        <input placeholder="Codigo Postal" type="number" className="form-control" >{codigoPostalUsuario}</input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +263,7 @@ const Configuracion = () => {
                                                 <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label>Sobre Mi</label>
-                                                        <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" ></textarea>
+                                                        <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" >{descripcionUsuario}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

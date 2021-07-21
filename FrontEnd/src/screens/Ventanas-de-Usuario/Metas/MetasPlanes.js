@@ -117,7 +117,7 @@ const MetasPlanes = () => {
     //se usa id categorie y mount limit de arriba date end
     const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
 
-    const handleSubmitAhorro = async (e) => {
+    const handleSubmitPlan = async (e) => {
         e.preventDefault();
 
         if (mount_limit.trim() === "" || date_end === "" || nameAhorro.trim() === "") {
@@ -344,6 +344,7 @@ const MetasPlanes = () => {
                                         <label htmlFor="formGroupExampleInput2">Fecha Final</label>
                                         <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
                                     </div>
+                                    {/**poner en la base name ahorro y name plan */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)} />
@@ -374,7 +375,7 @@ const MetasPlanes = () => {
                             ) : null}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitAhorro}>
+                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitPlan}>
                                     Agregar
                                 </button>
                             </div>

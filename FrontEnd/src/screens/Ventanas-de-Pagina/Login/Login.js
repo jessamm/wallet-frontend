@@ -47,6 +47,14 @@ const Login = () => {
             localStorage.setItem("name", JSON.stringify(data[0]['name']))
             localStorage.setItem("last_name", JSON.stringify(data[0]['last_name']))
             localStorage.setItem("email", JSON.stringify(data[0]['email']))
+            //campos nuevos
+            localStorage.setItem("telefono", JSON.stringify(data[0]['telefono']))
+            localStorage.setItem("direccion", JSON.stringify(data[0]['last_name']))
+            localStorage.setItem("ciudad", JSON.stringify(data[0]['email']))
+            localStorage.setItem("pais", JSON.stringify(data[0]['name']))
+            localStorage.setItem("codigoPostal", JSON.stringify(data[0]['last_name']))
+            localStorage.setItem("descripcion", JSON.stringify(data[0]['email']))
+            
             //faltaria agregar todos los datos de los campos de configuracion de perfil que faltan en la base
             // localStorage.setItem (1,data[0]['id'])
             window.location.href = "http://localhost:3000/metas-planes";

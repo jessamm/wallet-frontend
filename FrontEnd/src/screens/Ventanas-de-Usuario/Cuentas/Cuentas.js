@@ -125,7 +125,6 @@ const Cuentas = () => {
         e.preventDefault();
 
         const json_data = {
-
         };
 
         const res = await fetch(`${API}/`, {
