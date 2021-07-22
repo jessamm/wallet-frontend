@@ -1,175 +1,177 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import "./Login.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-//import github from '../assets/img/github.svg';
-//import google from '../assets/img/google.svg';
-
+import React, {useState} from 'react';
+import  { Redirect } from 'react-router-dom'
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 
 const API = process.env.REACT_APP_API;
 
-const Login = () => {
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    //State oara llenado
-    const [error, handleError] = useState(false);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();  
-
-        if (email.trim() === "" || password.trim() === "") {
-            handleError(true);
-            return;
-        }
-      
-        handleError(false);
-
-        const json_data = {
-            'user': email,
-            'password':password
-        };
-
-        const res = await fetch(`${API}/login`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(json_data),
-        });
-
-        const data = await res.json();
-        console.log('True=============================>');
-        // console.log(data[0]);
-        if (data){
-            localStorage.setItem("idUsuario", JSON.stringify(data[0]['id']))
-            localStorage.setItem("name", JSON.stringify(data[0]['name']))
-            localStorage.setItem("last_name", JSON.stringify(data[0]['last_name']))
-            localStorage.setItem("email", JSON.stringify(data[0]['email']))
-            //campos nuevos
-            localStorage.setItem("telefono", JSON.stringify(data[0]['telefono']))
-            localStorage.setItem("direccion", JSON.stringify(data[0]['last_name']))
-            localStorage.setItem("ciudad", JSON.stringify(data[0]['email']))
-            localStorage.setItem("pais", JSON.stringify(data[0]['name']))
-            localStorage.setItem("codigoPostal", JSON.stringify(data[0]['last_name']))
-            localStorage.setItem("descripcion", JSON.stringify(data[0]['email']))
-            
-            //faltaria agregar todos los datos de los campos de configuracion de perfil que faltan en la base
-            // localStorage.setItem (1,data[0]['id'])
-            window.location.href = "http://localhost:3000/metas-planes";
-//--------------cambiar a la ventana Main--------------
-            alert("Session Iniciada");
-        }
-        else{
-            alert("Datos incorrectos");
-        }
-    };
 
 
-    return (
-        <div className="login-page" style={{height: '100vh'}} >  
-            {/**HEADER */} 
-            <header className="header header-scrolled fixed-top d-flex align-items-center header-transparent">
-                    <div className="container d-flex justify-content-between align-items-center">
-                        <div className="logo">
-                            <h1 className="text-light">
-                                <Link to="/" ><span>Wallet</span></Link>
-                            </h1>
-                            {/**ARREGLAR LOGO POR SI SE NECESITA */}
-                            {/*<Link to="/"><img src={Logo} className="img-fluid" alt="" /></Link>*/}
-                            
-                        </div>
-                        <nav className="navbar-global">
-                            <ul>
-                                <li><Link to="/" ><FontAwesomeIcon icon={['fa', 'home']}/> Inicio</Link></li>
-                                <li><Link to="/"><FontAwesomeIcon icon={['fa', 'users']}/> Equipo</Link></li>
-                                <li><Link to="/create-user"><FontAwesomeIcon icon={['fa', 'align-justify']}/> Suscribete</Link></li>
-                                <li><Link to="/login" className="active"><FontAwesomeIcon icon={['fa', 'user']}/> Iniciar Sesion</Link></li>
-                            </ul>
-                            {/*<i className="bi bi-list mobile-nav-toggle"></i>*/}
-                        </nav>
-                    </div>
-                </header>
-            <section className="section section-shaped section-lg">
-                <div className="shape shape-style-1 bg-gradient-default">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <div className="container mt-0">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-5">
-                            <div className="card bg-secondary shadow border-0">
-                                <div className="card-header bg-white pb-5">
-                                    <div className="text-muted text-center mb-3"><h4>Inicia sesión con</h4></div>
-                                </div>
-                                <div className="card-body px-lg-5 py-lg-5">
-                                    <div className="text-center text-muted mb-4">
-                                    </div>
-                                    <form >
-                                        <div className="form-group mb-3">
-                                            <div className="input-group input-group-alternative">
-                                                <div className="input-group-prepend">
-                                                    <span className="input-group-text"><FontAwesomeIcon icon={['fa', 'at']}/></span>
-                                                </div>
-                                                <input className="form-control" placeholder="Correo" type="email" onChange={(e) => setEmail(e.target.value)}/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group focused">
-                                            <div className="input-group input-group-alternative">
-                                                <div className="input-group-prepend">
-                                                    <span className="input-group-text"><FontAwesomeIcon icon={['fa', 'lock']}/></span>
-                                                </div>
-                                                <input className="form-control" placeholder="Contraseña" type="password" onChange={(e) => setPassword(e.target.value)}/>
-                                            </div>
-                                        </div>
-                                        {error ? (
-                                        <p className="alert alert-danger error-p text-white">
-                                            La contraseña no puede estar vacia
-                                        </p>
-                                        ) : null}
-                                        <div className="custom-control custom-control-alternative custom-checkbox">
-                                            <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
-                                            <label className="custom-control-label" htmlFor=" customCheckLogin"><span>Recuérdame</span></label>
-                                        </div>
-                                        <div className="text-center">
-                                            <button type="button" className="btn btn-primary my-4" onClick={handleSubmit}>Iniciar sesión</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div className="row mt-3">
-                                <div className="col-6">
-                                    <Link to="/RecuperacionPassword" className="text-light"><small>¿Se te olvidó tu contraseña?</small></Link>
-                                </div>
-                                <div className="col-6 text-right">
-                                    <Link to="/create-user" className="text-light"><small>Crear una nueva cuenta</small></Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/**FOOOOTER */}
-
-            <footer className="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-                    <div class="container">
-                        <div class="copyright">
-                            &copy; Copyright <strong><span>Wallet</span></strong>. 
-                        </div>
-                        <div class="credits">
-                            Diseñado por Grupo Wallet
-                        </div>
-                    </div>
-            </footer>
-        </div>
-    )
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Wallet
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
 
-export default Login;
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+export default function Login() {
+  const classes = useStyles();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
+        e.preventDefault();  
+        if (email.trim() == "" || password.trim() == "") {
+            alert("No puede dejar campos vacios");
+        }
+        else{
+            const json_data = {
+                'email': email,
+                'password':password
+            };
+
+            const res = await fetch(`${API}/login`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(json_data),
+            });
+
+            const data = await res.json();
+
+            /* @data["Session"] devuelve 4 posibles valores
+                1: Session iniciada correctamente
+                2: El email no ha sido verificado
+                3: la contraseña es incorrecta
+                4: este correo no existe en los registros
+            */
+            if (data["Session"] == 1){
+                //Session inciada
+                localStorage.setItem('Session_email', data["Data"][0].email);
+                localStorage.setItem('Session_name', data["Data"][0].name);
+                localStorage.setItem('Session_id', data["Data"][0].id);
+                window.location.href = "http://localhost:3000/dashboard";
+            }
+            else if (data["Session"] == 2){
+                //El email no se ha verificado, redirigir a la pagina de validacion
+                return <Redirect to='/dashboard'/>
+            }
+            else if (data["Session"] == 3){
+                alert("Contraseña incorrecta");
+            }
+            else if (data["Session"] == 4){                
+                alert("Este correo no esta registrado");
+            }
+            else{
+                alert("Problemas en el servidor");
+            }
+        }
+    };
+  
+    return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Correo Electronico"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Contraseña"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Mantener session activa"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleSubmit}
+          >
+            Iniciar Session
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Recuperar Contraseña
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"No tienes cuenta? Crear usuario"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}

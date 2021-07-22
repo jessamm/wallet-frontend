@@ -7,12 +7,14 @@ output = BytesIO()
 import base64
 from MySQLEngine import *
 from mail_manager import *
+from validator import *
 import random
 import json
 
 # conexion al sql, encapsula los metodos en el objeto SQEngine
 SQLEngine = MySQLEngine()
-SQLEngine.start()
+bv = validator()
+#SQLEngine.start()
 
 send_mail = mail_sender()
 
@@ -22,6 +24,15 @@ app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy   dog'
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:5001"}})
+
+# metodo Login
+@app.route('/login', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def login():
+  json_data = request.json
+  result = bv.Login_validator(json_data["email"], json_data["password"])
+  return jsonify(result)
+
 
 # Routes
 # Devuelve las metas del usuario en especifico.?=
@@ -92,26 +103,7 @@ def account_validation():
   # SQLEngine.db_update(f"select * from bank_account;")
   return jsonify(True)
 
-
-
-
-@app.route('/login', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def login():
-  json_data = request.json
-  user = json_data["user"]
-  password = json_data["password"]
-
-  # result = {
-  #   "Session": False,
-  #   "Data": None
-  # }
-  # print('llego------------------------------------>',user, password)
-  # result["Data"] = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
-  var = SQLEngine.db_select(f"SELECT * FROM user WHERE email = '{user}' AND password = '{password}';")
-  if not var:
-    var = False
-  return jsonify(var)
+  
 
 
 @app.route('/create-user', methods=['GET','POST'])
