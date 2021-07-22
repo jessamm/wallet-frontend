@@ -72,7 +72,7 @@ const MetasPlanes = () => {
         obtenerDatosMetas();
         obtenerPlanAhorro();
         obtenerCategorias();
-    }, [])
+    })
 
     //METAS de gasto
     //const [id_categorie, setId_categorie] = useState("");
@@ -117,8 +117,7 @@ const MetasPlanes = () => {
     //se usa id categorie y mount limit de arriba date end
     const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
 
-
-    const handleSubmitAhorro = async (e) => {
+    const handleSubmitPlan = async (e) => {
         e.preventDefault();
 
         if (mount_limit.trim() === "" || date_end === "" || nameAhorro.trim() === "") {
@@ -182,6 +181,13 @@ const MetasPlanes = () => {
         };
     };
 
+    const cerrarSesion = async (e) => {
+        e.preventDefault();
+
+        localStorage.clear();
+        window.location.href = "http://localhost:3000/login";
+    }
+
     return (
         <div>
             <div className="login-page" style={{ height: '100vh' }}>
@@ -205,14 +211,13 @@ const MetasPlanes = () => {
                                 <li><Link to="/Cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
                                 <li><Link to="/metas-planes" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Metas y planes</span></Link></li>
                                 <li><Link to="/configuracion" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
-                                <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" /><span>Cerrar Sesion</span></Link></li>
+                                <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" onClick={cerrarSesion} /><span>Cerrar Sesion</span></Link></li>
                             </ul>
                         </nav>{/*<!-- .nav-menu -->*/}
                     </div>
                 </header>
                 <main className="main-main">
                     <div className="panel-header panel-header-sm"></div>
-
                     <div className="content">
                         <div className="row-perfil">
                             <div className="col-md-12">
@@ -263,7 +268,6 @@ const MetasPlanes = () => {
                                 </div>
                             </div>
 
-
                             <div className="col-md-12">
                                 <div className="card">
                                     <div className="card-header">
@@ -311,14 +315,10 @@ const MetasPlanes = () => {
                                     <br></br>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </main>
-
                 { /* MODAL */}
-
                 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -344,6 +344,7 @@ const MetasPlanes = () => {
                                         <label htmlFor="formGroupExampleInput2">Fecha Final</label>
                                         <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
                                     </div>
+                                    {/**poner en la base name ahorro y name plan */}
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
                                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)} />
@@ -354,8 +355,8 @@ const MetasPlanes = () => {
                                         {
                                             categorias.map((datos, key) => {
                                                 return(
-                                                    <select className="form-control" >
-                                                        <option onChange={setIdCategorie(key)}>{datos.name} </option>
+                                                    <select className="form-control" onChange={setIdCategorie(key)}>
+                                                        <option>{datos.name} </option>
                                                         {/**                                                        <option>{datos.name}</option>
                                                         <option>{datos.name}</option>
                                                          */}
@@ -374,16 +375,13 @@ const MetasPlanes = () => {
                             ) : null}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitAhorro}>
+                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitPlan}>
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
 
                 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -446,7 +444,6 @@ const MetasPlanes = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )

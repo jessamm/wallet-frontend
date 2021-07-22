@@ -1,6 +1,6 @@
 import "./Login.css";
 import React, {useState} from 'react';
-import  { Redirect } from 'react-router-dom'
+import  { useHistory } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Mail } from "@material-ui/icons";
 
 
 const API = process.env.REACT_APP_API;
@@ -54,13 +55,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const history = useHistory();
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
         e.preventDefault();  
-        if (email.trim() === "" || password.trim() === "") {
+        if (email.trim() == "" || password.trim() == "") {
             alert("No puede dejar campos vacios");
         }
         else{
@@ -92,7 +94,10 @@ export default function Login() {
             }
             else if (data["Session"] == 2){
                 //El email no se ha verificado, redirigir a la pagina de validacion
-                return <Redirect to='/dashboard'/>
+                history.push({
+                  pathname: './Authentication',
+                  state: { mail: email }
+                });
             }
             else if (data["Session"] == 3){
                 alert("Contraseña incorrecta");
@@ -156,13 +161,8 @@ export default function Login() {
             Iniciar Session
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Recuperar Contraseña
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="./create-user" variant="body2">
                 {"No tienes cuenta? Crear usuario"}
               </Link>
             </Grid>
