@@ -12,16 +12,16 @@ class validator:
         if user:
             if user[0]["password"] == password: 
                 if user[0]["validated"] == 1:
-                    result["Session"] = "Success"
+                    result["Session"] = 1
                     result["Data"] = user
                 else:
-                    result["Session"] = "NotMailVerifier"
+                    result["Session"] = 2
                     result["Data"] = []
             else:
-                result["Session"] = "NotPassword"
+                result["Session"] = 3
                 result["Data"] = []
         else:
-            result["Session"] = "NotExist"
+            result["Session"] = 4
             result["Data"] = []
         
         return result

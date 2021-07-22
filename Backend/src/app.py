@@ -30,7 +30,7 @@ cors = CORS(app, resources={r"/login": {"origins": "http://localhost:5001"}})
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def login():
   json_data = request.json
-  result = bv.Login_validator(json_data["user"], json_data["password"])
+  result = bv.Login_validator(json_data["email"], json_data["password"])
   return jsonify(result)
 
 
