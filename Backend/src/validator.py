@@ -1,9 +1,6 @@
 from MySQLEngine import *
-<<<<<<< HEAD
 from mail_manager import *
 import random
-=======
->>>>>>> 2540c883e40d3be0bf79efaa46cf4e4fc9b5677c
 
 class validator:
 
@@ -30,7 +27,6 @@ class validator:
             result["Data"] = []
         
         return result
-<<<<<<< HEAD
     
     def insert_user(self, name, last_name, email, password):
         query = f"INSERT INTO user (`name`, last_name, email, `password`) VALUES ('{name}','{last_name}','{email}','{password}')"
@@ -73,5 +69,3 @@ class validator:
             return {"result":True}
         else:
             return {"result":False}
-=======
->>>>>>> 2540c883e40d3be0bf79efaa46cf4e4fc9b5677c

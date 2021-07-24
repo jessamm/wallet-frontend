@@ -23,6 +23,21 @@ import Chart from './Components/Chart/chart';
 import Deposits from './Components/Deposits/deposits';
 import Orders from './Components/MovList/movlist';
 
+
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -167,7 +182,44 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List></List>
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inicio" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <BarChartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Estadisticas" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <LayersIcon />
+            </ListItemIcon>
+            <ListItemText primary="Cuentas" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DonutLargeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Metas y planes" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Configuracion" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Cerrar Session" />
+          </ListItem>
+        </List>
         <Divider />
         <List></List>
       </Drawer>
@@ -178,19 +230,13 @@ export default function Dashboard() {
             
             {/* CardViews */}
             <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits money="1000" title="Restante"/>
-              </Paper>
+              <Deposits money="1000" title="Restante"/>              
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits money="3000" title="Egresos"/>
-              </Paper>
+              <Deposits money="3000" title="Egresos"/>
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits money="4000" title="Ingresos"/>
-              </Paper>
+              <Deposits money="4000" title="Ingresos"/>              
             </Grid>
 
             <Grid item xs={12}>

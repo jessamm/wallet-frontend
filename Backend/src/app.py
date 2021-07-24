@@ -33,7 +33,6 @@ def login():
   result = bv.Login_validator(json_data["email"], json_data["password"])
   return jsonify(result)
 
-<<<<<<< HEAD
 @app.route('/create-user', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def createUser():
@@ -48,8 +47,6 @@ def mail_validation():
   result = bv.validate_mail(json_data["input_1"], json_data["input_2"], json_data["input_3"], json_data["input_4"],json_data["email"])
   return jsonify(result)
   
-=======
->>>>>>> 2540c883e40d3be0bf79efaa46cf4e4fc9b5677c
 
 # Routes
 # Devuelve las metas del usuario en especifico.?=
@@ -120,26 +117,6 @@ def account_validation():
   # SQLEngine.db_update(f"select * from bank_account;")
   return jsonify(True)
 
-<<<<<<< HEAD
-=======
-  
-
-
-@app.route('/create-user', methods=['GET','POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def createUser():
-  json_data = request.json
-  name = json_data["name"]
-  last_name = json_data["last_name"]
-  email = json_data["email"]
-  password = json_data["password"]
-
-  query = f"INSERT INTO User (`name`, last_name, email, `password`) VALUES ('{name}','{last_name}','{email}','{password}')"
-  result_id = SQLEngine.db_insert(query)
-
-  print("result_id: ",result_id )
-
->>>>>>> 2540c883e40d3be0bf79efaa46cf4e4fc9b5677c
   
 
 
