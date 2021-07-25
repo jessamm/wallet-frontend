@@ -3,9 +3,33 @@ import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//importaciones material-ui
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
 const API = process.env.REACT_APP_API;
 
 const MetasPlanes = () => {
+
+    const [openMetas, setOpenMetas] = useState(false);
+    const [openPlan, setOpenPlan] = useState(false);
+
     /**llenado de tablas */
     const [datosMetas, setDatosMetas] = useState([]);
     const [planAhorro, setPlanAhorro] = useState([]);
@@ -21,6 +45,54 @@ const MetasPlanes = () => {
     const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
     const emailUsuario = JSON.parse(localStorage.getItem("email"));
     */
+
+    const styles = (theme) => ({
+        root: {
+            margin: 0,
+            padding: theme.spacing(2),
+        },
+        closeButton: {
+            position: 'absolute',
+            right: theme.spacing(1),
+            top: theme.spacing(1),
+            color: theme.palette.grey[500],
+        },
+        textField: {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            width: 400,
+        },
+        table: {
+            minWidth: 650,
+        },
+    });
+
+    const DialogTitle = withStyles(styles)((props) => {
+        const { children, classes, onClose, ...other } = props;
+        return (
+            <MuiDialogTitle disableTypography className={classes.root} {...other}>
+                <Typography variant="h6">{children}</Typography>
+                {onClose ? (
+                    <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                        <CloseIcon />
+                    </IconButton>
+                ) : null}
+            </MuiDialogTitle>
+        );
+    });
+
+    const DialogContent = withStyles((theme) => ({
+        root: {
+            padding: theme.spacing(2),
+        },
+    }))(MuiDialogContent);
+
+    const DialogActions = withStyles((theme) => ({
+        root: {
+            margin: 0,
+            padding: theme.spacing(1),
+        },
+    }))(MuiDialogActions);
 
     //llenar datos metas
     const obtenerDatosMetas = async () => {
@@ -67,12 +139,28 @@ const MetasPlanes = () => {
             setCategorias(data);
         }
     }
-    
+
+    const handleCloseMetas = () => {
+        setOpenMetas(false);
+    }
+
+    const handleOpenMetas = () => {
+        setOpenMetas(true);
+    }
+
+    const handleClosePlan = () => {
+        setOpenPlan(false);
+    }
+
+    const handleOpenPlan = () => {
+        setOpenPlan(true);
+    }
+
     useEffect(() => {
         obtenerDatosMetas();
         obtenerPlanAhorro();
         obtenerCategorias();
-    })
+    }, [])
 
     //METAS de gasto
     //const [id_categorie, setId_categorie] = useState("");
@@ -130,7 +218,7 @@ const MetasPlanes = () => {
         const json_data = {
             'id_user': idUsuario,
             'date_end': date_end,
-            'id_categorie': id_categorie, 
+            'id_categorie': id_categorie,
             'mount_limit': mount_limit
             //'nameAhorro': nameAhorro
         };
@@ -216,6 +304,7 @@ const MetasPlanes = () => {
                         </nav>{/*<!-- .nav-menu -->*/}
                     </div>
                 </header>
+                {/* CONTENIDO */}
                 <main className="main-main">
                     <div className="panel-header panel-header-sm"></div>
                     <div className="content">
@@ -227,42 +316,40 @@ const MetasPlanes = () => {
                                     </div>
                                     <div className="card-body">
 
-                                        <table class="table table-sm mt-4">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Nombre Usuario</th>
-                                                    <th scope="col">Descripcion</th>
-                                                    <th scope="col">Fecha Inicio</th>
-                                                    <th scope="col">Maximo a Gastar</th>
-                                                    <th scope="col">Gastos Actuales</th>
-                                                    <th scope="col">Eliminar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    datosMetas.map((datos, key) => {
-                                                        return (
-                                                            <tr>
-                                                                <th scope="row">{key++}</th>
-                                                                <td>{nameUsuario} {last_nameUsuario}</td>
-                                                                <td>{datos.date_init}</td>
-                                                                <td>L {datos.mount_limit}</td>
-                                                                <td>L {datos.mount_actual}</td>
-                                                                <th scope="col">
-                                                                    <button className="btn btn-sm btn-danger" onClick={EliminarMeta} >Eliminar</button>
-                                                                </th>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
-                                            </tbody>
-                                        </table>
+                                        <TableContainer component={Paper}>
+                                            <Table className={styles.table} size="small" aria-label="a dense table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell color="primary" align="right">Nombre Usuario</TableCell>
+                                                        <TableCell color="primary" align="right">Descripcion</TableCell>
+                                                        <TableCell color="primary" align="right">Fecha Inicio</TableCell>
+                                                        <TableCell color="primary" align="right">Maximo a Gastar</TableCell>
+                                                        <TableCell color="primary" align="right">Gastos Actuales</TableCell>
+                                                        <TableCell color="primary" align="right">Eliminar</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {datosMetas.map((row) => (
+                                                        <TableRow key={row.name}>
+                                                            <TableCell component="th" scope="row">{row.nameUsuario}</TableCell>
+                                                            <TableCell align="right">{row.description}</TableCell>
+                                                            <TableCell align="right">{row.date_init}</TableCell>
+                                                            <TableCell align="right">{row.mount_limit}</TableCell>
+                                                            <TableCell align="right">{row.mount_actual}</TableCell>
+                                                            <TableCell align="right">
+                                                                <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+
                                     </div>
                                     <br></br>
-                                    <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1">
+                                    <Button size="small" variant="outlined" className="m-3" color="primary" onClick={handleOpenMetas}>
                                         Agregar
-                                    </button>
+                                    </Button>
                                     <br></br>
                                     <br></br>
                                 </div>
@@ -274,7 +361,37 @@ const MetasPlanes = () => {
                                         <h5 className="title">Plan de ahorro</h5>
                                     </div>
                                     <div className="card-body">
-                                        <table class="table table-sm mt-4">
+
+                                        <TableContainer component={Paper}>
+                                            <Table className={styles.table} size="small" aria-label="a dense table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell color="primary" align="right">Nombre Usuario</TableCell>
+                                                        <TableCell color="primary" align="right">Descripcion</TableCell>
+                                                        <TableCell color="primary" align="right">Fecha Inicio</TableCell>
+                                                        <TableCell color="primary" align="right">Fecha Final</TableCell>
+                                                        <TableCell color="primary" align="right">Monto actual</TableCell>
+                                                        <TableCell color="primary" align="right">Eliminar</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {planAhorro.map((row) => (
+                                                        <TableRow key={row.name}>
+                                                            <TableCell component="th" scope="row">{row.nameUsuario}</TableCell>
+                                                            <TableCell align="right">{row.description}</TableCell>
+                                                            <TableCell align="right">{row.date_init}</TableCell>
+                                                            <TableCell align="right">{row.mount_limit}</TableCell>
+                                                            <TableCell align="right">{row.mount_actual}</TableCell>
+                                                            <TableCell align="right">
+                                                                <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+
+                                        <table class="table table-sm mt-4 d-none">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -308,9 +425,9 @@ const MetasPlanes = () => {
                                         </table>
                                     </div>
                                     <br></br>
-                                    <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal2">
+                                    <Button size="small" variant="outlined" className="m-3" color="primary" onClick={handleOpenPlan}>
                                         Agregar
-                                    </button>
+                                    </Button>
                                     <br></br>
                                     <br></br>
                                 </div>
@@ -318,132 +435,156 @@ const MetasPlanes = () => {
                         </div>
                     </div>
                 </main>
-                { /* MODAL */}
-                <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h5 class="modal-title" id="exampleModalLabel">Registro plan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div>
-                                    {/**
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput">Categoria</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
-                                    </div>
-                                     */}
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Fecha Final</label>
-                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
-                                    </div>
-                                    {/**poner en la base name ahorro y name plan */}
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Nombre Ahorro</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameAhorro(e.target.value)} />
-                                    </div>
-                                    
-                                    <div className="form-group">
-                                        <label>Categoria</label>
-                                        {
-                                            categorias.map((datos, key) => {
-                                                return(
-                                                    <select className="form-control" onChange={setIdCategorie(key)}>
-                                                        <option>{datos.name} </option>
-                                                        {/**                                                        <option>{datos.name}</option>
-                                                        <option>{datos.name}</option>
-                                                         */}
 
-                                                    </select>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            </div>
+                { /* MODAL METAS */}
+                <div>
+                    <Dialog onClose={handleCloseMetas} aria-labelledby="customized-dialog-title" open={openMetas}>
+                        <DialogTitle id="customized-dialog-title" onClose={handleCloseMetas}>
+                            Registro metas
+                        </DialogTitle>
+                        <DialogContent dividers>
+                            <TextField
+                                id="standard-full-width"
+                                label="Limite"
+                                style={{ marginTop: 8, width: '100%' }}
+                                placeholder="Ingrese el limite"
+                                helperText="Limite"
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <TextField
+                                id="datetime-local"
+                                label="Fecha"
+                                type="date"
+                                style={{ marginTop: 8, width: '100%' }}
+                                defaultValue="2017-05-24T10:30"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <TextField
+                                id="standard-full-width"
+                                label="Nombre meta"
+                                style={{ marginTop: 8, width: '100%' }}
+                                placeholder="Ingrese el nombre meta"
+                                helperText="Nombre meta"
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+
+                            <TextField
+                                select
+                                label="Seleccione"
+                                helperText="Seleccione una categoria"
+                                style={{ width: '100%' }}
+                            >
+                                {categorias.map((option) => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
                             {errorLlenado ? (
-                                <p className="alert alert-danger error-p text-white">
+                                <Typography gutterBottom>
                                     Todos los campos deben ser llenados
-                                </p>
+                                </Typography>
                             ) : null}
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitPlan}>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleCloseMetas} color="primary">
+                                Guardar
+                            </Button>
+                            <Button onClick={handleCloseMetas} color="secondary">
+                                Cancelar
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
+                { /* FIN MODAL METAS */}
 
-                <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h5 class="modal-title" id="exampleModalLabel">Registro metas</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div>
-                                    {/** 
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput">Categoria</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Categoria" onChange={(e) => setId_categorie(e.target.value)}/>
-                                    </div>
-                                */}
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Limite</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Limite" onChange={(e) => setMount_limit(e.target.value)} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Fecha Final</label>
-                                        <input type="date" className="form-control" id="formGroupExampleInput2" onChange={(e) => setDate_end(e.target.value)} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="formGroupExampleInput2">Nombre Meta</label>
-                                        <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Nombre" onChange={(e) => setNameMeta(e.target.value)} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Categoria</label>
-                                        {
-                                            categorias.map((datos, key) => {
-                                                return(
-                                                    <select className="form-control" >
-                                                        <option onChange={setIdCategorie(key)}>{datos.name}</option>
-                                                        {/**<option>{datos.name}</option>
-                                                        <option>{datos.name}</option>
-                                                         */}
 
-                                                    </select>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            </div>
+                { /* MODAL PLAN */}
+                <div>
+                    <Dialog onClose={handleClosePlan} aria-labelledby="customized-dialog-title" open={openPlan}>
+                        <DialogTitle id="customized-dialog-title" onClose={handleClosePlan}>
+                            Registro plan
+                        </DialogTitle>
+                        <DialogContent dividers>
+                            <TextField
+                                id="standard-full-width"
+                                label="Limite"
+                                style={{ marginTop: 8, width: '100%' }}
+                                placeholder="Ingrese el limite"
+                                helperText="Limite"
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <TextField
+                                id="datetime-local"
+                                label="Fecha Final"
+                                type="date"
+                                style={{ marginTop: 8, width: '100%' }}
+                                defaultValue="2017-05-24T10:30"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <TextField
+                                id="standard-full-width"
+                                label="Nombre Ahorro"
+                                style={{ marginTop: 8, width: '100%' }}
+                                placeholder="Ingrese el Nombre Ahorro"
+                                helperText="Nombre Ahorro"
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+
+                            <TextField
+                                select
+                                label="Seleccione"
+                                helperText="Seleccione una categoria"
+                                style={{ width: '100%' }}
+                            >
+                                {categorias.map((option) => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
                             {errorLlenado ? (
-                                <p className="alert alert-danger error-p text-white">
+                                <Typography gutterBottom>
                                     Todos los campos deben ser llenados
-                                </p>
+                                </Typography>
                             ) : null}
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-sm btn-primary m-2" data-toggle="modal" data-target="#modal1" onClick={handleSubmitMetas}>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClosePlan} color="primary">
+                                Guardar
+                            </Button>
+                            <Button onClick={handleClosePlan} color="secondary">
+                                Cancelar
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
+                { /* FIN MODAL PLAN */}
+
             </div>
         </div>
     )
