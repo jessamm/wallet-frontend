@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -36,6 +36,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+
+const API = process.env.REACT_APP_API;
 
 
 function Copyright() {
@@ -143,6 +145,29 @@ export default function Dashboard() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const [info, setInfo] = useState([]);
+  const session_id = localStorage.getItem("Session_id");
+
+  const obtenerInfo = async () => {
+
+    const json_data = {
+      'id_user' : session_id        
+    };
+    const res = await fetch(`${API}/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json_data),
+    });
+    const data = await res.json();
+    if (data) {
+        setInfo(data);
+    }else{
+      console.log("error al mandar informacion")
+    }
+  }
+  useEffect(() => {
+    obtenerInfo();
+  })
 
 
   return (
@@ -230,13 +255,15 @@ export default function Dashboard() {
             
             {/* CardViews */}
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money="1000" title="Restante"/>              
+              <Deposits money={info.cantidad} title="Restante"/>              
             </Grid>
+
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money="3000" title="Egresos"/>
+              <Deposits money={info.cantidad} title="Egresos"/>
             </Grid>
+
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money="4000" title="Ingresos"/>              
+              <Deposits money={info.cantidad} title="Ingresos"/>              
             </Grid>
 
             <Grid item xs={12}>

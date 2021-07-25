@@ -32,16 +32,17 @@ export default function deposits(props) {
         {props.title}
         </Typography>
         <Typography variant="h5" component="h2">
-        Lps {props.money}
+        L {props.money}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          Movimiento
         </Typography>
         <Typography variant="body2" component="p">
-          well meaning and kindly.
+          Este es el resumen de:
           <br />
-          {'"a benevolent smile"'}
+          {props.title}
         </Typography>
+
       </CardContent>
     </Card>
   );
