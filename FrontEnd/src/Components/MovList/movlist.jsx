@@ -32,7 +32,7 @@ export default function Movlist() {
     const response=await fetch(url)
     console.log(response.status)
     const responseJSON=await response.json()
-    setTodos(responseJSON)
+    setData(responseJSON)
     console.log(responseJSON)
   }
 
@@ -54,7 +54,7 @@ export default function Movlist() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {todos.map((item) => (
+          {data.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell>{item.name}</TableCell>
