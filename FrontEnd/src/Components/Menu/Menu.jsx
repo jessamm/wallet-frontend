@@ -132,7 +132,7 @@ export default function Menu() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Inicio
+            Wallet
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

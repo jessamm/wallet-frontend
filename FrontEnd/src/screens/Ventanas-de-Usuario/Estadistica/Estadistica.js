@@ -129,14 +129,35 @@ const Estadistica = () => {
         }
     };
     return (
-        <div className="login-page" style={{ height: '100vh' }} >
-            <Menu>
+        <div className={classes.root}>
+        <Menu>
+          {/**Barra Lateral y Barra Horizontal */}
+        </Menu>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+            <div class Name="content">
+                <div className="row-perfil">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <h3 className="text-center" >Graficos</h3>
+                            </div>
+                            <div className="card-body">
+                                <AnyChart {...complexSettings}/>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Container>
+      </main>
+    </div>
+    )
+}
 
-            </Menu>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <div class Name="content">
+export default Estadistica;{/**
+<div class Name="content">
                         <div className="row-perfil">
                             <div className="col-md-12">
                                 <div className="card">
@@ -149,11 +170,4 @@ const Estadistica = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </Container>
-            </main>
-        </div>
-    )
-}
-
-export default Estadistica;
+                    </div> */}

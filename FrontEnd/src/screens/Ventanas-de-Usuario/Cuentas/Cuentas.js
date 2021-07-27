@@ -2,10 +2,94 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../Configuracion/Configuracion.css";
 import Menu from '../../../Components/Menu/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+const drawerWidth = 240;
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+    },
+    toolbar: {
+      paddingRight: 24, // keep right padding when drawer closed
+    },
+    toolbarIcon: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar,
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    menuButtonHidden: {
+      display: 'none',
+    },
+    title: {
+      flexGrow: 1,
+    },
+    drawerPaper: {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerPaperClose: {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+  }));
+
 
 const API = process.env.REACT_APP_API;
 
 const Cuentas = () => {
+    const classes = useStyles();
     //probar 
     const idUsuario = localStorage.getItem("idUsuario");
     const nameUsuario = localStorage.getItem("name");
@@ -182,11 +266,13 @@ const Cuentas = () => {
     }
 
     return (
-        <div className="login-page" style={{ height: '100vh' }}>
-            <Menu>
-                {/**COMPONENTE BARRA LATERAL Y HORIZONTAL */}
-            </Menu>
-            <main className="main-main">
+        <div className={classes.root}>
+        <Menu>
+          {/**Barra Lateral y Barra Horizontal */}
+        </Menu>
+        <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Container maxWidth="lg" className={classes.container}>
                 <div className="content">
                     <div className="row-perfil">
                         <div className="col-md-12">
@@ -466,8 +552,9 @@ const Cuentas = () => {
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </Container>
+        </main>
+    </div>
     )
 }
 
