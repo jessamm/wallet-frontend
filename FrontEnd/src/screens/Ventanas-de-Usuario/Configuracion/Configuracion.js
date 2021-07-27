@@ -3,12 +3,96 @@ import { Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile-img.jpg';
 import "../Configuracion/Configuracion.css";
 import Menu from '../../../Components/Menu/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+const drawerWidth = 240;
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+    },
+    toolbar: {
+      paddingRight: 24, // keep right padding when drawer closed
+    },
+    toolbarIcon: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar,
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    menuButtonHidden: {
+      display: 'none',
+    },
+    title: {
+      flexGrow: 1,
+    },
+    drawerPaper: {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerPaperClose: {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+  }));
 
 
 //import finanzas from '../assets/img/finanzas.jpg';
 const API = process.env.REACT_APP_API;
 
 const Configuracion = () => {
+    const classes = useStyles();
     //
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
@@ -137,13 +221,14 @@ const Configuracion = () => {
 
     return (
         <>
-            <div className="login-page" style={{ height: '100vh' }} >
+
+                <div className={classes.root}>
                 <Menu>
 
                 </Menu>
-                <main className="main-main">
+                <main style={{marginTop:"8vh"}} className={classes.content}>
                     <div className="content">
-                        <div className="row-perfil">
+                        <div className="row-perfil"  style={{marginTop:"10vh"}}>
                             <div className="col-md-8">
                                 <div className="card">
                                     <div className="card-header">
@@ -298,7 +383,7 @@ const Configuracion = () => {
                                         {/* Button trigger modal */}
 
                                         {/* Modal */}
-                                        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style={{marginTop:"5vh"}} className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog" role="document">
                                                 <div className="modal-content">
                                                     <div className="modal-header">
@@ -330,7 +415,7 @@ const Configuracion = () => {
                                         </div>
 
 
-                                        <div className="modal fade" id="exampleModal1" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style={{marginTop:"5vh"}} className="modal fade" id="exampleModal1" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog" role="document">
                                                 <div className="modal-content">
                                                     <div className="modal-header">
