@@ -22,20 +22,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './Components/Chart/chart';
 import Deposits from './Components/Deposits/deposits';
 import Orders from './Components/MovList/movlist';
+import Menu from './Components/Menu/Menu';
 
-
-
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SettingsIcon from '@material-ui/icons/Settings';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const API = process.env.REACT_APP_API;
 
@@ -185,7 +173,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Inicio
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -207,44 +195,7 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inicio" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Estadisticas" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <LayersIcon />
-            </ListItemIcon>
-            <ListItemText primary="Cuentas" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DonutLargeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Metas y planes" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Configuracion" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary="Cerrar Session" />
-          </ListItem>
-        </List>
+        <Menu></Menu>
         <Divider />
         <List></List>
       </Drawer>

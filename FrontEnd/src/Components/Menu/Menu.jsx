@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 
 import ListItem from '@material-ui/core/ListItem';
@@ -23,22 +13,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
-
-const API = process.env.REACT_APP_API;
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Wallet
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -126,109 +100,65 @@ export default function Menu() {
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  const [info, setInfo] = useState([]);
-  const session_id = localStorage.getItem("Session_id");
-
-  const obtenerInfo = async () => {
-
-    const json_data = {
-      'id_user' : session_id        
-    };
-    const res = await fetch(`${API}/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json_data),
-    });
-    const data = await res.json();
-    if (data) {
-        setInfo(data);
-    }else{
-      console.log("error al mandar informacion")
-    }
-  }
-  useEffect(() => {
-    obtenerInfo();
-  })
-
-
+  };  
   return (
-      <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-
-
-        
-        <Divider />
+      <div>
         <List>
+          <Link to="/dashboard">
           <ListItem button>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-             <Link to="/dashboard"><ListItemText primary="Inicio" /></Link>
+            <ListItemText primary="Inicio" />
           </ListItem>
+          </Link>
+
+          <Link to="/Estadistica">
           <ListItem button>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
-            <Link to="Estadistica"><ListItemText primary="Estadisticas" /></Link>
+            <ListItemText primary="Estadisticas" />
           </ListItem>
+          </Link>
+
+          <Link to="/cuentas">
           <ListItem button>
             <ListItemIcon>
               <LayersIcon />
             </ListItemIcon>
-            <Link to="/cuentas"><ListItemText primary="Cuentas" /></Link>
-          </ListItem>
+            <ListItemText primary="Cuentas" />
+          </ListItem>          
+          </Link>
+
+
+          <Link to='/metas-planes'>
           <ListItem button>
             <ListItemIcon>
               <DonutLargeIcon />
             </ListItemIcon>
-            <Link  to="/metas-planes"><ListItemText primary="Metas y planes" /></Link>
-          </ListItem>
+            <ListItemText primary="Metas y planes" />
+          </ListItem>          
+          </Link>
+
+          <Link to='/configuracion'>
           <ListItem button>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <Link to="configuracion"><ListItemText primary="Configuracion" /></Link>
+            <ListItemText primary="Configuracion" />
           </ListItem>
+          </Link>
+
+          <Link>
           <ListItem button>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
             <ListItemText primary="Cerrar Session" />
           </ListItem>
+          </Link>
         </List>
-        <Divider />
-      </Drawer>
     </div>
     );
 }

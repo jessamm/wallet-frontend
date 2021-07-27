@@ -182,14 +182,9 @@ const Cuentas = () => {
     }
 
     return (
-
-        
         <div className="login-page" style={{ height: '100vh' }}>
-            <Menu></Menu>
-            <main className="main-main" style={{marginTop:-350}}>
-                <div className="panel-header panel-header-sm"></div>
-
-                <div className="content">
+            <main>
+                <div>
                     <div className="row-perfil">
                         <div className="col-md-12">
                             <div className="card">
@@ -297,7 +292,7 @@ const Cuentas = () => {
                         </div>
 
                         {/* Modal */}
-                        <div className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div style={{ marginTop:"10vh"}}  className="modal fade" id="cuentaahorro" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -408,7 +403,7 @@ const Cuentas = () => {
                             </div>
                         </div>
 
-                        <div className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div style={{ marginTop:"10vh" }} className="modal fade" id="cuentaefectivo" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">

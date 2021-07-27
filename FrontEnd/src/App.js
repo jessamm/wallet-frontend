@@ -12,13 +12,13 @@ import RecuperacionPassword from './screens/Ventanas-de-Pagina/RecuperacionPassw
 //Ventanas de Usuario
 import Dashboard from './dashboard.js';
 import Main from './screens/Ventanas-de-Usuario/Main/Main';
-import Configuracion from './screens/Ventanas-de-Usuario/Configuracion/Configuracion';
-import Estadistica from './screens/Ventanas-de-Usuario/Estadistica/Estadistica';
-import Cuentas from './screens/Ventanas-de-Usuario/Cuentas/Cuentas';
+import Configuracion from './screens/Ventanas-de-Usuario/Configuracion/Configuracion1';
+import Estadistica from './screens/Ventanas-de-Usuario/Estadistica/Estadistica1';
+import Cuentas from './screens/Ventanas-de-Usuario/Cuentas/cuentas';
 import Administrador from './screens/Ventanas-de-Usuario/Administrador/Administrador';
 
 
-import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
+import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes1';
 import GestionUsuarios from './screens/Ventanas-de-Usuario/Administrador/GestionUsuarios';
 import Bitacora from './screens/Ventanas-de-Usuario/Administrador/Bitacora';
 import CuentasPorAprobar from './screens/Ventanas-de-Usuario/Administrador/CuentasPorAprobar';
