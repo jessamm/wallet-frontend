@@ -1,10 +1,92 @@
 import React, { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
-import profile from '../../../assets/img/profile-img.jpg';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnyChart from 'anychart-react';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import Menu from '../../../Components/Menu/Menu';
+
+const drawerWidth = 240;
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+    },
+    toolbar: {
+      paddingRight: 24, // keep right padding when drawer closed
+    },
+    toolbarIcon: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar,
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    menuButtonHidden: {
+      display: 'none',
+    },
+    title: {
+      flexGrow: 1,
+    },
+    drawerPaper: {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerPaperClose: {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+  }));
 
 const Estadistica = () => {
+    const classes = useStyles();
 
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
@@ -46,117 +128,32 @@ const Estadistica = () => {
             value: 4.5
         }
     };
-
-    const cerrarSesion = async (e) => {
-        e.preventDefault();
-
-        localStorage.clear();
-        window.location.href = "http://localhost:3000/login";
-    }
     return (
         <div className="login-page" style={{ height: '100vh' }} >
-            <header className="barra-lateral">
-                <div className="d-flex flex-column">
+            <Menu>
 
-                    <div className="profile">
-                        {/*<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">*/}
-                        <img src={profile} className="span-img-profile rounded-circle img-fluid" alt="logo" />
-                        <h1 className="text-light">{nameUsuario} {last_nameUsuario}</h1>
-                        <div className="social-links mt-3 text-center">
-                            <h3>{emailUsuario}</h3>
-                        </div>
-                    </div>
-
-                    <nav className="navbar nav-menu navbar">
-                        <ul>
-                            <li><Link to="/main" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'home']} size="2x" /><span>Inicio</span></Link></li>
-                            <li><Link to="/Estadistica" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'sort-amount-down']} size="2x" /><span>Estadisticas</span></Link></li>
-                            <li><Link to="/Cuentas" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Cuentas</span></Link></li>
-                            <li><Link to="/metas-planes" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'user-circle']} size="2x" /><span>Metas y planes</span></Link></li>
-                            <li><Link to="/configuracion" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'tools']} size="2x" /><span>Configuracion</span></Link></li>
-                            <li><Link to="" className="nav-link scrollto active"><FontAwesomeIcon icon={['fa', 'door-open']} size="2x" onClick={cerrarSesion}/><span>Cerrar Sesion</span></Link></li>
-                        </ul>
-                    </nav>{/*<!-- .nav-menu -->*/}
-                </div>
-            </header>
-            
-            <main className="main-main">
-                <div className="panel-header panel-header-sm">
-                    
-                </div>
-                <div className="content">
-                    <div className="row-perfil">
-                        <div className="col-md-12">
-                            <div className="card">
-                                <div className="card-header">
-                                    <h3 className="text-center" >Graficos</h3>
+            </Menu>
+            <main className={classes.content}>
+                <div className={classes.appBarSpacer} />
+                <Container maxWidth="lg" className={classes.container}>
+                    <div class Name="content">
+                        <div className="row-perfil">
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h3 className="text-center" >Graficos</h3>
+                                    </div>
+                                    <div className="card-body">
+                                        <AnyChart {...complexSettings}/>
+                                    </div> 
                                 </div>
-                                <div className="card-body">
-                                    <AnyChart {...complexSettings}/>
-                                </div> 
                             </div>
                         </div>
                     </div>
-                </div>
+                </Container>
             </main>
         </div>
     )
 }
 
 export default Estadistica;
-/**import React, { useEffect, useState } from 'react';
-import AnyChart from 'anychart-react'
-
-const Grafica = () => {
-
-    const [data, setData] = useState([1, 2, 3, 4]);
-
-    const complexSettings = {
-        width: 700,
-        height: 500,
-        type: 'pie',
-        data: data,
-        title: 'Resumen',
-        yAxis: [1, {
-            orientation: 'center',
-            enabled: true,
-            labels: {
-                format: '{%Value}{decimalPoint:\\,}',
-                fontColor: 'blue'
-            }
-        }],
-        legend: {
-            background: 'lightgreen 0.4',
-            padding: 0
-        },
-        lineMarker: {
-            value: 4.5
-        }
-    };
-
-    const obtenerData = async () => {
-        const urlApi = '';
-        const response = await fetch(urlApi);
-        if (response.status === 200) {
-            const body = await response.json();
-            setData(body);
-        }
-    }
-
-    useEffect(() => {
-        obtenerData();
-    }, [])
-
-
-    return (
-        <div className="container" >
-            <h1 className="text-center" >Grafica</h1>
-            <AnyChart
-                {...complexSettings}
-            />
-        </div>
-    )
-}
-
-export default Grafica;
-**/
