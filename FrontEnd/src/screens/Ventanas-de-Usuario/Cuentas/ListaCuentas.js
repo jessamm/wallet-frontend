@@ -172,6 +172,7 @@ const ListaCuentas = () => {
                                             <Table className={styles.table} size="small" aria-label="a dense table">
                                                 <TableHead>
                                                     <TableRow>
+                                                        <TableCell color="primary" align="right">#</TableCell>
                                                         <TableCell color="primary" align="right">Nombre del banco</TableCell>
                                                         <TableCell color="primary" align="right">CSV</TableCell>
                                                         <TableCell color="primary" align="right">Numero cuenta</TableCell>
@@ -189,7 +190,7 @@ const ListaCuentas = () => {
                                                             <TableCell align="right">{row.mount_limit}</TableCell>
                                                             <TableCell align="right">{row.mount_actual}</TableCell>
                                                             <TableCell align="right">
-                                                                <Button size="small" onClick={() => eliminarCuentas(row.id)}  style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
+                                                                <Button size="small" onClick={() => eliminarCuentas(row.id)} style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}
