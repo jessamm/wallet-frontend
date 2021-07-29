@@ -22,6 +22,8 @@ import MetasPlanes from './screens/Ventanas-de-Usuario/Metas/MetasPlanes';
 import GestionUsuarios from './screens/Ventanas-de-Usuario/Administrador/GestionUsuarios';
 import Bitacora from './screens/Ventanas-de-Usuario/Administrador/Bitacora';
 import CuentasPorAprobar from './screens/Ventanas-de-Usuario/Administrador/CuentasPorAprobar';
+import ListaCuentas from './screens/Ventanas-de-Usuario/Cuentas/ListaCuentas';
+import ListaPagos from './screens/Ventanas-de-Usuario/Cuentas/ListaPagos';
 //import ConfigAdmin from './screens/Ventanas-de-Usuario/Administrador/Config-Admin';
 
 
@@ -40,6 +42,8 @@ const App = () => {
       <Route path='/dashboard' component={Dashboard}></Route>
       <Route exact path='/configuracion' component={Configuracion}></Route>
       <Route exact path='/metas-planes' component={MetasPlanes}></Route>
+      <Route exact path='/listado-pagos' component={ListaPagos}></Route>
+      <Route exact path='/listado-cuentas' component={ListaCuentas}></Route>
       <Route exact path='/Estadistica' component={Estadistica}></Route>
       <Route exact path='/Administrador' component={Administrador}></Route>
       <Route exact path='/gestion-usuarios' component={GestionUsuarios}></Route>
