@@ -54,17 +54,22 @@ export default function Movlist() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.id}</TableCell>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.username}</TableCell>
-              <TableCell>{item.username}</TableCell>
-              <TableCell align="right">{item.email}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
 
+         {data.length>0 ?
+         ( data.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell>{item.id}</TableCell>
+            <TableCell>{item.name}</TableCell>
+            <TableCell>{item.username}</TableCell>
+            <TableCell>{item.username}</TableCell>
+            <TableCell align="right">{item.email}</TableCell>
+          </TableRow>
+        )))
+         :
+         (<TableRow>
+              <TableCell style={{color:"red"}}>No tienes movimientos recientes para visualizar</TableCell>
+         </TableRow>) } 
+        </TableBody>
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
