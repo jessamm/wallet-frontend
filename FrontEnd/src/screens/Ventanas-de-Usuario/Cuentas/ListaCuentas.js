@@ -209,6 +209,9 @@ const ListaCuentas = () => {
                                 </div>
                             </div>
                         </div>
+                        <Link to='/cuentas'>
+                               <Button  variant="contained" size="small" color="primary">Regresar</Button>
+                        </Link>
                     </div>
                 </Container>
             </main>

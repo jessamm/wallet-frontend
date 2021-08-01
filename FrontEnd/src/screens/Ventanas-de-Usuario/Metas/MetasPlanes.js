@@ -404,7 +404,7 @@ const MetasPlanes = () => {
 
                                     </div>
                                     <br></br>
-                                    <Button size="small" variant="outlined" className="m-3" color="primary" onClick={handleOpenMetas}>
+                                    <Button size="small" variant="contained" className="m-3" color="primary" onClick={handleOpenMetas}>
                                         Agregar
                                     </Button>
                                     <br></br>
@@ -482,7 +482,7 @@ const MetasPlanes = () => {
                                         </table>
                                     </div>
                                     <br></br>
-                                    <Button size="small" variant="outlined" className="m-3" color="primary" onClick={handleOpenPlan}>
+                                    <Button size="small" variant="contained" className="m-3" color="primary" onClick={handleOpenPlan}>
                                         Agregar
                                     </Button>
                                     <br></br>

@@ -326,6 +326,7 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
+                                                                id="datetime-local"
                                                                 label="Fecha vencimiento"
                                                                 type="date"
                                                                 style={{ width: 400 }}
@@ -350,8 +351,8 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Monto cuenta"
-                                                                type="text"
+                                                                label="Contraseña"
+                                                                type="password"
                                                                 style={{ width: 400 }}
                                                                 onChange={(e) => setContrasena(e.target.value)}
                                                             />
@@ -378,13 +379,7 @@ const Cuentas = () => {
                                                                 onChange={(e) => setFechaVencimiento(e.target.value)}
                                                             />
                                                         </div>
-                                                        <div className="form-group">
-                                                            <TextField
-                                                                label="CSV"
-                                                                type="text"
-                                                                style={{ width: 400 }}
-                                                            />
-                                                        </div>
+                                                        
                                                         <div className="form-group">
                                                             <TextField
                                                                 label="Numero de cuenta"
@@ -395,8 +390,8 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Monto cuenta"
-                                                                type="text"
+                                                                label="Contraseña"
+                                                                type="password"
                                                                 style={{ width: 400 }}
                                                                 onChange={(e) => setContrasena(e.target.value)}
                                                             />
@@ -441,8 +436,8 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Monto cuenta"
-                                                                type="text"
+                                                                label="Contraseña"
+                                                                type="password"
                                                                 style={{ width: 400 }}
                                                                 onChange={(e) => setContrasena(e.target.value)}
                                                             />
@@ -552,5 +547,4 @@ const Cuentas = () => {
         </div>
     )
 }
-
 export default Cuentas

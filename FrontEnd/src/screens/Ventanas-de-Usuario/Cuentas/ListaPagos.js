@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 //importaciones material-ui
 
 import Button from '@material-ui/core/Button';
@@ -212,6 +213,9 @@ const ListaPagos = () => {
                                 </div>
                             </div>
                         </div>
+                        <Link to='/cuentas'>
+                               <Button  variant="contained" size="small" color="primary">Regresar</Button>
+                        </Link>
                     </div>
                 </Container>
             </main>
