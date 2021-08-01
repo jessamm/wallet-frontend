@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
+//import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from '../Title/title';
 
@@ -20,13 +20,13 @@ const data = [
   createData('24:00', undefined),
 ];
 
-export default function chart() {
-  
 
+export default function Chart(props) {
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>{props.title}</Title>
       <ResponsiveContainer>
+
         <LineChart
           data={data}
           margin={{
@@ -48,6 +48,7 @@ export default function chart() {
           </YAxis>
           <Line type="monotone" dataKey="amount"  dot={false} />
         </LineChart>
+
       </ResponsiveContainer>
     </React.Fragment>
   );

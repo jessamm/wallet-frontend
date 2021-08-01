@@ -2,17 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //importaciones material-ui
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -107,23 +97,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ListaCuentas = () => {
     const classes = useStyles();
-
-
     /**llenado de tablas */
-    const [datosCuentas, setDatosCuentas] = useState([]);
-    const [planAhorro, setPlanAhorro] = useState([]);
-    const [categorias, setCategorias] = useState([]);
+    const [datosCuentas, setCuentas] = useState([]);
     // localStorage.getItem(1)
     const idUsuario = localStorage.getItem("idUsuario");
-    const nameUsuario = localStorage.getItem("name");
-    const last_nameUsuario = localStorage.getItem("last_name");
-    const emailUsuario = localStorage.getItem("email");
-    /*
-    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
-    const nameUsuario = JSON.parse(localStorage.getItem("name"));
-    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
-    const emailUsuario = JSON.parse(localStorage.getItem("email"));
-    */
 
     const styles = (theme) => ({
         root: {
@@ -146,10 +123,41 @@ const ListaCuentas = () => {
         },
     });
 
+    const obtenerCuentas = async () => {
 
-    const eliminarCuentas = (id) => {
-
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if (data) {
+            setCuentas(data);
+        }
     }
+    const eliminarCuentas = async (e) => {
+        const json_data = {
+            'id_user': idUsuario
+        };
+
+        const res = await fetch(`${API}/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+
+        if (res.status) {
+            //const data = await res.json();
+            console.log("==========================Ahorro eliminado ==============================");
+        };
+    }
+    useEffect(() => {
+        obtenerCuentas();
+    }, [])
 
     return (
         <div className={classes.root}>

@@ -116,7 +116,7 @@ export default function Dashboard() {
 
   const obtenerInfo = async () => {
 
-    const json_data = {
+  const json_data = {
       'id_user' : session_id        
     };
     const res = await fetch(`${API}/`, {
@@ -148,15 +148,15 @@ export default function Dashboard() {
             
             {/* CardViews */}
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.cantidad} title="Restante"/>              
+              <Deposits money={info.totalRestante} title="Restante"/>              
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.cantidad} title="Egresos"/>
+              <Deposits money={info.totalEgreso} title="Egresos"/>
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.cantidad} title="Ingresos"/>              
+              <Deposits money={info.totalIngreso} title="Ingresos"/>              
             </Grid>
 
             <Grid item xs={12}>

@@ -5,15 +5,12 @@ import Menu from '../../../Components/Menu/Menu';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { MenuItem, TextField } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -107,96 +104,67 @@ const Cuentas = () => {
     const classes = useStyles();
     //probar 
     const idUsuario = localStorage.getItem("idUsuario");
-    const nameUsuario = localStorage.getItem("name");
-    const last_nameUsuario = localStorage.getItem("last_name");
-    const emailUsuario = localStorage.getItem("email");
 
-    const [cuentas, setCuentas] = useState([]);
-    const [cuentasEfectivo, setCuentasEfectivo] = useState([]);
-    const [Metas, setDatosMetas] = useState([]);
-    const [Ahorro, setPlanAhorro] = useState([]);
+    const [dataCuenta, setDataCuentas] = useState([]);
+    const [dataCategoria, setDataCategoria] = useState([]);
 
     const [tipoCuenta, setTipoCuenta] = useState(0);
     const [nombreBanco, setNombreBanco] = useState("");
     const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [csv, setCsv] = useState("");
     const [numeroCuenta, setNumeroCuenta] = useState("");
+    const [contrasena, setContrasena] = useState("");
+    
     const [monto, setMonto] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [idCategoria, setIdCategoria] = useState("");
+    const [idCuenta, setIdCuenta] = useState("");
+
+
     const [openModalPagos, setOpenModalPagos] = useState(false);
     const [openModalCuentas, setOpenModalCuentas] = useState(false);
 
-
-    const obtenerCuentas = async () => {
-
+    const informacionCuenta = async () => {
         const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
-            'id_user': idUsuario
-        };
-        const res = await fetch(`${API}/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        const data = await res.json();
-        if (data) {
-            setCuentas(data);
-        }
-    }
-    const obtenerPlan = async () => {
+            'id_user' : idUsuario        
+          };
+          const res = await fetch(`${API}/`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(json_data),
+          });
 
-        const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
-            'id_user': idUsuario
-        };
-        const res = await fetch(`${API}/get-planning`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        const data = await res.json();
-        if (data) {
-            setPlanAhorro(data);
-        }
-    }
-    const obtenerMetas = async () => {
+          const data = await res.json();
 
+          if (data) {
+              setDataCuentas(data);
+          }else{
+            console.log("error al mandar informacion")
+          }
+    };
+    const informacionCategoria = async () => {
         const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
-            'id_user': idUsuario
-        };
-        const res = await fetch(`${API}/get-goals`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        const data = await res.json();
-        if (data) {
-            setDatosMetas(data);
-        }
-    }
-    //cambiar por pagos
-    const obtenerCuentasEfectivo = async () => {
-        const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
-            'id_user': idUsuario
-        };
-        const res = await fetch(`${API}/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        const data = await res.json();
-        if (data) {
-            setCuentasEfectivo(data);
-        }
-    }
+            'id_user' : idUsuario        
+          };
+          const res = await fetch(`${API}/`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(json_data),
+          });
+
+          const data = await res.json();
+
+          if (data) {
+              setDataCategoria(data);
+          }else{
+            console.log("error al mandar informacion")
+          }
+    };
     useEffect(() => {
-        obtenerCuentas();
-        obtenerCuentasEfectivo();
-        obtenerMetas();
-        obtenerPlan();
-    }, [])
-
+        informacionCuenta();
+        informacionCategoria();
+    })
+ 
     const handleSubmitCuentas = async (e) => {
         e.preventDefault();
 
@@ -207,6 +175,7 @@ const Cuentas = () => {
             '': numeroCuenta,
             '': monto,
             '': nombreBanco,
+            '': contrasena
         };
 
         const res = await fetch(`${API}/`, {
@@ -221,11 +190,15 @@ const Cuentas = () => {
             console.log(data);
         }
     };
-
     const handleSubmitPagos = async (e) => {
         e.preventDefault();
 
         const json_data = {
+            'id_user': idUsuario,
+            'descripcion': descripcion,
+            'monto': monto,
+            'idCat': idCategoria,
+            'idCuenta': idCuenta 
         };
 
         const res = await fetch(`${API}/`, {
@@ -238,44 +211,8 @@ const Cuentas = () => {
         //console.log(data.Session);
         if (res.status) {
             const data = await res.json();
-            console.log(data.Session);
         }
     };
-
-    const EliminarCuentaEfectivo = async (e) => {
-        const json_data = {
-            'id_user': idUsuario
-        };
-
-        const res = await fetch(`${API}/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-
-        if (res.status) {
-            //const data = await res.json();
-            console.log("==========================Efectivo eliminada ==============================");
-        };
-    };
-
-    const EliminarCuenta = async (e) => {
-        const json_data = {
-            'id_user': idUsuario
-        };
-
-        const res = await fetch(`${API}/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-
-        if (res.status) {
-            //const data = await res.json();
-            console.log("==========================Ahorro eliminado ==============================");
-        };
-    };
-
     const cerrarSesion = async (e) => {
         e.preventDefault();
 
@@ -416,7 +353,7 @@ const Cuentas = () => {
                                                                 label="Monto cuenta"
                                                                 type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setMonto(e.target.value)}
+                                                                onChange={(e) => setContrasena(e.target.value)}
                                                             />
                                                         </div>
                                                     </>
@@ -446,7 +383,6 @@ const Cuentas = () => {
                                                                 label="CSV"
                                                                 type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setCsv(e.target.value)}
                                                             />
                                                         </div>
                                                         <div className="form-group">
@@ -462,7 +398,7 @@ const Cuentas = () => {
                                                                 label="Monto cuenta"
                                                                 type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setMonto(e.target.value)}
+                                                                onChange={(e) => setContrasena(e.target.value)}
                                                             />
                                                         </div>
                                                     </>
@@ -508,7 +444,7 @@ const Cuentas = () => {
                                                                 label="Monto cuenta"
                                                                 type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setMonto(e.target.value)}
+                                                                onChange={(e) => setContrasena(e.target.value)}
                                                             />
                                                         </div>
                                                     </>
@@ -520,7 +456,7 @@ const Cuentas = () => {
                                         <Button onClick={() => setOpenModalCuentas(false)} color="primary">
                                             Cancelar
                                         </Button>
-                                        <Button onClick={() => setOpenModalCuentas(false)} color="primary" autoFocus>
+                                        <Button onClick={() => handleSubmitCuentas()} color="primary" autoFocus>
                                             Agregar
                                         </Button>
                                     </DialogActions>
@@ -528,8 +464,6 @@ const Cuentas = () => {
                             </div>
 
                             {/* FIN MODAL CUENTAS */}
-
-
 
                             {/* MODAL PAGOS */}
                             <div>
@@ -540,7 +474,7 @@ const Cuentas = () => {
                                     aria-describedby="alert-dialog-description"
                                     style={{ width: '100%' }}
                                 >
-                                    <DialogTitle id="alert-dialog-title">Agregar pago</DialogTitle>
+                                    <DialogTitle id="alert-dialog-title">Agregar pagos</DialogTitle>
                                     <DialogContent>
                                         <DialogContentText id="alert-dialog-description">
                                             <div>
@@ -549,6 +483,7 @@ const Cuentas = () => {
                                                         label="Descripcion"
                                                         type="text"
                                                         style={{ width: 400 }}
+                                                        onChange={e => setDescripcion(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group">
@@ -556,21 +491,22 @@ const Cuentas = () => {
                                                         label="Monto"
                                                         type="text"
                                                         style={{ width: 400 }}
+                                                        onChange={e => setMonto(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group">
                                                     <TextField
                                                         select
                                                         label="Seleccione una cuenta"
-                                                        helperText="Seleccione una categoria"
+                                                        helperText="Seleccione una cuenta"
                                                         style={{ width: 400 }}
-                                                        onChange={e => setTipoCuenta(e.target.value)}
+                                                        onChange={e => setIdCuenta(e.target.value)}
                                                     >
-                                                        <MenuItem key="0" value="0">Seleccione una cuenta</MenuItem>
+                                                        <MenuItem key="0" value="0">Seleccionar cuenta</MenuItem>
                                                         {
-                                                            cuentas.map((datos) => {
+                                                            dataCuenta.map((datos) => {
                                                                 return (
-                                                                    <MenuItem key="1" value={datos.id}>{datos.nombreBanco}</MenuItem>
+                                                                    <MenuItem key={datos.idCuenta} value={datos.idCuenta}>{datos.nombreCuenta}</MenuItem>
                                                                 )
                                                             })
                                                         }
@@ -579,15 +515,16 @@ const Cuentas = () => {
                                                 <div className="form-group">
                                                     <TextField
                                                         select
-                                                        label="Seleccione un tipo de cuenta"
-                                                        helperText="Tipo de cuenta"
+                                                        label="Seleccione una categoria"
+                                                        helperText="Seleccione una categoria"
                                                         style={{ width: 400 }}
+                                                        onChange={e => setIdCategoria(e.target.value)}
                                                     >
-                                                        <MenuItem key="0" value="0">Seleccione una cuenta</MenuItem>
+                                                        <MenuItem key="0" value="0">Seleccionar Categoria</MenuItem>
                                                         {
-                                                            cuentas.map((datos) => {
+                                                            dataCategoria.map((datos) => {
                                                                 return (
-                                                                    <MenuItem key="1" value={datos.id}>{datos.nombreBanco}</MenuItem>
+                                                                    <MenuItem key={datos.idCategoria} value={datos.idCategoria}> {datos.nombreCategoria}</MenuItem>
                                                                 )
                                                             })
                                                         }
@@ -600,7 +537,7 @@ const Cuentas = () => {
                                         <Button onClick={() => setOpenModalPagos(false)} color="primary">
                                             Cancelar
                                         </Button>
-                                        <Button onClick={() => setOpenModalPagos(false)} color="primary" autoFocus>
+                                        <Button onClick={(e) => handleSubmitPagos()} color="primary" autoFocus>
                                             Agregar
                                         </Button>
                                     </DialogActions>
@@ -608,11 +545,6 @@ const Cuentas = () => {
                             </div>
 
                             {/* FIN MODAL PAGOS */}
-
-
-
-
-
                         </div>
                     </div>
                 </Container>

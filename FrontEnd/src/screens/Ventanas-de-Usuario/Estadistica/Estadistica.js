@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link} from 'react-router-dom';
-import AnyChart from 'anychart-react';
+
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from '../../../Components/Menu/Menu';
+import { Grid } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
+import Chart from '../../../Components/Chart/chart';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -87,12 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Estadistica = () => {
     const classes = useStyles();
-
-    const nameUsuario = localStorage.getItem("name");
-    const last_nameUsuario = localStorage.getItem("last_name");
-    const emailUsuario = localStorage.getItem("email");
-
-    const [data, setData] = useState([1,2,3,4]);
+    const [data, setData] = useState([]);
 
     const obtenerData = async () => {
         const response = await fetch('');
@@ -106,28 +103,6 @@ const Estadistica = () => {
         obtenerData();
     }, []);
 
-    const complexSettings = {
-        width: 800,
-        height: 600,
-        type: 'pie',
-        data: data,
-        title: 'Estadisticas Parciales',
-        yAxis: [1, {
-            orientation: 'right',
-            enabled: true,
-            labels: {
-                format: '{%Value}{decimalPoint:\\,}',
-                fontColor: 'blue'
-            }
-        }],
-        legend: {
-            background: 'lightgreen 0.4',
-            padding: 0
-        },
-        lineMarker: {
-            value: 4.5
-        }
-    };
     return (
         <div className={classes.root}>
         <Menu>
@@ -136,38 +111,30 @@ const Estadistica = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-            <div class Name="content">
-                <div className="row-perfil">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h3 className="text-center" >Graficos</h3>
-                            </div>
-                            <div className="card-body">
-                                <AnyChart {...complexSettings}/>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={12}>
+                <Paper className={classes.fixedHeightPaper}>
+                  <Chart title="Hoy"/>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={8} lg={12}>
+                <Paper className={classes.fixedHeightPaper}>
+                  <Chart title="Semana" />
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={8} lg={12}>
+                <Paper className={classes.fixedHeightPaper}>
+                  <Chart title="Mes" />
+                </Paper>
+              </Grid>
+            </Grid> 
         </Container>
       </main>
     </div>
     )
 }
 
-export default Estadistica;{/**
-<div class Name="content">
-                        <div className="row-perfil">
-                            <div className="col-md-12">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h3 className="text-center" >Graficos</h3>
-                                    </div>
-                                    <div className="card-body">
-                                        <AnyChart {...complexSettings}/>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
+export default Estadistica;
