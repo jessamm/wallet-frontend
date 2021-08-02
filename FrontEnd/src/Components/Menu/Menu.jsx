@@ -200,7 +200,7 @@ export default function Menu() {
             </ListItem>
             </Link>
 
-            <Link>
+            <Link to="/#">
             <ListItem button>
               <ListItemIcon>
                 <ExitToAppIcon />

@@ -6,13 +6,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
 
 const API = process.env.REACT_APP_API;
 
@@ -20,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="#">
+      <Link color="inherit" to="/#">
         Wallet
       </Link>{' '}
       {new Date().getFullYear()}
@@ -172,13 +173,15 @@ export default function CreateUser() {
           >
             Crear Usuario
           </Button>
+
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2" >
-                Ya tienes cuenta? Inicia Session
+              <Link to="/login" variant="body2" >
+                Ya tienes cuenta? Inicia Sesion
               </Link>
             </Grid>
           </Grid>
+          
         </form>
       </div>
       <Box mt={5}>

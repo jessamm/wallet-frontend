@@ -119,12 +119,7 @@ const MetasPlanes = () => {
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
-    /*
-    const idUsuario = JSON.parse(localStorage.getItem("idUsuario"));
-    const nameUsuario = JSON.parse(localStorage.getItem("name"));
-    const last_nameUsuario = JSON.parse(localStorage.getItem("last_name"));
-    const emailUsuario = JSON.parse(localStorage.getItem("email"));
-    */
+    
 
     const styles = (theme) => ({
         root: {
@@ -281,8 +276,7 @@ const MetasPlanes = () => {
             console.log(data.Session);
         }
     };
-    //AHORROS
-    //se usa id categorie y mount limit de arriba date end
+    
     const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
 
     const handleSubmitPlan = async (e) => {
@@ -448,7 +442,7 @@ const MetasPlanes = () => {
                                             </Table>
                                         </TableContainer>
 
-                                        <table class="table table-sm mt-4 d-none">
+                                        <table className="table table-sm mt-4 d-none">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -542,7 +536,7 @@ const MetasPlanes = () => {
                                 style={{ width: '100%' }}
                             >
                                 {categorias.map((option) => (
-                                    <MenuItem key={option.name} value={option.name}>
+                                    <MenuItem key={option.name} value={option.namecat}>
                                         {option.name}
                                     </MenuItem>
                                 ))}
