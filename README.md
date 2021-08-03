@@ -13,8 +13,6 @@ Nuestro equipo esta conformado por
 
 | Estudiante |  Cuenta  | Correo | 
 |---|---|---|
- 
 | Jessica Alejandra Manzanares Moreno | 20151001483 |Jamanzanares@unah.hn|
 |Victor Miguel Pineda | 20151030886 | vpinedaa@unah.hn |
 | Roger Alfredo Molina | 20161001463 | rmolinav@unah.hn |
-
