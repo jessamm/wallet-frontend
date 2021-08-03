@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import Deposits from './Components/Deposits/deposits';
 import Orders from './Components/MovList/movlist';
 import Menu from './Components/Menu/Menu';
@@ -18,9 +17,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      
         Wallet
-      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>

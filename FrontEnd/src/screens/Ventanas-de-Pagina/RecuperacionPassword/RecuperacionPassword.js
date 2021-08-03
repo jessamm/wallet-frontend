@@ -65,7 +65,7 @@ const RecuperacionPassword = () => {
                 <div className="container d-flex justify-content-between align-items-center">
                     <div className="logo col-md-6">
                         <h1 className="text-light">
-                            <Link to="/" ><span>Wallet</span></Link>
+                            <Link to="/#" ><span>Wallet</span></Link>
                         </h1>
                         {/**ARREGLAR LOGO POR SI SE NECESITA */}
                         {/*<Link to="/"><img src={Logo} className="img-fluid" alt="" /></Link>*/}
@@ -121,11 +121,11 @@ const RecuperacionPassword = () => {
             </section>
             {/**FOOOOTER */}
             <footer className="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-                    <div class="container">
-                        <div class="copyright">
+                    <div className="container">
+                        <div className="copyright">
                             &copy; Copyright <strong><span>Wallet</span></strong>. 
                         </div>
-                        <div class="credits">
+                        <div className="credits">
                             Diseñado por Grupo Wallet
                         </div>
                     </div>
