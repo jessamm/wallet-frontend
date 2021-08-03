@@ -1,6 +1,6 @@
 import React from 'react';
 //import { useTheme } from '@material-ui/core/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis,CartesianGrid, Tooltip, Legend } from 'recharts';
 import Title from '../Title/title';
 
 // Generate Sales Data
@@ -8,48 +8,86 @@ function createData(time, amount) {
   return { time, amount };
 }
 
-const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
-];
+const dia = [
+  {
+    "date": "12/05/2021",
+    "mount": 4000,
+  },
+  {
+    "date": "12/05/2020",
+    "mount": 5000,
+  },
+  {
+    "date": "12/05/2024",
+    "mount": 1000,
+  }
+]
+
+const semana = [
+  {
+    "date": "12/05/2021",
+    "mount": 50000,
+  },
+  {
+    "date": "12/05/2020",
+    "mount": 5000,
+  },
+  {
+    "date": "12/05/2024",
+    "mount": 500,
+  }
+]
+
+const mes = [
+  {
+    "date": "12/05/2021",
+    "mount": 50,
+  },
+  {
+    "date": "12/05/2020",
+    "mount": 20,
+  },
+  {
+    "date": "12/05/2024",
+    "mount": 10,
+  }
+]
 
 
 export default function Chart(props) {
   return (
     <React.Fragment>
       <Title>{props.title}</Title>
-      <ResponsiveContainer>
-
-        <LineChart
-          data={data}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 0,
-            left: 24,
-          }}
-        >
-          <XAxis dataKey="time"  />
-          <YAxis >
-            <Label
-              angle={270}
-              position="left"
-              style={{ textAnchor: 'middle'}}
-            >
-              Sales ($)
-            </Label>
-          </YAxis>
-          <Line type="monotone" dataKey="amount"  dot={false} />
-        </LineChart>
-
-      </ResponsiveContainer>
+      
+      {props.title=='Hoy' ? 
+      ( <LineChart width={730} height={250} data={dia}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+       <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+         <Line type="monotone" dataKey="mount" stroke="#8884d8" />
+         </LineChart>):
+      (props.title=='Semana')? 
+      (<LineChart width={730} height={250} data={semana}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+       <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+         <Line type="monotone" dataKey="mount" stroke="#8884d8" />
+         </LineChart>):
+      (<LineChart width={730} height={250} data={mes}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+       <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+         <Line type="monotone" dataKey="mount" stroke="#8884d8" />
+         </LineChart>)}
     </React.Fragment>
   );
 }
