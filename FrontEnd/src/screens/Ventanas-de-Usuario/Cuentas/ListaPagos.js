@@ -105,7 +105,7 @@ const ListaPagos = () => {
     //const [planAhorro, setPlanAhorro] = useState([]);
     //const [categorias, setCategorias] = useState([]);
     // localStorage.getItem(1)
-    const idUsuario = localStorage.getItem("idUsuario");
+    const idUsuario = localStorage.getItem("Session_id");
 
     const styles = (theme) => ({
         root: {
@@ -129,21 +129,21 @@ const ListaPagos = () => {
     });
 
     const obtenerPagos = async () => {
-
         const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/get-pagos`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
+        console.log(data)
         if (data) {
             setPagos(data);
         }
     }
+    /*
     const eliminarPagos = async (e) => {
         const json_data = {
             'id_user': idUsuario
@@ -159,7 +159,7 @@ const ListaPagos = () => {
             //const data = await res.json();
             console.log("==========================Ahorro eliminado ==============================");
         };
-    }
+    }*/
     useEffect(() => {
         obtenerPagos();
     }, [])
@@ -188,21 +188,23 @@ const ListaPagos = () => {
                                                         <TableCell color="primary" align="right">#</TableCell>
                                                         <TableCell color="primary" align="right">Descripcion</TableCell>
                                                         <TableCell color="primary" align="right">Monto</TableCell>
-                                                        <TableCell color="primary" align="right">Fecha</TableCell>
+                                                        <TableCell color="primary" align="right">Categoria</TableCell>
                                                         <TableCell color="primary" align="right">Cuenta</TableCell>
+                                                        <TableCell color="primary" align="right">Tipo Cuenta</TableCell>
                                                         <TableCell color="primary" align="right">Eliminar</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {datosPagos.map((row) => (
-                                                        <TableRow key={row.name}>
-                                                            <TableCell component="th" scope="row">{row.nameUsuario}</TableCell>
-                                                            <TableCell align="right">{row.description}</TableCell>
-                                                            <TableCell align="right">{row.date_init}</TableCell>
-                                                            <TableCell align="right">{row.mount_limit}</TableCell>
-                                                            <TableCell align="right">{row.mount_actual}</TableCell>
+                                                    {datosPagos.map((row, key) => (
+                                                        <TableRow key={key}>
+                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell align="right">{row.descripcion}</TableCell>
+                                                            <TableCell align="right">{row.mount}</TableCell>
+                                                            <TableCell align="right">{row.name}</TableCell>
+                                                            <TableCell align="right">{row.name_bank_account}</TableCell>
+                                                            <TableCell align="right">{row.type_bank}</TableCell>
                                                             <TableCell align="right">
-                                                                <Button size="small" onClick={() => eliminarPagos(row.id)} style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
+                                                                <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}

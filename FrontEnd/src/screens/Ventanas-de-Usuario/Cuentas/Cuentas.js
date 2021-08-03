@@ -103,7 +103,7 @@ const API = process.env.REACT_APP_API;
 const Cuentas = () => {
     const classes = useStyles();
     //probar 
-    const idUsuario = localStorage.getItem("idUsuario");
+    const idUsuario = localStorage.getItem("Session_id");
 
     const [dataCuenta, setDataCuentas] = useState([]);
     const [dataCategoria, setDataCategoria] = useState([]);
@@ -113,8 +113,6 @@ const Cuentas = () => {
     const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [csv, setCsv] = useState("");
     const [numeroCuenta, setNumeroCuenta] = useState("");
-    const [contrasena, setContrasena] = useState("");
-    
     const [monto, setMonto] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [idCategoria, setIdCategoria] = useState("");
@@ -143,23 +141,16 @@ const Cuentas = () => {
           }
     };
     const informacionCategoria = async () => {
-        const json_data = {
-            'id_user' : idUsuario        
-          };
-          const res = await fetch(`${API}/`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(json_data),
-          });
-
-          const data = await res.json();
-
-          if (data) {
-              setDataCategoria(data);
-          }else{
-            console.log("error al mandar informacion")
-          }
-    };
+        const res = await fetch(`${API}/get-categories`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(),
+        });
+        const data = await res.json();
+        if (data) {
+            //setDataCategoria(data);
+        }
+    }
     useEffect(() => {
         informacionCuenta();
         informacionCategoria();
@@ -169,25 +160,28 @@ const Cuentas = () => {
         e.preventDefault();
 
         const json_data = {
-            '': tipoCuenta,
-            '': fechaVencimiento,
-            '': csv,
-            '': numeroCuenta,
-            '': monto,
-            '': nombreBanco,
-            '': contrasena
+            'id_user' : idUsuario,
+            'name_bank_account' : nombreBanco,
+            'date_out': fechaVencimiento,
+            'validation_digits': csv,
+            'number_account': numeroCuenta,
+            'mount': monto,
+            'type_bank' : tipoCuenta
         };
-
-        const res = await fetch(`${API}/`, {
+        console.log(json_data)
+        const res = await fetch(`${API}/set-cuentas`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         //const data = await res.json();
         //console.log(data.Session);
+        console.log(res)
+
         if (res.status) {
             const data = await res.json();
             console.log(data);
+            window.location.href = "http://localhost:3000/cuentas";
         }
     };
     const handleSubmitPagos = async (e) => {
@@ -213,13 +207,6 @@ const Cuentas = () => {
             const data = await res.json();
         }
     };
-    const cerrarSesion = async (e) => {
-        e.preventDefault();
-
-        localStorage.clear();
-        window.location.href = "http://localhost:3000/login";
-    }
-
     return (
         <div className={classes.root}>
             <Menu>
@@ -302,7 +289,7 @@ const Cuentas = () => {
                                             <TextField
                                                 select
                                                 label="Seleccione"
-                                                helperText="Seleccione una categoria"
+                                                helperText="Seleccione una cuenta"
                                                 style={{ width: 400 }}
                                                 onChange={e => setTipoCuenta(e.target.value)}
                                             >
@@ -320,7 +307,7 @@ const Cuentas = () => {
                                                                 label="Nombre del banco"
                                                                 type="text"
                                                                 style={{ width: 400 }}
-                                                                autoComplete="Ingrese el nomre del banco"
+                                                                autoComplete="Ingrese el nombre del banco"
                                                                 onChange={(e) => setNombreBanco(e.target.value)}
                                                             />
                                                         </div>
@@ -351,10 +338,10 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Contraseña"
-                                                                type="password"
+                                                                label="Monto"
+                                                                type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setContrasena(e.target.value)}
+                                                                onChange={(e) => setMonto(e.target.value)}
                                                             />
                                                         </div>
                                                     </>
@@ -390,12 +377,13 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Contraseña"
-                                                                type="password"
+                                                                label="Monto"
+                                                                type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setContrasena(e.target.value)}
+                                                                onChange={(e) => setMonto(e.target.value)}
                                                             />
                                                         </div>
+                                                        
                                                     </>
                                                 }
                                                 {
@@ -436,12 +424,13 @@ const Cuentas = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <TextField
-                                                                label="Contraseña"
-                                                                type="password"
+                                                                label="Monto"
+                                                                type="text"
                                                                 style={{ width: 400 }}
-                                                                onChange={(e) => setContrasena(e.target.value)}
+                                                                onChange={(e) => setMonto(e.target.value)}
                                                             />
                                                         </div>
+                                                        
                                                     </>
                                                 }
                                             </div>
@@ -451,15 +440,13 @@ const Cuentas = () => {
                                         <Button onClick={() => setOpenModalCuentas(false)} color="primary">
                                             Cancelar
                                         </Button>
-                                        <Button onClick={() => handleSubmitCuentas()} color="primary" autoFocus>
+                                        <Button onClick={handleSubmitCuentas} color="primary" autoFocus>
                                             Agregar
                                         </Button>
                                     </DialogActions>
                                 </Dialog>
                             </div>
-
                             {/* FIN MODAL CUENTAS */}
-
                             {/* MODAL PAGOS */}
                             <div>
                                 <Dialog
@@ -512,17 +499,13 @@ const Cuentas = () => {
                                                         select
                                                         label="Seleccione una categoria"
                                                         helperText="Seleccione una categoria"
-                                                        style={{ width: 400 }}
+                                                        style={{ width: '100%' }}
                                                         onChange={e => setIdCategoria(e.target.value)}
                                                     >
-                                                        <MenuItem key="0" value="0">Seleccionar Categoria</MenuItem>
                                                         {
-                                                            dataCategoria.map((datos) => {
-                                                                return (
-                                                                    <MenuItem key={datos.idCategoria} value={datos.idCategoria}> {datos.nombreCategoria}</MenuItem>
-                                                                )
-                                                            })
-                                                        }
+                                                            dataCategoria.map((datos,key) => (
+                                                                <MenuItem key={key} value={datos.id}> {datos.name}</MenuItem>
+                                                        ))}
                                                     </TextField>
                                                 </div>
                                             </div>
@@ -538,7 +521,6 @@ const Cuentas = () => {
                                     </DialogActions>
                                 </Dialog>
                             </div>
-
                             {/* FIN MODAL PAGOS */}
                         </div>
                     </div>

@@ -100,7 +100,7 @@ const ListaCuentas = () => {
     /**llenado de tablas */
     const [datosCuentas, setCuentas] = useState([]);
     // localStorage.getItem(1)
-    const idUsuario = localStorage.getItem("idUsuario");
+    const idUsuario = localStorage.getItem("Session_id");
 
     const styles = (theme) => ({
         root: {
@@ -124,21 +124,24 @@ const ListaCuentas = () => {
     });
 
     const obtenerCuentas = async () => {
-
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/get-cuentas`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
         if (data) {
+            console.log("DATAAAAAAAA")
+            console.log(data)
+            console.log("DATAAAAAA")
             setCuentas(data);
         }
     }
+    /*
     const eliminarCuentas = async (e) => {
         const json_data = {
             'id_user': idUsuario
@@ -154,7 +157,7 @@ const ListaCuentas = () => {
             //const data = await res.json();
             console.log("==========================Ahorro eliminado ==============================");
         };
-    }
+    }*/
     useEffect(() => {
         obtenerCuentas();
     }, [])
@@ -182,23 +185,22 @@ const ListaCuentas = () => {
                                                     <TableRow>
                                                         <TableCell color="primary" align="right">#</TableCell>
                                                         <TableCell color="primary" align="right">Nombre del banco</TableCell>
-                                                        <TableCell color="primary" align="right">CSV</TableCell>
-                                                        <TableCell color="primary" align="right">Numero cuenta</TableCell>
+                                                        <TableCell color="primary" align="right">Numero Cuenta</TableCell>
                                                         <TableCell color="primary" align="right">Tipo cuenta</TableCell>
                                                         <TableCell color="primary" align="right">Monto</TableCell>
                                                         <TableCell color="primary" align="right">Eliminar</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {datosCuentas.map((row) => (
-                                                        <TableRow key={row.name}>
-                                                            <TableCell component="th" scope="row">{row.nameUsuario}</TableCell>
-                                                            <TableCell align="right">{row.description}</TableCell>
-                                                            <TableCell align="right">{row.date_init}</TableCell>
-                                                            <TableCell align="right">{row.mount_limit}</TableCell>
-                                                            <TableCell align="right">{row.mount_actual}</TableCell>
+                                                    {datosCuentas.map((row, key) => (
+                                                        <TableRow key={key}>
+                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell align="right">{row.name_bank_account}</TableCell>
+                                                            <TableCell align="right">{row.number_account}</TableCell>
+                                                            <TableCell align="right">{row.type_bank}</TableCell>
+                                                            <TableCell align="right">{row.mount}</TableCell>
                                                             <TableCell align="right">
-                                                                <Button size="small" onClick={() => eliminarCuentas(row.id)} style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
+                                                                <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}

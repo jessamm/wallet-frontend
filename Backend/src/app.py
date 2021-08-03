@@ -1,3 +1,4 @@
+from datetime import date
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 # import openpyxl
@@ -14,7 +15,7 @@ import json
 # conexion al sql, encapsula los metodos en el objeto SQEngine
 SQLEngine = MySQLEngine()
 bv = validator()
-#SQLEngine.start()
+SQLEngine.start()
 
 send_mail = mail_sender()
 
@@ -30,7 +31,9 @@ cors = CORS(app, resources={r"/login": {"origins": "http://localhost:5001"}})
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def login():
   json_data = request.json
+  print(json_data)
   result = bv.Login_validator(json_data["email"], json_data["password"])
+  print(result)
   return jsonify(result)
 
 @app.route('/create-user', methods=['POST'])
@@ -47,6 +50,87 @@ def mail_validation():
   result = bv.validate_mail(json_data["input_1"], json_data["input_2"], json_data["input_3"], json_data["input_4"],json_data["email"])
   return jsonify(result)
   
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/get-cuentas', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_cuentas():
+  json_data = request.json
+  user = json_data["id_user"]
+  cuentas = SQLEngine.db_select(f"SELECT * FROM bank_account WHERE id_user = '{user}';")
+  return jsonify(cuentas)
+
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/set-cuentas', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def set_cuentas():
+  json_data = request.json
+  banco = json_data["name_bank_account"]
+  date_out = json_data["date_out"]
+  validation_digits = json_data["validation_digits"]
+  number_account = json_data["number_account"]
+  mount = json_data["mount"]
+  id_user = json_data["id_user"]
+  type_bank =json_data["type_bank"]
+
+  query = f"INSERT INTO bank_account(name_bank_account,date_out,validation_digits,number_account,id_user,mount,type_bank) VALUES ('{banco}','{date_out}','{validation_digits}','{number_account}','{id_user}','{mount}','{type_bank}')"
+  result_id = SQLEngine.db_insert(query)
+  print(result_id)
+
+  return jsonify(json_data)
+
+# Routes
+# Devuelve las metas del usuario en especifico.
+@app.route('/get-categories', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_categories():
+  categories = SQLEngine.db_select(f"SELECT * FROM categorie;")
+  return jsonify(categories)
+
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/get-pagos', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_pagos():
+  json_data = request.json
+  user = json_data["id_user"]
+  pagos = SQLEngine.db_select(f"SELECT * FROM transaction_line INNER JOIN bank_account ON transaction_line.id_account=bank_account.id INNER JOIN categorie ON transaction_line.id_categorie=categorie.id WHERE transaction_line.id_user = '{user}';")
+  #print(pagos)
+  return jsonify(pagos)
+
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/get-metas', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_metas():
+  json_data = request.json
+  user = json_data["id_user"]
+  metas = SQLEngine.db_select(f"SELECT * FROM metas WHERE id_user = '{user}';")
+  print(metas)
+  return jsonify(metas)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Routes
 # Devuelve las metas del usuario en especifico.?=
@@ -123,12 +207,7 @@ def account_validation():
 
 
 
-@app.route('/get-categories', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def get_categories():
-  categories = SQLEngine.db_select(f"SELECT * FROM categorie;")
-  
-  return jsonify(categories)
+
 
 @app.route('/get-download-excel', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])

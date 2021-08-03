@@ -115,7 +115,8 @@ const MetasPlanes = () => {
     const [planAhorro, setPlanAhorro] = useState([]);
     const [categorias, setCategorias] = useState([]);
     // localStorage.getItem(1)
-    const idUsuario = localStorage.getItem("idUsuario");
+    const idUsuario = localStorage.getItem("Session_id");
+    
     const nameUsuario = localStorage.getItem("name");
     const last_nameUsuario = localStorage.getItem("last_name");
     const emailUsuario = localStorage.getItem("email");
@@ -170,39 +171,27 @@ const MetasPlanes = () => {
     }))(MuiDialogActions);
 
     //llenar datos metas
-    const obtenerDatosMetas = async () => {
+    const obtenerMetas = async () => {
 
         const json_data = {
             //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        const res = await fetch(`${API}/get-goals`, {
+        console.log(idUsuario)
+        console.log("=======================================================")
+        const res = await fetch(`${API}/get-metas`, {
+            //get-goals
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
+        console.log("=============METAS============", data)
         if (data) {
             setDatosMetas(data);
         }
     }
     //llenar plan ahorro
-    const obtenerPlanAhorro = async () => {
-
-        const json_data = {
-            //verificar que el valor entre comillas sea igual al de la base por favor
-            'id_user': idUsuario
-        };
-        const res = await fetch(`${API}/get-planning`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        const data = await res.json();
-        if (data) {
-            setPlanAhorro(data);
-        }
-    }
     const obtenerCategorias = async () => {
         const res = await fetch(`${API}/get-categories`, {
             method: "POST",
@@ -214,6 +203,7 @@ const MetasPlanes = () => {
             setCategorias(data);
         }
     }
+    
 
     const handleCloseMetas = () => {
         setOpenMetas(false);
@@ -232,8 +222,7 @@ const MetasPlanes = () => {
     }
 
     useEffect(() => {
-        obtenerDatosMetas();
-        obtenerPlanAhorro();
+        obtenerMetas();
         obtenerCategorias();
     }, [])
 
@@ -264,7 +253,8 @@ const MetasPlanes = () => {
             'mount_limit': mount_limit
         };
 
-        const res = await fetch(`${API}/set-goals`, {
+        const res = await fetch(`${API}/`, {
+            //set-goals
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
@@ -297,7 +287,8 @@ const MetasPlanes = () => {
             //'nameAhorro': nameAhorro
         };
 
-        const res = await fetch(`${API}/set-planning`, {
+        const res = await fetch(`${API}/`, {
+            //set-pllaning
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
@@ -343,13 +334,15 @@ const MetasPlanes = () => {
         };
     };
 
-    const cerrarSesion = async (e) => {
-        e.preventDefault();
+    /**CERRAR SESION DE MENU 
+     * 
+     * const cerrarSesion = async (e) => {
+  e.preventDefault();
+  localStorage.clear();
+  window.location.href = "http://localhost:3000/login";
+};
 
-        localStorage.clear();
-        window.location.href = "http://localhost:3000/login";
-    }
-
+    */
     return (
         <div className={classes.root}>
             <Menu>
@@ -363,7 +356,7 @@ const MetasPlanes = () => {
                             <div className="col-md-12">
                                 <div className="card">
                                     <div className="card-header">
-                                        <h5 className="title">Metas creadas</h5>
+                                        <h5 className="title">Metas</h5>
                                     </div>
                                     <div className="card-body">
 
@@ -371,22 +364,25 @@ const MetasPlanes = () => {
                                             <Table className={styles.table} size="small" aria-label="a dense table">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell color="primary" align="right">Nombre Usuario</TableCell>
+                                                        <TableCell color="primary" align="right">#</TableCell>
+                                                        <TableCell color="primary" align="right">Nombre Meta</TableCell>
                                                         <TableCell color="primary" align="right">Descripcion</TableCell>
-                                                        <TableCell color="primary" align="right">Fecha Inicio</TableCell>
-                                                        <TableCell color="primary" align="right">Maximo a Gastar</TableCell>
-                                                        <TableCell color="primary" align="right">Gastos Actuales</TableCell>
-                                                        <TableCell color="primary" align="right">Eliminar</TableCell>
+                                                        <TableCell color="primary" align="right">Fecha Final</TableCell>
+                                                        <TableCell color="primary" align="right">Categoria</TableCell>
+                                                        <TableCell color="primary" align="right">Monto Meta</TableCell>
+                                                        <TableCell color="primary" align="right">Cuenta</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {datosMetas.map((row) => (
-                                                        <TableRow key={row.name}>
-                                                            <TableCell component="th" scope="row">{row.nameUsuario}</TableCell>
-                                                            <TableCell align="right">{row.description}</TableCell>
-                                                            <TableCell align="right">{row.date_init}</TableCell>
-                                                            <TableCell align="right">{row.mount_limit}</TableCell>
-                                                            <TableCell align="right">{row.mount_actual}</TableCell>
+                                                    {datosMetas.map((row, key) => (
+                                                        <TableRow key={key}>
+                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell align="right">{row.name_meta}</TableCell>
+                                                            <TableCell align="right">{row.descripcion_meta}</TableCell>
+                                                            <TableCell align="right">{row.date_final}</TableCell>
+                                                            <TableCell align="right">{row.id_categorie}</TableCell>
+                                                            <TableCell align="right">{row.monto_meta}</TableCell>
+                                                            <TableCell align="right">{row.id_account}</TableCell>
                                                             <TableCell align="right">
                                                                 <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
                                                             </TableCell>
@@ -405,8 +401,8 @@ const MetasPlanes = () => {
                                     <br></br>
                                 </div>
                             </div>
-
-                            <div className="col-md-12">
+                            {/***                       
+ *                          <div className="col-md-12">
                                 <div className="card">
                                     <div className="card-header">
                                         <h5 className="title">Plan de ahorro</h5>
@@ -482,7 +478,8 @@ const MetasPlanes = () => {
                                     <br></br>
                                     <br></br>
                                 </div>
-                            </div>
+                            </div> */}
+
                         </div>
                     </div>    
                 </Container>
@@ -561,7 +558,7 @@ const MetasPlanes = () => {
                 </div>
                 { /* FIN MODAL METAS */}
 
-                { /* MODAL PLAN */}
+                { /* MODAL PLAN *
                 <div>
                     <Dialog onClose={handleClosePlan} aria-labelledby="customized-dialog-title" open={openPlan}>
                         <DialogTitle id="customized-dialog-title" onClose={handleClosePlan}>
@@ -633,7 +630,7 @@ const MetasPlanes = () => {
                         </DialogActions>
                     </Dialog>
                 </div>
-                { /* FIN MODAL PLAN */}
+                 FIN MODAL PLAN */}
         </div>
     )
 }

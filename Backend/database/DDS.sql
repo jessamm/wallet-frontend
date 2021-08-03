@@ -48,8 +48,41 @@ CREATE TABLE IF NOT EXISTS bank_account(
     FOREIGN KEY (id_user) REFERENCES `user`(id)
 );
 
+CREATE TABLE IF NOT EXISTS metas(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name_meta varchar(30) NOT NULL,
+    descripcion_meta VARCHAR(15),
+    date_inicio TIMESTAMP COMMENT 'Fecha de inicio',
+    date_final TIMESTAMP COMMENT 'Fecha de finalizacion',
+    monto_meta FLOAT,
+    id_categorie INT,
+    id_user INT,
+    id_account INT,
+    FOREIGN KEY (id_categorie) REFERENCES categorie(id),
+    FOREIGN KEY (id_account) REFERENCES bank_account(id),
+    FOREIGN KEY (id_user) REFERENCES user(id)
+);
+
+
+
+-- Manejar las transacciones, del usuario ejem:
+-- Medico---> gasto monto (transaction_line) = 200
+CREATE TABLE IF NOT EXISTS transaction_line (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    /*id_goal_line INT COMMENT 'Llave foranea, para vincular el objetivo de la transaccion.',*/
+    descripcion VARCHAR(100) COMMENT 'Descripcion de la transaccion o pago',
+    id_categorie INT COMMENT 'Llave foranea de categorias',
+    id_account INT COMMENT 'Llave foranea, para vincular en donde descargar el monto.',
+    id_user INT,
+    mount FLOAT COMMENT 'Monto a realizar la operacion',
+    FOREIGN KEY (id_categorie) REFERENCES categorie(id),
+    FOREIGN KEY (id_account) REFERENCES bank_account(id),
+    FOREIGN KEY (id_user) REFERENCES user(id)
+);
+
+
 -- contiene un numero de metas, definidas por un periodo de tiempo establecido
-CREATE TABLE IF NOT EXISTS goal(
+/*CREATE TABLE IF NOT EXISTS goal(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
     detail VARCHAR(255),
@@ -74,16 +107,6 @@ CREATE TABLE IF NOT EXISTS goal_line (
     FOREIGN KEY (id_categorie) REFERENCES categorie(id)
 );
 
--- Manejar las transacciones en las lineas de meta, del usuario ejem:
--- Medico---> gasto monto (transaction_line) = 200
-CREATE TABLE IF NOT EXISTS transaction_line (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
-    id_goal_line INT COMMENT 'Llave foranea, para vincular el objetivo de la transaccion.',
-    id_account INT COMMENT 'Llave foranea, para vincular en donde descargar el monto.',
-    mount FLOAT COMMENT 'Monto a realizar la operacion',
-    FOREIGN KEY (id_goal_line) REFERENCES goal_line(id),
-    FOREIGN KEY (id_account) REFERENCES bank_account(id)
-);
 
 -- contiene un numero de planes de ahorro, definidos por un periodo de tiempo establecido
 CREATE TABLE IF NOT EXISTS planning(
@@ -120,7 +143,7 @@ CREATE TABLE IF NOT EXISTS binnacle (
     description_operation VARCHAR(255) COMMENT 'Breve descripcion de la operacion, adjuntar montos y categoria en la cual se efectuo.',
     type_operation ENUM('Registro de gasto','Registro de ahorro'),
     FOREIGN KEY (id_user) REFERENCES `user`(id)
-);
+);*/
 
 -- new version 2.1
 
