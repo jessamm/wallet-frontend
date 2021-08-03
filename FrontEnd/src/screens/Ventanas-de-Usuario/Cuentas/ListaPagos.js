@@ -197,7 +197,7 @@ const ListaPagos = () => {
                                                 <TableBody>
                                                     {datosPagos.map((row, key) => (
                                                         <TableRow key={key}>
-                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell component="th" scope="row">{key++}</TableCell>
                                                             <TableCell align="right">{row.descripcion}</TableCell>
                                                             <TableCell align="right">{row.mount}</TableCell>
                                                             <TableCell align="right">{row.name}</TableCell>

@@ -136,6 +136,13 @@ export default function Menu() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const cerrarSesion = async (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.href = "http://localhost:3000/login";
+  };
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div>
@@ -226,8 +233,8 @@ export default function Menu() {
             </ListItem>
           </Link>
 
-          <Link>
-            <ListItem button>
+          <Link onClick={cerrarSesion}>
+            <ListItem button >
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>

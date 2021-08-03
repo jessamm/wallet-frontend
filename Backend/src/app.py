@@ -106,9 +106,32 @@ def get_pagos():
 def get_metas():
   json_data = request.json
   user = json_data["id_user"]
-  metas = SQLEngine.db_select(f"SELECT * FROM metas WHERE id_user = '{user}';")
-  print(metas)
+  metas = SQLEngine.db_select(f"SELECT metas.name_meta, metas.descripcion_meta, metas.date_final, categorie.name, metas.monto_meta, bank_account.name_bank_account FROM bank_account INNER JOIN metas ON bank_account.id=metas.id_account INNER JOIN categorie ON metas.id_categorie=categorie.id WHERE metas.id_user = '{user}';")
+  #print(metas)
   return jsonify(metas)
+
+
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/set-metas', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def set_metas():
+  json_data = request.json
+  id_user = json_data["id_user"]
+  name_meta = json_data["name_meta"]
+  descripcion_meta = json_data["descripcion_meta"]
+  date_inicio = json_data["date_inicio"]
+  date_final = json_data["date_final"]
+  monto_meta = json_data["monto_meta"]
+  id_categorie = json_data["id_categorie"]
+  id_account = json_data["id_account"]
+  
+  print(json_data)
+  #query = f"INSERT INTO bank_account(name_bank_account,date_out,validation_digits,number_account,id_user,mount,type_bank) VALUES ('{banco}','{date_out}','{validation_digits}','{number_account}','{id_user}','{mount}','{type_bank}')"
+  #result_id = SQLEngine.db_insert(query)
+  #print(result_id)
+
+  return jsonify(json_data)
 
 
 

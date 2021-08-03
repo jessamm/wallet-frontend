@@ -194,7 +194,7 @@ const ListaCuentas = () => {
                                                 <TableBody>
                                                     {datosCuentas.map((row, key) => (
                                                         <TableRow key={key}>
-                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell component="th" scope="row">{key++}</TableCell>
                                                             <TableCell align="right">{row.name_bank_account}</TableCell>
                                                             <TableCell align="right">{row.number_account}</TableCell>
                                                             <TableCell align="right">{row.type_bank}</TableCell>

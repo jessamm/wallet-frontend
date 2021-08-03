@@ -108,19 +108,55 @@ const useStyles = makeStyles((theme) => ({
 const MetasPlanes = () => {
     const classes = useStyles();
     const [openMetas, setOpenMetas] = useState(false);
-    const [openPlan, setOpenPlan] = useState(false);
-
-    /**llenado de tablas */
+    //const [openPlan, setOpenPlan] = useState(false);
     const [datosMetas, setDatosMetas] = useState([]);
-    const [planAhorro, setPlanAhorro] = useState([]);
     const [categorias, setCategorias] = useState([]);
-    // localStorage.getItem(1)
+    const [datosCuentas, setCuentas] = useState([]);
+    
     const idUsuario = localStorage.getItem("Session_id");
+
+    const [nameMeta, setNameMeta] = useState("");
+    const [descripcionMeta, setDescripcionMeta] = useState("");
+    const [date_init, setDateInit] = useState("");
+    const [date_final, setDateFinal] = useState("");
+    const [montoMeta, setMontoMeta] = useState("");
+    const [tipoCuenta, setTipoCuenta] = useState(0);
+    const [tipoCategoria, setTipoCategoria] = useState(0);
     
-    const nameUsuario = localStorage.getItem("name");
-    const last_nameUsuario = localStorage.getItem("last_name");
-    const emailUsuario = localStorage.getItem("email");
-    
+    const handleSubmitMetas = async (e) => {
+        e.preventDefault();
+/*
+        if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
+            handleError(true);
+            alert("Todos los campos deben ser llenados");
+            return;
+        }*/
+        handleError(false);
+
+        const json_data = {
+            'id_user': idUsuario,
+            'name_meta': nameMeta,
+            'descripcion_meta': descripcionMeta,
+            'date_inicio': date_init,
+            'date_final': date_final,
+            'monto_meta': montoMeta,
+            'id_categorie': tipoCategoria,
+            'id_account': tipoCuenta
+        };
+        console.log(json_data)
+        const res = await fetch(`${API}/`, {
+            //set-goals
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        //const data = await res.json();
+        //console.log(data.Session);
+        if (res.status) {
+            const data = await res.json();
+            console.log(data.Session);
+        }
+    };
 
     const styles = (theme) => ({
         root: {
@@ -170,7 +206,7 @@ const MetasPlanes = () => {
         },
     }))(MuiDialogActions);
 
-    //llenar datos metas
+    //obtener datos
     const obtenerMetas = async () => {
 
         const json_data = {
@@ -191,7 +227,6 @@ const MetasPlanes = () => {
             setDatosMetas(data);
         }
     }
-    //llenar plan ahorro
     const obtenerCategorias = async () => {
         const res = await fetch(`${API}/get-categories`, {
             method: "POST",
@@ -200,7 +235,22 @@ const MetasPlanes = () => {
         });
         const data = await res.json();
         if (data) {
-            setCategorias(data);
+            //setCategorias(data);
+        }
+    }
+    const obtenerCuentas = async () => {
+        const json_data = {
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/get-cuentas`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if (data) {
+            setCuentas(data);
         }
     }
     
@@ -212,7 +262,7 @@ const MetasPlanes = () => {
     const handleOpenMetas = () => {
         setOpenMetas(true);
     }
-
+/*
     const handleClosePlan = () => {
         setOpenPlan(false);
     }
@@ -220,55 +270,17 @@ const MetasPlanes = () => {
     const handleOpenPlan = () => {
         setOpenPlan(true);
     }
-
+*/
     useEffect(() => {
         obtenerMetas();
         obtenerCategorias();
+        obtenerCuentas();
     }, [])
-
-    //METAS de gasto
-    //const [id_categorie, setId_categorie] = useState("");
-    const [mount_limit, setMount_limit] = useState("");
-    const [date_end, setDate_end] = useState("");
-    const [nameMeta, setNameMeta] = useState("");
-    const [id_categorie, setIdCategorie] = useState("");
-    //agregar a la base el nombre de las metas
 
     const [errorLlenado, handleError] = useState(false);
 
-    const handleSubmitMetas = async (e) => {
-        e.preventDefault();
-
-        if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
-            handleError(true);
-            alert("Todos los campos deben ser llenados");
-            return;
-        }
-        handleError(false);
-
-        const json_data = {
-            'id_user': idUsuario,
-            'date_end': date_end,
-            'id_categorie': id_categorie,
-            'mount_limit': mount_limit
-        };
-
-        const res = await fetch(`${API}/`, {
-            //set-goals
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(json_data),
-        });
-        //const data = await res.json();
-        //console.log(data.Session);
-        if (res.status) {
-            const data = await res.json();
-            console.log(data.Session);
-        }
-    };
     
-    const [nameAhorro, setNameAhorro] = useState(""); //agregar nombre al ahorro
-
+/*
     const handleSubmitPlan = async (e) => {
         e.preventDefault();
 
@@ -299,7 +311,7 @@ const MetasPlanes = () => {
             console.log(data.Session);
         };
     };
-
+*/
     const EliminarMeta = async (e) => {
         const json_data = {
             'id_user': idUsuario
@@ -316,7 +328,7 @@ const MetasPlanes = () => {
             console.log("==========================Meta eliminada ==============================");
         };
     };
-
+/*
     const EliminarPlan = async (e) => {
         const json_data = {
             'id_user': idUsuario
@@ -333,16 +345,7 @@ const MetasPlanes = () => {
             console.log("==========================Plan eliminado ==============================");
         };
     };
-
-    /**CERRAR SESION DE MENU 
-     * 
-     * const cerrarSesion = async (e) => {
-  e.preventDefault();
-  localStorage.clear();
-  window.location.href = "http://localhost:3000/login";
-};
-
-    */
+*/
     return (
         <div className={classes.root}>
             <Menu>
@@ -376,13 +379,13 @@ const MetasPlanes = () => {
                                                 <TableBody>
                                                     {datosMetas.map((row, key) => (
                                                         <TableRow key={key}>
-                                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                                            <TableCell component="th" scope="row">{key}</TableCell>
                                                             <TableCell align="right">{row.name_meta}</TableCell>
                                                             <TableCell align="right">{row.descripcion_meta}</TableCell>
                                                             <TableCell align="right">{row.date_final}</TableCell>
-                                                            <TableCell align="right">{row.id_categorie}</TableCell>
+                                                            <TableCell align="right">{row.name}</TableCell>
                                                             <TableCell align="right">{row.monto_meta}</TableCell>
-                                                            <TableCell align="right">{row.id_account}</TableCell>
+                                                            <TableCell align="right">{row.name_bank_account}</TableCell>
                                                             <TableCell align="right">
                                                                 <Button size="small" style={{ backgroundColor: '#e53935', color: '#fff' }} >Eliminar</Button>
                                                             </TableCell>
@@ -491,53 +494,97 @@ const MetasPlanes = () => {
                             Registro metas
                         </DialogTitle>
                         <DialogContent dividers>
+
                             <TextField
                                 id="standard-full-width"
-                                label="Limite"
+                                label="Nombre meta"
                                 style={{ marginTop: 8, width: '100%' }}
-                                placeholder="Ingrese el limite"
-                                helperText="Limite"
+                                placeholder="Ingrese el nombre meta"
+                                
                                 fullWidth
                                 margin="normal"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                onChange={(e) => setNameMeta(e.target.value)}
+                            />
+                            <TextField
+                                id="standard-full-width"
+                                label=" Descripcion Meta"
+                                style={{ marginTop: 8, width: '100%' }}
+                                placeholder="Ingrese una breve descripcion"
+                                
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onChange={(e) => setDescripcionMeta(e.target.value)}
                             />
                             <TextField
                                 id="datetime-local"
-                                label="Fecha"
+                                label="Fecha Inicio"
                                 type="date"
                                 style={{ marginTop: 8, width: '100%' }}
                                 defaultValue="2017-05-24T10:30"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                onChange={(e) => setDateInit(e.target.value)}
+                            />
+                            <TextField
+                                id="datetime-local"
+                                label="Fecha Final" 
+                                type="date"
+                                style={{ marginTop: 8, width: '100%' }}
+                                defaultValue="2017-05-24T10:30"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onChange={(e) => setDateFinal(e.target.value)}
                             />
                             <TextField
                                 id="standard-full-width"
-                                label="Nombre meta"
+                                label="Monto de la Meta"
                                 style={{ marginTop: 8, width: '100%' }}
-                                placeholder="Ingrese el nombre meta"
-                                helperText="Nombre meta"
+                                placeholder="Ingrese el monto de la meta"
+                                
                                 fullWidth
                                 margin="normal"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                onChange={(e) => setMontoMeta(e.target.value)}
                             />
-
                             <TextField
                                 select
-                                label="Seleccione"
-                                helperText="Seleccione una categoria"
+                                label="Seleccione una categoria"
+                                
                                 style={{ width: '100%' }}
+                                onChange={(e) => setTipoCategoria(e.target.value)}
                             >
-                                {categorias.map((option) => (
-                                    <MenuItem key={option.name} value={option.namecat}>
+                                {categorias.map((option,key) => (
+                                    <MenuItem key={key} value={option.id}>
                                         {option.name}
                                     </MenuItem>
                                 ))}
                             </TextField>
+
+                            <TextField
+                                select
+                                label="Seleccione una cuenta"
+                                
+                                style={{ width: '100%' }}
+                                onChange={(e) => setTipoCuenta(e.target.value)}
+                            >
+                                {datosCuentas.map((option,key) => (
+                                    <MenuItem key={key} value={option.id}>
+                                        {option.name_bank_account}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
+                
 
                             {errorLlenado ? (
                                 <Typography gutterBottom>
@@ -547,7 +594,7 @@ const MetasPlanes = () => {
 
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleCloseMetas} color="primary">
+                            <Button onClick={handleSubmitMetas} color="primary">
                                 Guardar
                             </Button>
                             <Button onClick={handleCloseMetas} color="secondary">
