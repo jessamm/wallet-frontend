@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,7 +15,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { Link} from 'react-router-dom';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Link } from 'react-router-dom';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,7 +28,14 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
+import MenuItem from '@material-ui/core/MenuItem';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import { Button, Fade } from '@material-ui/core';
+
 const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,6 +117,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Menu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openMenu, setopenMenu] = useState(false)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -116,7 +136,7 @@ export default function Menu() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);  
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div>
       <CssBaseline />
@@ -135,9 +155,15 @@ export default function Menu() {
             Wallet
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+            <Button
+              aria-controls="customized-menu"
+              aria-haspopup="true"
+              variant="contained"
+              color="primary"
+              onClick={() => setopenMenu(true)}
+            >
+              <AccountCircleIcon fontSize="medium" />
+            </Button>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -154,64 +180,64 @@ export default function Menu() {
           </IconButton>
         </div>
         <Divider />
-          <List>
-            <Link to="/dashboard">
+        <List>
+          <Link to="/dashboard">
             <ListItem button>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Inicio" />
             </ListItem>
-            </Link>
+          </Link>
 
-            <Link to="/Estadistica">
+          <Link to="/Estadistica">
             <ListItem button>
               <ListItemIcon>
                 <BarChartIcon />
               </ListItemIcon>
               <ListItemText primary="Estadisticas" />
             </ListItem>
-            </Link>
+          </Link>
 
-            <Link to="/cuentas">
+          <Link to="/cuentas">
             <ListItem button>
               <ListItemIcon>
                 <LayersIcon />
               </ListItemIcon>
               <ListItemText primary="Cuentas" />
-            </ListItem>          
-            </Link>
+            </ListItem>
+          </Link>
 
-            <Link to='/metas-planes'>
+          <Link to='/metas-planes'>
             <ListItem button>
               <ListItemIcon>
                 <DonutLargeIcon />
               </ListItemIcon>
               <ListItemText primary="Metas y planes" />
-            </ListItem>          
-            </Link>
+            </ListItem>
+          </Link>
 
-            <Link to='/configuracion'>
+          <Link to='/configuracion'>
             <ListItem button>
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary="Configuracion" />
             </ListItem>
-            </Link>
+          </Link>
 
-            <Link>
+          <Link>
             <ListItem button>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
               <ListItemText primary="Cerrar Session" />
             </ListItem>
-            </Link>
-          </List>
+          </Link>
+        </List>
         <Divider />
         <List></List>
       </Drawer>
     </div>
-    );
+  );
 }

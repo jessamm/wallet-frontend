@@ -4,88 +4,91 @@ import profile from '../../../assets/img/profile-img.jpg';
 import "../Configuracion/Configuracion.css";
 import Menu from '../../../Components/Menu/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import { Button, TextField } from '@material-ui/core';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import FilledInput from '@material-ui/core/FilledInput';
 
 
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: '0 8px',
-      ...theme.mixins.toolbar,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
     },
     appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     menuButton: {
-      marginRight: 36,
+        marginRight: 36,
     },
     menuButtonHidden: {
-      display: 'none',
+        display: 'none',
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     drawerPaper: {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     drawerPaperClose: {
-      overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9),
+        },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
     },
     container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
     },
     paper: {
-      padding: theme.spacing(2),
-      display: 'flex',
-      overflow: 'auto',
-      flexDirection: 'column',
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
     },
     fixedHeight: {
-      height: 240,
+        height: 240,
     },
-  }));
+}));
 
 
 //import finanzas from '../assets/img/finanzas.jpg';
@@ -120,7 +123,8 @@ const Configuracion = () => {
     const [codigoPostal, setCodigoPostal] = useState("");
     const [descripccion, setDescripccion] = useState("");
     const [telefono, setTelefono] = useState("")
-    const [urlImagen, setUrlImage]=useState("")
+    const [urlImagen, setUrlImage] = useState("")
+    const [editar, setEditar] = useState(false)
     /*falta implementacion dinamica en imput*/
     const handleSubmitActualizar = async (e) => {
         e.preventDefault();
@@ -134,7 +138,7 @@ const Configuracion = () => {
             'pais': pais,
             'codigoPostal': codigoPostal,
             'descripcion': descripccion,
-            'telefono':telefono
+            'telefono': telefono
         }
 
         const res = await fetch(`${API}/`, {
@@ -155,27 +159,27 @@ const Configuracion = () => {
         setNameImage(imagen.name);
     }
 
-    const subirImagen=async(e)=>{
-        let formData=new FormData();
-        let imagen=e.target.files[0];
-        let uploadPreset='h7gfbvl6';
-        let urlApiImagen='https://api.cloudinary.com/v1_1/dnnfs5ttk/image/upload';
-        formData.append('file',imagen);
-        formData.append('upload_preset',uploadPreset);  
-        
-        const response= await fetch(urlApiImagen,{
-            method:'POST',
+    const subirImagen = async (e) => {
+        let formData = new FormData();
+        let imagen = e.target.files[0];
+        let uploadPreset = 'h7gfbvl6';
+        let urlApiImagen = 'https://api.cloudinary.com/v1_1/dnnfs5ttk/image/upload';
+        formData.append('file', imagen);
+        formData.append('upload_preset', uploadPreset);
+
+        const response = await fetch(urlApiImagen, {
+            method: 'POST',
             body: formData
         });
 
-        const body= await response.json();
-        const {url}=body;
+        const body = await response.json();
+        const { url } = body;
 
-        const res =await fetch('Direccion de su endepoing para visualizar la foto',{
-            method:'PUT',
-            body: JSON.stringify({urlFoto: url})
+        const res = await fetch('Direccion de su endepoing para visualizar la foto', {
+            method: 'PUT',
+            body: JSON.stringify({ urlFoto: url })
         });
-        const bodyFoto=await res.json();
+        const bodyFoto = await res.json();
         console.log(bodyFoto);
     }
 
@@ -183,7 +187,7 @@ const Configuracion = () => {
         document.getElementById('input-img-perfil').click();
     }
 
-    const actualizarContrasena = () =>{
+    const actualizarContrasena = () => {
         if (contraseñaNueva !== confirmar) {
             console.log('NO hacer la peticion');
         } else {
@@ -198,7 +202,7 @@ const Configuracion = () => {
         }
     }
 
-    const actualizarInformacion = () =>{
+    const actualizarInformacion = () => {
         let data = {
             email,
             name,
@@ -222,13 +226,13 @@ const Configuracion = () => {
     return (
         <>
 
-                <div className={classes.root}>
+            <div className={classes.root}>
                 <Menu>
 
                 </Menu>
-                <main style={{marginTop:"8vh"}} className={classes.content}>
+                <main style={{ marginTop: "8vh" }} className={classes.content}>
                     <div className="content">
-                        <div className="row-perfil"  style={{marginTop:"10vh"}}>
+                        <div className="row-perfil" style={{ marginTop: "10vh" }}>
                             <div className="col-md-8">
                                 <div className="card">
                                     <div className="card-header">
@@ -236,8 +240,8 @@ const Configuracion = () => {
                                     </div>
                                     <div className="card-body">
                                         <form>
-                                            <div className="row-perfil">
-                                                <div className="pr-1 col-md-6">
+                                            <div className="row-perfil m-2">
+                                                <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label>Imagen perfil</label>
                                                         <input onChange={subirImagen} className="d-none" type="file" id="input-img-perfil" />
@@ -252,87 +256,152 @@ const Configuracion = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="pl-1 col-md-6">
-                                                    <div className="form-group">
-                                                        <label>Correo Electronico</label>
-                                                        <input placeholder="Correo Electronico" type="email" className="form-control">{emailUsuario}</input>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="pr-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Nombre</label>
-                                                        <input placeholder="Nombre" type="text" className="form-control" >{nameUsuario}</input>
-                                                    </div>
-                                                </div>
-                                                <div className="pl-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Apellido</label>
-                                                        <input placeholder="Apellido" type="text" className="form-control" >{last_nameUsuario}</input>
-                                                    </div>
-                                                </div>
-                                                <div className="pl-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input placeholder="Contraseña" type="password" className="d-none form-control" ></input>
-                                                        <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                            Actualiza contraseña
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label>Direccion</label>
-                                                        <input placeholder="Direccion" type="text" className="form-control" >{direccionUsuario}</input>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label>Telefono</label>
-                                                        <input placeholder="Numero de telefono" type="text" className="form-control" >{telefonoUsuario}</input>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="pr-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Ciudad</label>
-                                                        <input placeholder="Ciudad" type="text" className="form-control" >{ciudadUsuario}</input>
-                                                    </div>
-                                                </div>
-                                                <div className="px-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Pais</label>
-                                                        <input placeholder="Pais" type="text" className="form-control" >{paisUsuario}</input>
-                                                    </div>
-                                                </div>
-                                                <div className="pl-1 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Codigo Postal</label>
-                                                        <input placeholder="Codigo Postal" type="number" className="form-control" >{codigoPostalUsuario}</input>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group">
-                                                        <label>Sobre Mi</label>
-                                                        <textarea cols="80" placeholder="Descripcion de perfil" rows="4" className="form-control" >{descripcionUsuario}</textarea>
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Correo Electronico"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={email}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row m-2">
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Nombre"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={name}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Correo Electronico"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={last_nameUsuario}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+
+                                                        <div className="row" >
+                                                            <div className="col-6" >
+                                                                <Button variant="contained" color="primary">
+                                                                    Actualiza contraseña
+                                                                </Button>
+                                                            </div>
+                                                            <div className="col-6" >
+                                                                <FilledInput
+                                                                    id="standard-basic" 
+                                                                    type="password"
+                                                                    onChange={e => console.log(e)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row m-2">
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Direccion"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={direccionUsuario}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Numero de telefono"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={telefonoUsuario}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row m-2">
+                                                <div className="pr-1 col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Ciudad"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={ciudadUsuario}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Ciudad"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={paisUsuario}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextField
+                                                            style={{ width: '100%' }}
+                                                            id="standard-multiline-flexible"
+                                                            label="Codigo Postal"
+                                                            multiline
+                                                            maxRows={4}
+                                                            value={codigoPostal}
+                                                            onChange={e => console.log(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row m-2">
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <TextareaAutosize style={{ width: '100%' }} aria-label="minimum height" minRows={7} value={descripcionUsuario} placeholder="Sobre mi" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="text-center">
                                                 <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal1">
-                                                            Actualizar Perfil
-                                                        </button>
+                                                    Actualizar Perfil
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -383,7 +452,7 @@ const Configuracion = () => {
                                         {/* Button trigger modal */}
 
                                         {/* Modal */}
-                                        <div style={{marginTop:"5vh"}} className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style={{ marginTop: "5vh" }} className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog" role="document">
                                                 <div className="modal-content">
                                                     <div className="modal-header">
@@ -399,11 +468,11 @@ const Configuracion = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Contraseña nueva</label>
-                                                            <input placeholder="Codigo Postal" onChange={(e) => setContraseñaNueva(e.target.value)} type="password"  className="form-control" ></input>
+                                                            <input placeholder="Codigo Postal" onChange={(e) => setContraseñaNueva(e.target.value)} type="password" className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Confirmar Contraseña</label>
-                                                            <input placeholder="Codigo Postal" onChange={(e) => setConfirmar(e.target.value)} type="password"  className="form-control"></input>
+                                                            <input placeholder="Codigo Postal" onChange={(e) => setConfirmar(e.target.value)} type="password" className="form-control"></input>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
@@ -415,7 +484,7 @@ const Configuracion = () => {
                                         </div>
 
 
-                                        <div style={{marginTop:"5vh"}} className="modal fade" id="exampleModal1" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style={{ marginTop: "5vh" }} className="modal fade" id="exampleModal1" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog" role="document">
                                                 <div className="modal-content">
                                                     <div className="modal-header">
@@ -431,37 +500,37 @@ const Configuracion = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Nombre</label>
-                                                            <input placeholder="Ingrese su nombre" onChange={(e) => setName(e.target.value)} type="text"  className="form-control" ></input>
+                                                            <input placeholder="Ingrese su nombre" onChange={(e) => setName(e.target.value)} type="text" className="form-control" ></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Apellido</label>
-                                                            <input placeholder="Ingrese su apellido" onChange={(e) => setLastName(e.target.value)} type="text"  className="form-control"></input>
+                                                            <input placeholder="Ingrese su apellido" onChange={(e) => setLastName(e.target.value)} type="text" className="form-control"></input>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Direccion</label>
-                                                            <input placeholder="Ingrese su direccion" onChange={(e) => setDireccion(e.target.value)} type="text"  className="form-control"></input>
+                                                            <input placeholder="Ingrese su direccion" onChange={(e) => setDireccion(e.target.value)} type="text" className="form-control"></input>
                                                         </div>
                                                         <div className="row">
                                                             <div className="form-group">
                                                                 <label>Ciudad</label>
-                                                                <input placeholder="Ingrese su cuidad"  onChange={(e) => setCiudad(e.target.value)} type="text"  className="form-control"></input>
+                                                                <input placeholder="Ingrese su cuidad" onChange={(e) => setCiudad(e.target.value)} type="text" className="form-control"></input>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Pais</label>
-                                                                <input placeholder="Ingrese su Pais"  onChange={(e) => setPais(e.target.value)} type="text"  className="form-control"></input>
+                                                                <input placeholder="Ingrese su Pais" onChange={(e) => setPais(e.target.value)} type="text" className="form-control"></input>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Codigo Postal</label>
-                                                                <input placeholder="Ingrese su codigo Postal"  onChange={(e) => setCodigoPostal(e.target.value)} type="text"  className="form-control"></input>
+                                                                <input placeholder="Ingrese su codigo Postal" onChange={(e) => setCodigoPostal(e.target.value)} type="text" className="form-control"></input>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Telefono</label>
-                                                                <input placeholder="Ingrese su numero de telefono"  onChange={(e) => setTelefono(e.target.value)} type="text"  className="form-control"></input>
+                                                                <input placeholder="Ingrese su numero de telefono" onChange={(e) => setTelefono(e.target.value)} type="text" className="form-control"></input>
                                                             </div>
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Descripcion del perfil</label>
-                                                            <textarea placeholder="Descripcion del perfil"  onChange={(e) => setDescripccion(e.target.value)} type="text"  className="form-control"></textarea>
+                                                            <textarea placeholder="Descripcion del perfil" onChange={(e) => setDescripccion(e.target.value)} type="text" className="form-control"></textarea>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
