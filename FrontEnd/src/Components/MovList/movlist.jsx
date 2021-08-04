@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from '../Title/title';
-import { Component } from 'react';
+
 
 const API = process.env.REACT_APP_API;
 const idUsuario = localStorage.getItem("idUsuario");
@@ -24,22 +24,33 @@ const UseStyles = makeStyles((theme) => ({
 }));
 
 export default function Movlist() {
+  const session_id = localStorage.getItem("Session_id");
   const classes = UseStyles();
-  const url='https://jsonplaceholder.typicode.com/users'
-  const [data,setData]=useState([])
+  const [movimientos, setMovimientos]=useState([]);
 
-//Funcion para llamar la data de ultimos movimientos
-  const movimientosRecientes=async()=>{
-    const response=await fetch(url)
-    console.log(response.status)
-    const responseJSON=await response.json()
-    setData(responseJSON)
-    console.log(responseJSON)
-  }
+  const dataMovimientos = async () => {
+    const json_data = {
+        'id_user' : session_id        
+      };
+      const res = await fetch(`${API}/get-movimientos-recientes`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json_data),
+      });
 
+      const data = await res.json();
+
+      if (data) {
+        //console.log(data)
+        setMovimientos(data);
+      }else{
+        console.log("error al mandar informacion")
+      }
+  };
   useEffect(() => {
-    movimientosRecientes()  
-  }, []);
+    dataMovimientos();
+  }, [])
+
 
   return (
     <React.Fragment>
@@ -56,14 +67,14 @@ export default function Movlist() {
         </TableHead>
         <TableBody>
 
-         {data.length>0 ?
-         ( data.map((item) => (
+         {movimientos.length>0 ?
+         ( movimientos.map((item) => (
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.username}</TableCell>
-            <TableCell>{item.username}</TableCell>
-            <TableCell align="right">{item.email}</TableCell>
+            <TableCell>{item.descripcion}</TableCell>
+            <TableCell>{item.type_trans}</TableCell>
+            <TableCell>{item.mount}</TableCell>
+            <TableCell align="right">{item.date_trans}</TableCell>
           </TableRow>
         )))
          :
