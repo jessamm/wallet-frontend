@@ -127,7 +127,7 @@ const Cuentas = () => {
             //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        const res = await fetch(`${API}/get-cuentas`, {
+        const res = await fetch(`${API}/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
@@ -138,7 +138,7 @@ const Cuentas = () => {
         }
     }
     const informacionCategoria = async () => {
-        const res = await fetch(`${API}/get-categories`, {
+        const res = await fetch(`${API}/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(),

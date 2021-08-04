@@ -110,7 +110,6 @@ export default function Dashboard() {
   const classes = useStyles();
   const [informacion, setInformacion] = useState([]);
   const session_id = localStorage.getItem("Session_id");
-  const arr = [];
   //const [array, setArray] = useState([]);
   const dataDeposits = async () => {
     const json_data = {

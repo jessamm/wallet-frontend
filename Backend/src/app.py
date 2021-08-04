@@ -114,8 +114,19 @@ def set_pagos():
 
   query = f"INSERT INTO transaction_line(descripcion,id_categorie,id_account,id_user,mount) VALUES ('{descripcion}','{categoria}','{cuenta}','{user}','{monto}')"
   result_id = SQLEngine.db_insert(query)
+  #query2 = SQLEngine.db_update(f"UPDATE bank_account SET mount = mount-'{monto}' WHERE id_user='{user}' ")
+  #print(query2)
   print(result_id)
   return jsonify(json_data)
+"""
+UPDATE nombre-de-la-tabla
+SET nombre-de-la-columna = valor[, nombre-de-la-columna=valor]
+[WHERE condición]
+
+UPDATE Work_Tickets
+SET UnitCost = 129.8511, Qty_Ordered = 72, Qty_Shipped = 72
+WHERE SalesOrderNum = 00061358
+"""
 
 # Routes
 # Devuelve las metas del usuario en especifico.?=
