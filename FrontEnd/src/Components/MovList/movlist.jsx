@@ -60,9 +60,9 @@ export default function Movlist() {
           <TableRow>
             <TableCell>#</TableCell>
             <TableCell>nombre</TableCell>
-            <TableCell>tipo</TableCell>
+            <TableCell>categoria</TableCell>
             <TableCell>monto</TableCell>
-            <TableCell align="right">Fecha</TableCell>
+            <TableCell align="right">fecha y hora</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -72,7 +72,7 @@ export default function Movlist() {
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
             <TableCell>{item.descripcion}</TableCell>
-            <TableCell>{item.type_trans}</TableCell>
+            <TableCell>{item.categoria}</TableCell>
             <TableCell>{item.mount}</TableCell>
             <TableCell align="right">{item.date_trans}</TableCell>
           </TableRow>

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { Fragment } from 'react';
 
 const UseStyles = makeStyles({
   root: {
@@ -26,13 +27,14 @@ export default function deposits(props) {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
+    <React.Fragment>
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
         {props.title}
         </Typography>
         <Typography variant="h5" component="h2">
-        L {props.money}
+          L {props.money}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Movimiento
@@ -44,6 +46,8 @@ export default function deposits(props) {
         </Typography>
 
       </CardContent>
+      
     </Card>
+    </React.Fragment>
   );
 }

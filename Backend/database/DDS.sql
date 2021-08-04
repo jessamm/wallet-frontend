@@ -73,8 +73,9 @@ CREATE TABLE IF NOT EXISTS transaction_line (
     descripcion VARCHAR(100) COMMENT 'Descripcion de la transaccion o pago',
     id_categorie INT COMMENT 'Llave foranea de categorias',
     id_account INT COMMENT 'Llave foranea, para vincular en donde descargar el monto.',
-    id_user INT,
+    id_user INT, 
     mount FLOAT COMMENT 'Monto a realizar la operacion',
+    date_trans TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de la transaccion',
     FOREIGN KEY (id_categorie) REFERENCES categorie(id),
     FOREIGN KEY (id_account) REFERENCES bank_account(id),
     FOREIGN KEY (id_user) REFERENCES user(id)

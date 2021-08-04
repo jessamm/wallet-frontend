@@ -60,6 +60,7 @@ def get_cuentas():
   cuentas = SQLEngine.db_select(f"SELECT * FROM bank_account WHERE id_user = '{user}';")
   return jsonify(cuentas)
 
+
 # Routes
 # Devuelve las metas del usuario en especifico.?=
 @app.route('/set-cuentas', methods=['POST'])
@@ -164,20 +165,14 @@ def get_dashboard_data():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Devuelve los movimientos recientes?=
+@app.route('/get-movimientos-recientes', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_movimientos_recientes():
+  json_data = request.json
+  user = json_data["id_user"]
+  data = SQLEngine.db_select(f"select t.id,t.descripcion,c.`name` as categoria,t.mount,t.date_trans from  categorie as c INNER JOIN transaction_line as t on c.id=t.id_categorie where t.id_user={user} order by t.date_trans DESC limit 10;")
+  return jsonify(data)
 
 
 

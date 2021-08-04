@@ -28,7 +28,13 @@ INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, moun
 INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
     VALUES("Popeyes",3,2,2,199);
 INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
-    VALUES("ENEE",4,3,3,1050);
+    VALUES("ENEE",1,3,3,1050);
+INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
+    VALUES("ENEE",2,3,3,1050);
+INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
+    VALUES("ENEE",,3,3,1050);
+INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
+VALUES("SANAA",4,3,3,10550);
 
 INSERT INTO metas (name_meta, descripcion_meta, date_inicio, date_final, monto_meta, id_categorie, id_user, id_account)
     VALUES("Meta Prueba VP", "Xbox Series S", "2021-08-02 00:00:00", "2021-12-12 00:00:00",20000,2,1,1);

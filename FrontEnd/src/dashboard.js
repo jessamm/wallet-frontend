@@ -159,15 +159,15 @@ export default function Dashboard() {
             
             {/* CardViews */}
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={informacion.Balance} title="Balance"/>              
+              <Deposits money={informacion.map(item=>(item.Balance))} title="Balance"/>              
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={informacion.totalEgreso} title="Egresos"/>
+              <Deposits money={informacion.map(item=>(item.totalEgreso))} title="Gastos"/>
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={informacion.totalIngreso} title="Ingresos"/>              
+              <Deposits money={informacion.map(item=>(item.totalIngreso))} title="Bancos"/>              
             </Grid>
 
             <Grid item xs={12}>

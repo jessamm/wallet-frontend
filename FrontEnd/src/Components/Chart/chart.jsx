@@ -53,14 +53,11 @@ const mes = [
   }
 ]
 
-
 export default function Chart(props) {
   return (
     <React.Fragment>
       <Title>{props.title}</Title>
-      
-      {props.title=='Hoy' ? 
-      ( <LineChart width={730} height={250} data={dia}
+        <LineChart width={730} height={250} data={dia}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
        <XAxis dataKey="date" />
@@ -68,26 +65,7 @@ export default function Chart(props) {
         <Tooltip />
         <Legend />
          <Line type="monotone" dataKey="mount" stroke="#8884d8" />
-         </LineChart>):
-      (props.title=='Semana')? 
-      (<LineChart width={730} height={250} data={semana}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-       <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-         <Line type="monotone" dataKey="mount" stroke="#8884d8" />
-         </LineChart>):
-      (<LineChart width={730} height={250} data={mes}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-       <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-         <Line type="monotone" dataKey="mount" stroke="#8884d8" />
-         </LineChart>)}
+         </LineChart>
     </React.Fragment>
   );
 }
