@@ -13,9 +13,6 @@ Nuestro equipo esta conformado por
 
 | Estudiante |  Cuenta  | Correo | 
 |---|---|---|
-| Jose Enrique Barrientos Estrada | 20161005918 | Jose97_barrientos97@hotmail.com | 
 | Jessica Alejandra Manzanares Moreno | 20151001483 |Jamanzanares@unah.hn|
 |Victor Miguel Pineda | 20151030886 | vpinedaa@unah.hn |
 | Roger Alfredo Molina | 20161001463 | rmolinav@unah.hn |
-| Andrés Zuniga | 20161003850 | aarodriguezz@unah.hn |
-| Emerson Hernandez | 20151003025 | egochoa@unah.hn |
