@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 
 //importaciones material-ui
 import { withStyles } from '@material-ui/core/styles';
@@ -23,87 +22,88 @@ import Paper from '@material-ui/core/Paper';
 import Menu from '../../../Components/Menu/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { DialogContentText, Modal } from '@material-ui/core';
 
 const API = process.env.REACT_APP_API;
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: '0 8px',
-      ...theme.mixins.toolbar,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
     },
     appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     menuButton: {
-      marginRight: 36,
+        marginRight: 36,
     },
     menuButtonHidden: {
-      display: 'none',
+        display: 'none',
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     drawerPaper: {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     drawerPaperClose: {
-      overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9),
+        },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
     },
     container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
     },
     paper: {
-      padding: theme.spacing(2),
-      display: 'flex',
-      overflow: 'auto',
-      flexDirection: 'column',
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
     },
     fixedHeight: {
-      height: 240,
+        height: 240,
     },
-  }));
+}));
 
 const MetasPlanes = () => {
     const classes = useStyles();
@@ -112,26 +112,28 @@ const MetasPlanes = () => {
     const [datosMetas, setDatosMetas] = useState([]);
     const [dataCategoria, setDataCategoria] = useState([]);
     const [datosCuentas, setCuentas] = useState([]);
-    
+
     const idUsuario = localStorage.getItem("Session_id");
 
-    const [nameMeta, setNameMeta] = useState("");
+    const [nameMeta, setNameMeta] = useState('Prueba');
+    const inputMeta = useRef(null)
+
     const [descripcionMeta, setDescripcionMeta] = useState("");
     const [date_init, setDateInit] = useState("");
     const [date_final, setDateFinal] = useState("");
     const [montoMeta, setMontoMeta] = useState("");
     const [tipoCuenta, setTipoCuenta] = useState(0);
     const [tipoCategoria, setTipoCategoria] = useState(0);
-    
+
     const handleSubmitMetas = async (e) => {
-        e.preventDefault();
-/*
-        if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
-            handleError(true);
-            alert("Todos los campos deben ser llenados");
-            return;
-        }*/
-        handleError(false);
+        //e.preventDefault();
+        /*
+                if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
+                    handleError(true);
+                    alert("Todos los campos deben ser llenados");
+                    return;
+                }*/
+        //handleError(false);
 
         const json_data = {
             'id_user': idUsuario,
@@ -144,6 +146,11 @@ const MetasPlanes = () => {
             'id_account': tipoCuenta
         };
         console.log(json_data)
+
+
+        return;
+
+
         const res = await fetch(`${API}/`, {
             //set-goals
             method: "POST",
@@ -205,8 +212,7 @@ const MetasPlanes = () => {
             padding: theme.spacing(1),
         },
     }))(MuiDialogActions);
-    console.log(datosCuentas, "========================DATOS CUENTA")
-    //obtener datos
+
     const obtenerMetas = async () => {
 
         const json_data = {
@@ -283,10 +289,20 @@ const MetasPlanes = () => {
             console.log("==========================Meta eliminada ==============================");
         };
     };
+
+    const body = (
+        <div >
+            <h2 id="simple-modal-title">Text in a modal</h2>
+            <p id="simple-modal-description">
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </p>
+        </div>
+    );
+
     return (
         <div className={classes.root}>
             <Menu>
-            {/**Barra Lateral y Barra Horizontal */}
+                {/**Barra Lateral y Barra Horizontal */}
             </Menu>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
@@ -334,7 +350,7 @@ const MetasPlanes = () => {
 
                                     </div>
                                     <br></br>
-                                    <Button size="small" variant="contained" className="m-3" color="primary" onClick={handleOpenMetas}>
+                                    <Button size="small" variant="contained" className="m-3" color="primary" onClick={handleOpenMetas} >
                                         Agregar
                                     </Button>
                                     <br></br>
@@ -342,127 +358,136 @@ const MetasPlanes = () => {
                                 </div>
                             </div>
 
-                        </div>
-                    </div>    
-                </Container>
-            </main>
-            { /* MODAL METAS */}
-                <div>
-                    <Dialog onClose={handleCloseMetas} aria-labelledby="customized-dialog-title" open={openMetas}>
-                        <DialogTitle id="customized-dialog-title" onClose={handleCloseMetas}>
-                            Registro metas
-                        </DialogTitle>
-                        <DialogContent dividers>
-
                             <TextField
-                                id="standard-full-width"
                                 label="Nombre meta"
                                 style={{ marginTop: 8, width: '100%' }}
-                                placeholder="Ingrese el nombre meta"
-                                
-                                fullWidth
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => setNameMeta(e.target.value)}
-                            />
-                            <TextField
-                                id="standard-full-width"
-                                label=" Descripcion Meta"
-                                style={{ marginTop: 8, width: '100%' }}
-                                placeholder="Ingrese una breve descripcion"
-                                
-                                fullWidth
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => setDescripcionMeta(e.target.value)}
-                            />
-                            <TextField
-                                id="datetime-local"
-                                label="Fecha Inicio"
-                                type="date"
-                                style={{ marginTop: 8, width: '100%' }}
-                                defaultValue="2017-05-24T10:30"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => setDateInit(e.target.value)}
-                            />
-                            <TextField
-                                id="datetime-local"
-                                label="Fecha Final" 
-                                type="date"
-                                style={{ marginTop: 8, width: '100%' }}
-                                defaultValue="2017-05-24T10:30"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => setDateFinal(e.target.value)}
-                            />
-                            <TextField
-                                id="standard-full-width"
-                                label="Monto de la Meta"
-                                style={{ marginTop: 8, width: '100%' }}
-                                placeholder="Ingrese el monto de la meta"
-                                
-                                fullWidth
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => setMontoMeta(e.target.value)}
-                            />
-                            <TextField
-                                select
-                                label="Seleccione una categoria"
-                                
-                                style={{ width: '100%' }}
-                                onChange={(e) => setTipoCategoria(e.target.value)}
-                            >
-                                {
-                                    dataCategoria.map((datos,key) => (
-                                        <MenuItem key={key} value={datos.id}> {datos.name}</MenuItem>
-                                ))}
-                            </TextField>
+                                helperText="Ingrese el nombre meta"
+                                //margin="normal"
+                                //value={nameMeta}
+                                onChange={event => setNameMeta(event.target.value)}
 
-                            <TextField
-                                select
-                                label="Seleccione una cuenta"
-                                
-                                style={{ width: '100%' }}
-                                onChange={(e) => setTipoCuenta(e.target.value)}
-                            >
-                                {
-                                    datosCuentas.map((option,key) => (
-                                    <MenuItem key={key} value={option.id}>
-                                        {option.name_bank_account}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            />
 
-                
+                        </div>
+                    </div>
+                </Container>
+            </main>
 
-                            {errorLlenado ? (
-                                <Typography gutterBottom>
-                                    Todos los campos deben ser llenados
-                                </Typography>
-                            ) : null}
 
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleSubmitMetas} color="primary">
-                                Guardar
-                            </Button>
-                            <Button onClick={handleCloseMetas} color="secondary">
-                                Cancelar
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
-                { /* FIN MODAL METAS */}
+            { /* MODAL METAS */}
+
+            <Dialog onClose={handleCloseMetas} open={openMetas}>
+                <DialogTitle onClose={handleCloseMetas}>
+                    Registro metas
+                </DialogTitle>
+                <DialogContentText className="m-4" >
+
+                    <TextField
+                        label="Nombre meta"
+                        style={{ width: '100%' }}
+                        placeholder="Ingrese el nombre de meta"
+                        fullWidth
+                        onChange={event => setNameMeta(event.target.value)}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+
+                    <TextField
+                        label=" Descripcion Meta"
+                        style={{ marginTop: 8, width: '100%' }}
+                        placeholder="Ingrese una breve descripcion"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setDescripcionMeta(e.target.value)}
+                    />
+                    <TextField
+                        id="datetime-local"
+                        label="Fecha Inicio"
+                        type="date"
+                        style={{ marginTop: 8, width: '100%' }}
+                        defaultValue="2017-05-24T10:30"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setDateInit(e.target.value)}
+                    />
+                    <TextField
+                        id="datetime-local"
+                        label="Fecha Final"
+                        type="date"
+                        style={{ marginTop: 8, width: '100%' }}
+                        defaultValue="2017-05-24T10:30"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setDateFinal(e.target.value)}
+                    />
+                    <TextField
+                        label="Monto de la Meta"
+                        style={{ marginTop: 8, width: '100%' }}
+                        placeholder="Ingrese el monto de la meta"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setMontoMeta(e.target.value)}
+                    />
+                    <TextField
+                        select
+                        label="Seleccione una categoria"
+                        style={{ width: '100%' }}
+                        defaultValue="0"
+                        onChange={(e) => setTipoCategoria(e.target.value)}
+                    >
+                        <MenuItem key={0} value={0}>
+                            Seleccione una categoria
+                        </MenuItem>
+                        {
+                            dataCategoria.map((datos, key) => (
+                                <MenuItem key={key} value={datos.id}> {datos.name}</MenuItem>
+                            ))}
+                    </TextField>
+
+                    <TextField
+                        select
+                        label="Seleccione una cuenta"
+                        defaultValue="0"
+                        style={{ width: '100%' }}
+                        onChange={(e) => setTipoCuenta(e.target.value)}
+                    >
+                        <MenuItem key={0} value={0}>
+                            Seleccione una cuenta
+                        </MenuItem>
+                        {
+                            datosCuentas.map((option, key) => (
+                                <MenuItem key={key} value={option.id}>
+                                    {option.name_bank_account}
+                                </MenuItem>
+                            ))}
+                    </TextField>
+
+                    {errorLlenado ? (
+                        <Typography gutterBottom>
+                            Todos los campos deben ser llenados
+                        </Typography>
+                    ) : null}
+
+                </DialogContentText>
+                <DialogActions>
+                    <Button onClick={handleSubmitMetas} color="primary">
+                        Guardar
+                    </Button>
+                    <Button onClick={handleCloseMetas} color="secondary">
+                        Cancelar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            { /* FIN MODAL METAS */}
         </div>
     )
 }
