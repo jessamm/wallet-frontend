@@ -101,6 +101,25 @@ def get_pagos():
 
 # Routes
 # Devuelve las metas del usuario en especifico.?=
+@app.route('/set-pagos', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def set_pagos():
+  json_data = request.json
+  descripcion = json_data["descripcion"]
+  monto = json_data["mount"]
+  categoria = json_data["id_categorie"]
+  cuenta = json_data["id_account"]
+  user = json_data["id_user"]
+
+  query = f"INSERT INTO transaction_line(descripcion,id_categorie,id_account,id_user,mount) VALUES ('{descripcion}','{categoria}','{cuenta}','{user}','{monto}')"
+  result_id = SQLEngine.db_insert(query)
+  print(result_id)
+  print(result_id)
+
+  return jsonify(json_data)
+
+# Routes
+# Devuelve las metas del usuario en especifico.?=
 @app.route('/get-metas', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def get_metas():
@@ -133,7 +152,15 @@ def set_metas():
 
   return jsonify(json_data)
 
-
+# Routes
+# Devuelve las metas del usuario en especifico.?=
+@app.route('/get-dashboard-data', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+def get_dashboard_data():
+  json_data = request.json
+  user = json_data["id_user"]
+  data = SQLEngine.db_select(f"SELECT SUM(bank_account.mount) AS totalIngreso, SUM(transaction_line.mount) AS totalEgreso, SUM(bank_account.mount)-SUM(transaction_line.mount) AS Balance FROM bank_account INNER JOIN transaction_line ON bank_account.id=transaction_line.id_account WHERE (transaction_line.id_user='{user}') AND (bank_account.id_user='{user}');")
+  return jsonify(data)
 
 
 

@@ -233,14 +233,14 @@ export default function Menu() {
             </ListItem>
           </Link>
 
-          <Link onClick={cerrarSesion}>
-            <ListItem button >
+          
+            <ListItem button onClick={cerrarSesion} >
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
               <ListItemText primary="Cerrar Session" />
             </ListItem>
-          </Link>
+        
         </List>
         <Divider />
         <List></List>

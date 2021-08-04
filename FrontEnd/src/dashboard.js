@@ -108,32 +108,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-
-  const [info, setInfo] = useState([]);
+  const [informacion, setInformacion] = useState([]);
   const session_id = localStorage.getItem("Session_id");
+  const arr = [];
+  //const [array, setArray] = useState([]);
+  const dataDeposits = async () => {
+    const json_data = {
+        'id_user' : session_id        
+      };
+      const res = await fetch(`${API}/get-dashboard-data`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json_data),
+      });
 
-  const obtenerInfo = async () => {
+      const data = await res.json();
 
-  const json_data = {
-      'id_user' : session_id        
-    };
-    const res = await fetch(`${API}/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json_data),
-    });
-    const data = await res.json();
-    if (data) {
-        setInfo(data);
-    }else{
-      console.log("error al mandar informacion")
-    }
-  }
+      if (data) {
+        //console.log(data)
+        setInformacion(data);
+      }else{
+        console.log("error al mandar informacion")
+      }
+  };
   useEffect(() => {
-    obtenerInfo();
-  })
+    dataDeposits();
+  }, [])
+  
+  console.log("============INFO==============",informacion[0], "====================INFORMACION");
+ /* const balance = informacion[0].Balance;
+  const totalIngreso = informacion[0].totalIngreso;
+  const totalEgreso = informacion[0].totalEgreso;
 
-
+  console.log("==============INFO==========",balance," ",totalEgreso," ",totalIngreso)
+ */
+  //const array = informacion[0];
+  //console.log(array, "===============ARRAYYYYYYYYYYYY","===========BALANCE========",array.Balance)
+  //console.log(informacion,"=============INFORMACION")
+  //console.log(array.Balance, "==========BALANCE")
+  //setArray(informacion[0]);
   return (
       <div className={classes.root}>
         <Menu>
@@ -146,15 +159,15 @@ export default function Dashboard() {
             
             {/* CardViews */}
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.totalRestante} title="Restante"/>              
+              <Deposits money={informacion.Balance} title="Balance"/>              
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.totalEgreso} title="Egresos"/>
+              <Deposits money={informacion.totalEgreso} title="Egresos"/>
             </Grid>
 
             <Grid item xs={12} md={4} lg={3}>
-              <Deposits money={info.totalIngreso} title="Ingresos"/>              
+              <Deposits money={informacion.totalIngreso} title="Ingresos"/>              
             </Grid>
 
             <Grid item xs={12}>

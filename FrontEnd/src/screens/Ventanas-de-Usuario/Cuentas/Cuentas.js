@@ -105,7 +105,7 @@ const Cuentas = () => {
     //probar 
     const idUsuario = localStorage.getItem("Session_id");
 
-    const [dataCuenta, setDataCuentas] = useState([]);
+    const [datosCuentas, setCuentas] = useState([]);
     const [dataCategoria, setDataCategoria] = useState([]);
 
     const [tipoCuenta, setTipoCuenta] = useState(0);
@@ -122,24 +122,21 @@ const Cuentas = () => {
     const [openModalPagos, setOpenModalPagos] = useState(false);
     const [openModalCuentas, setOpenModalCuentas] = useState(false);
 
-    const informacionCuenta = async () => {
+    const obtenerCuentas = async () => {
         const json_data = {
-            'id_user' : idUsuario        
-          };
-          const res = await fetch(`${API}/`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(json_data),
-          });
-
-          const data = await res.json();
-
-          if (data) {
-              setDataCuentas(data);
-          }else{
-            console.log("error al mandar informacion")
-          }
-    };
+            //verificar que el valor entre comillas sea igual al de la base por favor
+            'id_user': idUsuario
+        };
+        const res = await fetch(`${API}/get-cuentas`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json_data),
+        });
+        const data = await res.json();
+        if (data) {
+            setCuentas(data);
+        }
+    }
     const informacionCategoria = async () => {
         const res = await fetch(`${API}/get-categories`, {
             method: "POST",
@@ -148,14 +145,14 @@ const Cuentas = () => {
         });
         const data = await res.json();
         if (data) {
-            //setDataCategoria(data);
+            setDataCategoria(data);
         }
     }
     useEffect(() => {
-        informacionCuenta();
+        obtenerCuentas();
         informacionCategoria();
-    })
- 
+    }, [])
+    
     const handleSubmitCuentas = async (e) => {
         e.preventDefault();
 
@@ -190,12 +187,13 @@ const Cuentas = () => {
         const json_data = {
             'id_user': idUsuario,
             'descripcion': descripcion,
-            'monto': monto,
-            'idCat': idCategoria,
-            'idCuenta': idCuenta 
+            'mount': monto,
+            'id_categorie': idCategoria,
+            'id_account': idCuenta 
         };
+        console.log(json_data)
 
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/set-pagos`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json_data),
@@ -204,7 +202,8 @@ const Cuentas = () => {
 
         //console.log(data.Session);
         if (res.status) {
-            const data = await res.json();
+            window.location.href = "http://localhost:3000/cuentas";
+            //const data = await res.json();
         }
     };
     return (
@@ -486,12 +485,11 @@ const Cuentas = () => {
                                                     >
                                                         <MenuItem key="0" value="0">Seleccionar cuenta</MenuItem>
                                                         {
-                                                            dataCuenta.map((datos) => {
-                                                                return (
-                                                                    <MenuItem key={datos.idCuenta} value={datos.idCuenta}>{datos.nombreCuenta}</MenuItem>
-                                                                )
-                                                            })
-                                                        }
+                                                            datosCuentas.map((option,key) => (
+                                                            <MenuItem key={key} value={option.id}>
+                                                                {option.name_bank_account}
+                                                            </MenuItem>
+                                                        ))}
                                                     </TextField>
                                                 </div>
                                                 <div className="form-group">
@@ -515,7 +513,7 @@ const Cuentas = () => {
                                         <Button onClick={() => setOpenModalPagos(false)} color="primary">
                                             Cancelar
                                         </Button>
-                                        <Button onClick={(e) => handleSubmitPagos()} color="primary" autoFocus>
+                                        <Button onClick={handleSubmitPagos} color="primary" autoFocus>
                                             Agregar
                                         </Button>
                                     </DialogActions>

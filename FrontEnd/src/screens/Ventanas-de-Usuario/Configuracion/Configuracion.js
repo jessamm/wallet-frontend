@@ -417,7 +417,7 @@ const Configuracion = () => {
                                 */}
                                     <div className="card-body">
                                         <div className="author">
-                                            <Link to="" className="usuario-config">
+                                            <Link to="/#" className="usuario-config">
                                                 <img alt="..." className="avatar border-gray" src={profile}></img>
                                                 <h5 className="title">{nameUsuario} {last_nameUsuario}</h5>
                                             </Link>
