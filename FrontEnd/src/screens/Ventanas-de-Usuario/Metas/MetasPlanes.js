@@ -126,15 +126,6 @@ const MetasPlanes = () => {
     const [tipoCategoria, setTipoCategoria] = useState(0);
 
     const handleSubmitMetas = async (e) => {
-        //e.preventDefault();
-        /*
-                if (mount_limit.trim() === "" || date_end === "" || nameMeta.trim() === "") {
-                    handleError(true);
-                    alert("Todos los campos deben ser llenados");
-                    return;
-                }*/
-        //handleError(false);
-
         const json_data = {
             'id_user': idUsuario,
             'name_meta': nameMeta,
@@ -146,12 +137,7 @@ const MetasPlanes = () => {
             'id_account': tipoCuenta
         };
         console.log(json_data)
-
-
-        return;
-
-
-        const res = await fetch(`${API}/`, {
+        const res = await fetch(`${API}/set-metas`, {
             //set-goals
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -162,6 +148,7 @@ const MetasPlanes = () => {
         if (res.status) {
             const data = await res.json();
             console.log(data.Session);
+            window.location.href = "http://localhost:3000/metas-planes";
         }
     };
 
@@ -219,8 +206,7 @@ const MetasPlanes = () => {
             //verificar que el valor entre comillas sea igual al de la base por favor
             'id_user': idUsuario
         };
-        console.log(idUsuario)
-        console.log("=======================================================")
+    
         const res = await fetch(`${API}/get-metas`, {
             //get-goals
             method: "POST",
@@ -228,7 +214,7 @@ const MetasPlanes = () => {
             body: JSON.stringify(json_data),
         });
         const data = await res.json();
-        console.log("=============METAS============", data)
+        
         if (data) {
             setDatosMetas(data);
         }
@@ -357,17 +343,6 @@ const MetasPlanes = () => {
                                     <br></br>
                                 </div>
                             </div>
-
-                            <TextField
-                                label="Nombre meta"
-                                style={{ marginTop: 8, width: '100%' }}
-                                helperText="Ingrese el nombre meta"
-                                //margin="normal"
-                                //value={nameMeta}
-                                onChange={event => setNameMeta(event.target.value)}
-
-                            />
-
                         </div>
                     </div>
                 </Container>

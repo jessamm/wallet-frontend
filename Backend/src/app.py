@@ -115,8 +115,6 @@ def set_pagos():
   query = f"INSERT INTO transaction_line(descripcion,id_categorie,id_account,id_user,mount) VALUES ('{descripcion}','{categoria}','{cuenta}','{user}','{monto}')"
   result_id = SQLEngine.db_insert(query)
   print(result_id)
-  print(result_id)
-
   return jsonify(json_data)
 
 # Routes
@@ -147,12 +145,15 @@ def set_metas():
   id_account = json_data["id_account"]
   
   print(json_data)
-  #query = f"INSERT INTO bank_account(name_bank_account,date_out,validation_digits,number_account,id_user,mount,type_bank) VALUES ('{banco}','{date_out}','{validation_digits}','{number_account}','{id_user}','{mount}','{type_bank}')"
-  #result_id = SQLEngine.db_insert(query)
-  #print(result_id)
+  query = f"INSERT INTO metas(name_meta, descripcion_meta, date_inicio, date_final, monto_meta, id_categorie, id_user, id_account) VALUES ('{name_meta}','{descripcion_meta}','{date_inicio}','{date_final}','{monto_meta}','{id_categorie}','{id_user}','{id_account}')"
+  result_id = SQLEngine.db_insert(query)
+  print(result_id)
 
   return jsonify(json_data)
 
+"""
+INSERT INTO metas(descripcion, date_inicio, date_final, monto_meta, id_categorie, id_user, id_account) VALUES ('{descripcion_meta}','{date_inicio}','{date_final}','{monto_meta}','{id_categorie}','{id_user}','{id_account}')"
+"""
 # Routes
 # Devuelve las metas del usuario en especifico.?=
 @app.route('/get-dashboard-data', methods=['POST'])
@@ -173,6 +174,17 @@ def get_movimientos_recientes():
   user = json_data["id_user"]
   data = SQLEngine.db_select(f"select t.id,t.descripcion,c.`name` as categoria,t.mount,t.date_trans from  categorie as c INNER JOIN transaction_line as t on c.id=t.id_categorie where t.id_user={user} order by t.date_trans DESC limit 10;")
   return jsonify(data)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
