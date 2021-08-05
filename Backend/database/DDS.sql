@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS  wallet;
-CREATE DATABASE IF NOT EXISTS wallet;
-USE wallet;
+DROP DATABASE IF EXISTS  bmqoxfhyeqsqk02eckxl;
+CREATE DATABASE IF NOT EXISTS bmqoxfhyeqsqk02eckxl;
+USE bmqoxfhyeqsqk02eckxl;
 
 -- Contendra la informacion principal del usuario (administrador)
 CREATE TABLE IF NOT EXISTS `user`(
@@ -12,7 +12,13 @@ CREATE TABLE IF NOT EXISTS `user`(
     `admin` BIT DEFAULT 0 COMMENT 'Define el permiso de usuario 0.user , 1.admin',
     validated BIT DEFAULT 0 COMMENT 'Estado de la cuenta del usuario 0:No validado 1:validado',
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de creacion del usuario',
-    update_date TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de ultima modificacion de algun parametro del usuario'
+    update_date TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de ultima modificacion de algun parametro del usuario',
+    direccion_user VARCHAR(100),
+    numero_telefono VARCHAR(20),
+    pais_user VARCHAR(20),
+    ciudad_user VARCHAR(20),
+    codigo_postal VARCHAR(10),
+    descripcion_usuario VARCHAR(150)
 );
 
 -- Vinculacion entre el usuario y la validacion de su cuenta

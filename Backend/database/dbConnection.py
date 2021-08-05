@@ -1,5 +1,4 @@
 """
-    @author zunigandres
     @date 23/06/2021
     @version 1.0
 """
