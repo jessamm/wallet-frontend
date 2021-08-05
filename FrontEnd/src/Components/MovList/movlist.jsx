@@ -79,7 +79,7 @@ export default function Movlist() {
         )))
          :
          (<TableRow>
-              <TableCell style={{color:"red"}}>No tienes movimientos recientes para visualizar</TableCell>
+              <TableCell style={{color:"red"}}>No tienes movimientos recientes para visualizar, o actualiza la pagina</TableCell>
          </TableRow>) } 
         </TableBody>
       </Table>

@@ -155,18 +155,30 @@ const Estadistica = () => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={12}>
+          {pagos.length>0 ? 
+          (<Grid item xs={12} md={8} lg={12}>
                 <Paper className={classes.fixedHeightPaper}>
                   <Chart data={pagos} title="Pagos Realizados"/>
                 </Paper>
-              </Grid>
-
-              <Grid item xs={12} md={8} lg={12}>
+            </Grid>):
+            (<Grid item xs={12} md={8} lg={12}>
+              <Paper >
+                <p style={{color:"red"}}>Lo sentimos no se puede acceder a la informacion, recargue la pagina</p>
+              </Paper>
+          </Grid>)}
+            
+              {cuentas.length>0 ?
+              (<Grid item xs={12} md={8} lg={12}>
                 <Paper className={classes.fixedHeightPaper}>
                   <Chart data={cuentas} title="Cuentas"/>
                 </Paper>
-              </Grid>
+              </Grid>):
+              (<Grid item xs={12} md={8} lg={12}>
+                <Paper >
+                  <p style={{color:"red"}}>Lo sentimos no se puede acceder a la informacion, recargue la pagina</p>
+                </Paper>
+            </Grid>)}
+              
 
              {/* <Grid item xs={12} md={8} lg={12}>
                 <Paper className={classes.fixedHeightPaper}>

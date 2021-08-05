@@ -33,9 +33,12 @@ export default function deposits(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
         {props.title}
         </Typography>
+        {props.money.length>0 ? (
         <Typography variant="h5" component="h2">
           L {props.money}
-        </Typography>
+        </Typography>):
+        (<p style={{color:"red"}}>Lo sentimos, no se puede acceder a la informacion, recargue la pagina</p>)}
+        
         <Typography className={classes.pos} color="textSecondary">
           Movimiento
         </Typography>
