@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import Chart from '../../../Components/Chart/chart';
 
+const API = process.env.REACT_APP_API;
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Estadistica = () => {
     const classes = useStyles();
+    const idUsuario = localStorage.getItem("Session_id");
+    const [pagos,setPagos]=useState([])
+    const [cuentas,setCuentas]=useState([])
     const [data, setData] = useState([]);
 
     const obtenerData = async () => {
@@ -99,8 +103,47 @@ const Estadistica = () => {
             setData(body)
         }
     }
+
+    const obtenerPagos = async () => {
+      const json_data = {
+          'id_user': idUsuario
+      };
+      const res = await fetch(`${API}/get-pagos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json_data),
+      });
+      const data = await res.json();
+      console.log(data)
+      if (data) {
+          setPagos(data);
+      }
+  }
+
+  const obtenerCuentas = async () => {
+    const json_data = {
+        //verificar que el valor entre comillas sea igual al de la base por favor
+        'id_user': idUsuario
+    };
+    const res = await fetch(`${API}/get-cuentas`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json_data),
+    });
+    const data = await res.json();
+    if (data) {
+        console.log("DATAAAAAAAA")
+        console.log(data)
+        console.log("DATAAAAAA")
+        setCuentas(data);
+    }
+}
+
+ 
     useEffect(() => {
-        obtenerData();
+      obtenerPagos();
+      obtenerData();
+      obtenerCuentas();
     }, []);
 
     return (
@@ -115,13 +158,19 @@ const Estadistica = () => {
               {/* Chart */}
               <Grid item xs={12} md={8} lg={12}>
                 <Paper className={classes.fixedHeightPaper}>
-                  <Chart title="Hoy"/>
+                  <Chart data={pagos} title="Pagos Realizados"/>
                 </Paper>
               </Grid>
 
               <Grid item xs={12} md={8} lg={12}>
                 <Paper className={classes.fixedHeightPaper}>
-                  <Chart title="Semana" />
+                  <Chart data={cuentas} title="Cuentas"/>
+                </Paper>
+              </Grid>
+
+             {/* <Grid item xs={12} md={8} lg={12}>
+                <Paper className={classes.fixedHeightPaper}>
+                  <Chart  title="Semana" />
                 </Paper>
               </Grid>
 
@@ -130,6 +179,7 @@ const Estadistica = () => {
                   <Chart title="Mes" />
                 </Paper>
               </Grid>
+    */}
             </Grid> 
         </Container>
       </main>
