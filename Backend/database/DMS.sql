@@ -1,10 +1,13 @@
-use wallet;
-INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated) 
-    VALUES("VM","PA","VMPA@gmail.com","123",0,1);
-INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated) 
-    VALUES("JM","Manzanares","JManzanares@gmail.com","123",0,1);
-INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated) 
-    VALUES("RM","RM","Roger@gmail.com","123",0,1);
+use bmqoxfhyeqsqk02eckxl;
+
+INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated, direccion_user, numero_telefono, pais_user, ciudad_user, codigo_postal, descripcion_usuario) 
+    VALUES("VM","PA","VMPA@gmail.com","123",0,1,"Tegucigalpa Colonia XXX Bloque XX Casa X", "+504XXXX-XXXX", "Honduras", "Tegucigalpa","111011", "Usuario Prueba");
+INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated, direccion_user, numero_telefono, pais_user, ciudad_user, codigo_postal, descripcion_usuario) 
+    VALUES("JM","Manzanares","JManzanares@gmail.com","123",0,1,"Tegucigalpa Colonia XXX Bloque XX Casa X", "+504XXXX-XXXX", "Honduras", "Tegucigalpa","111011", "Usuario Prueba");
+INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated, direccion_user, numero_telefono, pais_user, ciudad_user, codigo_postal, descripcion_usuario) 
+    VALUES("RM","RM","Roger@gmail.com","123",0,1,"Tegucigalpa Colonia XXX Bloque XX Casa X", "+504XXXX-XXXX", "Honduras", "Tegucigalpa","111011", "Usuario Prueba");
+INSERT INTO `user`(`name`,last_name,email,`password`,`admin`,validated, direccion_user, numero_telefono, pais_user, ciudad_user, codigo_postal, descripcion_usuario) 
+    VALUES("Usuario","Prueba","usuario_prueba@gmail.com","prueba123",0,1,"Tegucigalpa Colonia XXX Bloque XX Casa X", "+504XXXX-XXXX", "Honduras", "Tegucigalpa","111011", "Usuario Prueba");
 
 
 INSERT INTO `mail_validation`(code_1,code_2,code_3,`code_4`,id_user) 
@@ -32,7 +35,7 @@ INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, moun
 INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
     VALUES("ENEE",2,3,3,1050);
 INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
-    VALUES("ENEE",,3,3,1050);
+    VALUES("ENEE",3,3,3,1050);
 INSERT INTO transaction_line(descripcion, id_categorie, id_account,id_user, mount) 
 VALUES("SANAA",4,3,3,10550);
 
