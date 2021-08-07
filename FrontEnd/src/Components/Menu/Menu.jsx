@@ -124,6 +124,16 @@ export default function Menu() {
     setAnchorEl(event.currentTarget);
   };
 
+  const users = [
+    { id: 1, nombre: 'Jorge' },
+    { id: 2, nombre: 'Juan' },
+    { id: 3, nombre: 'Pedro' },
+
+  ]
+
+  const seleccionarUsuarios = (id) => {
+    console.log('Usuario seleccionado ==> ', id)
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -142,7 +152,7 @@ export default function Menu() {
     localStorage.clear();
     window.location.href = "http://localhost:3000/login";
   };
-  
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div>
@@ -162,15 +172,32 @@ export default function Menu() {
             Wallet
           </Typography>
           <IconButton color="inherit">
-            <Button
+
+            <div className="dropdown">
+              <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img className="img-fluid rounded-circle" height="30px" width="30px" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" alt="img-foto" />
+              </a>
+
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {
+                  users.map(user => {
+                    return (
+                      <a onClick={() => seleccionarUsuarios(user.id)} className="dropdown-item" href="#">{user.nombre}</a>
+                    )
+                  })
+                }
+
+              </div>
+            </div>
+
+            {/* <Button
               aria-controls="customized-menu"
               aria-haspopup="true"
               variant="contained"
               color="primary"
-              onClick={() => setopenMenu(true)}
             >
               <AccountCircleIcon fontSize="medium" />
-            </Button>
+            </Button> */}
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -205,7 +232,7 @@ export default function Menu() {
               <ListItemText primary="Estadisticas" />
             </ListItem>
           </Link>
-{/***agregar cerrar sesion */}
+          {/***agregar cerrar sesion */}
           <Link to="/cuentas">
             <ListItem button>
               <ListItemIcon>
@@ -233,14 +260,14 @@ export default function Menu() {
             </ListItem>
           </Link>
 
-          
-            <ListItem button onClick={cerrarSesion} >
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <ListItemText primary="Cerrar Session" />
-            </ListItem>
-        
+
+          <ListItem button onClick={cerrarSesion} >
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Cerrar Session" />
+          </ListItem>
+
         </List>
         <Divider />
         <List></List>

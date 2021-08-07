@@ -438,7 +438,8 @@ const Configuracion = () => {
                                                             onChange={e => setDescripccion(e.target.value)}
                                                             style={{ width: '100%' }}
                                                             aria-label="minimum height"
-                                                            minRows={7} value={descripccion}
+                                                            minRows={7} 
+                                                            value={descripccion}
                                                             placeholder="Sobre mi"
                                                             disabled
                                                         />
